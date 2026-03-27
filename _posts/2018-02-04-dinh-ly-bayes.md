@@ -6,7 +6,7 @@ categories: [statistics, ml]
 author: hungneox
 tags : [bayes, statistics, ml]
 description: "Định lý Bayes (Bayes’s Theorem)"
-image: /assets/images/laravel.jpg
+image: /assets/images/placeholder.jpg
 comments: true
 ---
 

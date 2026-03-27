@@ -20,15 +20,6 @@ $content-width: 960px;
 $on-palm: 600px;
 $on-laptop: 800px;
 
-$color-text: #1a1a2e;
-$color-text-secondary: #6b7280;
-$color-link: #2563eb;
-$color-link-hover: #1d4ed8;
-$color-border: #e5e7eb;
-$color-bg: #ffffff;
-$color-bg-secondary: #f9fafb;
-$color-tag: #6366f1;
-
 @mixin media-query($device) {
   @media screen and (max-width: $device) {
     @content;

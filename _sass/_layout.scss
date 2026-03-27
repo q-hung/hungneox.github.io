@@ -6,8 +6,9 @@
 
 // Header
 .header {
-  border-bottom: 1px solid $color-border;
+  border-bottom: 1px solid var(--color-border);
   padding: 1.25rem 0;
+  background: var(--color-bg);
 
   .wrapper {
     display: flex;
@@ -44,7 +45,7 @@
   }
 
   .site-title {
-    color: $color-text;
+    color: var(--color-text);
     text-decoration: none;
     font-size: 1.2rem;
     font-weight: 700;
@@ -52,7 +53,7 @@
     line-height: 1.2;
 
     &:hover {
-      color: $color-link;
+      color: var(--color-link);
     }
   }
 
@@ -62,13 +63,13 @@
 
     a {
       font-size: 0.72rem;
-      color: $color-text-secondary;
+      color: var(--color-text-secondary);
       text-decoration: none;
       font-weight: 500;
       transition: color 0.15s ease;
 
       &:hover {
-        color: $color-link;
+        color: var(--color-link);
       }
     }
   }
@@ -76,9 +77,10 @@
   .site-nav {
     display: flex;
     gap: 1.5rem;
+    align-items: center;
 
     a {
-      color: $color-text-secondary;
+      color: var(--color-text-secondary);
       text-decoration: none;
       font-size: 1.05rem;
       font-weight: 500;
@@ -92,7 +94,7 @@
       }
 
       &:hover {
-        color: $color-text;
+        color: var(--color-text);
       }
     }
   }
@@ -112,6 +114,33 @@
       flex-shrink: 0;
     }
   }
+
+  // Theme toggle
+  .theme-toggle {
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 0.35rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-secondary);
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+
+    .material-symbols-rounded {
+      font-size: 1.25rem;
+    }
+
+    .icon-dark { display: none; }
+    .icon-light { display: inline; }
+
+    &:hover {
+      color: var(--color-text);
+      border-color: var(--color-border-hover);
+      background: var(--color-bg-secondary);
+    }
+  }
 }
 
 // Page content
@@ -126,17 +155,17 @@
 
 // Footer
 .footer {
-  border-top: 1px solid $color-border;
+  border-top: 1px solid var(--color-border);
   padding: 2.5rem 0;
   text-align: center;
-  color: $color-text-secondary;
+  color: var(--color-text-secondary);
   font-size: $small-font-size;
 
   a {
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
 
     &:hover {
-      color: $color-text;
+      color: var(--color-text);
     }
   }
 }

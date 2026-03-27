@@ -21,6 +21,10 @@
         {% endif %}
       {% endfor %}
       <a class="page-link" href="{{ "/feed.xml" | prepend: site.baseurl }}"><span class="material-symbols-rounded">rss_feed</span> RSS</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <span class="material-symbols-rounded icon-light">light_mode</span>
+        <span class="material-symbols-rounded icon-dark">dark_mode</span>
+      </button>
     </nav>
   </div>
 </header>

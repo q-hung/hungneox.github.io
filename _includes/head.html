@@ -60,7 +60,7 @@
     rel="stylesheet"
   />
   <link
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=article,category,home,mail,rss_feed&display=block"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=article,category,dark_mode,home,light_mode,mail,rss_feed&display=block"
     rel="stylesheet"
   />
 
@@ -73,6 +73,9 @@
     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
   ></script>
 
+  <script>
+    (function(){var t=localStorage.getItem('theme');if(t==='dark'||(! t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.setAttribute('data-theme','dark')}})();
+  </script>
   <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}" />
   <link
     rel="alternate"

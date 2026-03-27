@@ -1,29 +1,121 @@
-.post {
-  .post-header {
-    margin: 0 100px;
-    margin-bottom: 40px;
-    padding: 20px;
-    .post-title {
-      font-size: 40px;
-      font-weight: normal;
-      margin: 0 -100px;
-      @include media-query($on-palm) {
-        font-size: 34px;
+// ── Post page grid: content + sticky TOC ──
+.post-layout {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 2.5rem;
+  align-items: start;
+
+  &.no-toc {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ── TOC sidebar ──
+.toc-sidebar {
+  position: sticky;
+  top: 1.5rem;
+  max-height: calc(100vh - 3rem);
+  overflow-y: auto;
+
+  // Thin scrollbar
+  scrollbar-width: thin;
+  scrollbar-color: $color-border transparent;
+
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $color-border;
+    border-radius: 3px;
+  }
+}
+
+.toc {
+  .toc-title {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: $color-text-secondary;
+    margin: 0 0 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid $color-border;
+  }
+
+  .toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .toc-item {
+    border-left: 2px solid transparent;
+    transition: border-color 0.2s ease;
+
+    a {
+      display: block;
+      padding: 0.3rem 0 0.3rem 0.75rem;
+      font-size: 0.78rem;
+      line-height: 1.4;
+      color: $color-text-secondary;
+      text-decoration: none;
+      transition: color 0.15s ease;
+
+      &:hover {
+        color: $color-text;
       }
     }
-    .post-meta {
-      color: #999;
-      font-size: $small-font-size;
-      margin: 0 -100px;
+
+    &.toc-level-1 a {
+      padding-left: 1.5rem;
     }
-    @include media-query($on-palm) {
-      text-align: center;
-      margin-bottom: 10px;
-      padding: 10px;
+
+    &.toc-level-2 a {
+      padding-left: 2.25rem;
+      font-size: 0.74rem;
+    }
+
+    &.active {
+      border-left-color: $color-link;
+
+      a {
+        color: $color-link;
+        font-weight: 600;
+      }
     }
   }
+}
+
+// ── Post content ──
+.post {
+  min-width: 0;
+
+  .post-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid $color-border;
+
+    .post-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+
+      @include media-query($on-palm) {
+        font-size: 1.5rem;
+      }
+    }
+
+    .post-meta {
+      color: $color-text-secondary;
+      font-size: $small-font-size;
+    }
+  }
+
   .post-content {
-    color: #333;
+    color: $color-text;
+    line-height: 1.8;
 
     h1,
     h2,
@@ -31,40 +123,68 @@
     h4,
     h5,
     h6 {
-      color: #000;
-    }
-
-    h1,
-    h2 {
-      margin-bottom: 10px;
-      margin-top: 30px;
+      color: $color-text;
+      margin-top: 2em;
+      margin-bottom: 0.5em;
+      scroll-margin-top: 1rem;
     }
 
     h2 {
-      font-weight: bold;
+      font-size: 1.5rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid $color-border;
     }
 
-    h1,
-    h2,
     h3 {
-      border-bottom: 1px solid #ccc;
+      font-size: 1.25rem;
+    }
+
+    p {
+      margin: 1em 0;
+    }
+
+    ul,
+    ol {
+      padding-left: 1.5em;
+    }
+
+    li {
+      margin-bottom: 0.25em;
     }
 
     pre {
-      // margin: 0 -30px;
-      font-size: 0.75rem;
+      margin: 1.5em 0;
+
       @include media-query($on-palm) {
-        margin: 0 -10px;
+        margin: 1em -1rem;
+        border-radius: 0;
       }
+    }
+
+    img {
+      border-radius: 6px;
     }
 
     .middle-image {
       display: block;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 2em auto;
     }
   }
+
   .post-comments {
-    padding-top: 30px;
+    padding-top: 2rem;
+    margin-top: 2rem;
+    border-top: 1px solid $color-border;
+  }
+}
+
+// ── Responsive: hide TOC on small screens ──
+@include media-query($on-laptop) {
+  .post-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .toc-sidebar {
+    display: none;
   }
 }

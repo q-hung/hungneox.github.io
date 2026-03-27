@@ -1,3 +1,4 @@
+// GitHub-style light syntax highlighting
 .highlight table td {
   padding: 5px;
 }
@@ -6,12 +7,11 @@
 }
 .highlight,
 .highlight .w {
-  color: #f8f8f2;
-  background-color: #272822;
+  color: #24292f;
+  background-color: #f6f8fa;
 }
 .highlight .err {
-  color: #272822;
-  background-color: #f92672;
+  color: #cf222e;
 }
 .highlight .c,
 .highlight .ch,
@@ -20,31 +20,34 @@
 .highlight .cpf,
 .highlight .c1,
 .highlight .cs {
-  color: #75715e;
+  color: #6e7781;
+  font-style: italic;
 }
 .highlight .cp {
-  color: #f4bf75;
+  color: #cf222e;
+  font-weight: bold;
 }
 .highlight .nt {
-  color: #f4bf75;
+  color: #116329;
 }
 .highlight .o,
 .highlight .ow {
-  color: #f8f8f2;
+  color: #cf222e;
 }
 .highlight .p,
 .highlight .pi {
-  color: #f8f8f2;
+  color: #24292f;
 }
 .highlight .gi {
-  color: #a6e22e;
+  color: #116329;
+  background-color: #dafbe1;
 }
 .highlight .gd {
-  color: #f92672;
+  color: #cf222e;
+  background-color: #ffebe9;
 }
 .highlight .gh {
-  color: #66d9ef;
-  background-color: #272822;
+  color: #0550ae;
   font-weight: bold;
 }
 .highlight .k,
@@ -52,16 +55,16 @@
 .highlight .kp,
 .highlight .kr,
 .highlight .kv {
-  color: #ae81ff;
+  color: #cf222e;
 }
 .highlight .kc {
-  color: #fd971f;
+  color: #0550ae;
 }
 .highlight .kt {
-  color: #fd971f;
+  color: #0550ae;
 }
 .highlight .kd {
-  color: #fd971f;
+  color: #cf222e;
 }
 .highlight .s,
 .highlight .sb,
@@ -72,31 +75,31 @@
 .highlight .sh,
 .highlight .sx,
 .highlight .s1 {
-  color: #a6e22e;
+  color: #0a3069;
 }
 .highlight .sa {
-  color: #ae81ff;
+  color: #cf222e;
 }
 .highlight .sr {
-  color: #a1efe4;
+  color: #0550ae;
 }
 .highlight .si {
-  color: #cc6633;
+  color: #0a3069;
 }
 .highlight .se {
-  color: #cc6633;
+  color: #0a3069;
 }
 .highlight .nn {
-  color: #f4bf75;
+  color: #953800;
 }
 .highlight .nc {
-  color: #f4bf75;
+  color: #953800;
 }
 .highlight .no {
-  color: #f4bf75;
+  color: #0550ae;
 }
 .highlight .na {
-  color: #66d9ef;
+  color: #0550ae;
 }
 .highlight .m,
 .highlight .mb,
@@ -106,8 +109,15 @@
 .highlight .il,
 .highlight .mo,
 .highlight .mx {
-  color: #a6e22e;
+  color: #0550ae;
 }
 .highlight .ss {
-  color: #a6e22e;
+  color: #0550ae;
+}
+.highlight .nf,
+.highlight .nv {
+  color: #8250df;
+}
+.highlight .nb {
+  color: #953800;
 }

@@ -3,31 +3,83 @@ layout: default
 ---
 
 <div class="home">
-  <a class="rss-link" href="{{ "/feed.xml" | prepend: site.baseurl }}">RSS Feed</a>
-  <h1 class="page-heading">Articles</h1>
 
-  <ul class="post-list">
-    {% for post in paginator.posts %}
-      <li>
-          <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-          <div class="post-meta pull-right">{{ post.date | date: "%b %-d, %Y" }}</div>
-      </li>
-    {% endfor %}
-  </ul>
-  
-  <!-- Pagination links -->
-<div class="pagination">
-  {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" class="previous">PREV</a>
-  {% else %}
-    <span class="previous">PREV</span>
+  {% if paginator.page == 1 %}
+  <section class="featured-section">
+    <div class="featured-grid">
+      {% for post in site.posts limit:4 %}
+      <a class="featured-card" href="{{ post.url | prepend: site.baseurl }}">
+        <div class="featured-thumb">
+          {% if post.image %}
+          <img src="{{ post.image }}" alt="{{ post.title }}" loading="lazy" />
+          {% else %}
+          <img src="/assets/images/abstract-{{ forloop.index0 }}.jpg" alt="{{ post.title }}" loading="lazy" />
+          {% endif %}
+        </div>
+        <div class="featured-info">
+          <time>{{ post.date | date: "%-d thg %-m, %Y" }}</time>
+          <h2>{{ post.title }}</h2>
+          {% if post.description %}
+          <p>{{ post.description | truncate: 90 }}</p>
+          {% endif %}
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  <hr class="section-divider" />
   {% endif %}
-  <span class="page_number ">{{ paginator.page }} of {{ paginator.total_pages }}</span>
-  {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | prepend: site.baseurl }}" class="next">NEXT</a>
-  {% else %}
-    <span class="next ">NEXT</span>
-  {% endif %}
-</div>
+
+  <section class="post-list-section">
+    <h2 class="section-title">Tất cả bài viết</h2>
+
+    <div class="post-list">
+      {% for post in paginator.posts %}
+      <a class="post-item" href="{{ post.url | prepend: site.baseurl }}">
+        <div class="post-thumb">
+          {% if post.image %}
+          <img src="{{ post.image }}" alt="{{ post.title }}" loading="lazy" />
+          {% else %}
+          <img src="/assets/images/abstract-{{ forloop.index0 | modulo: 6 }}.jpg" alt="{{ post.title }}" loading="lazy" />
+          {% endif %}
+        </div>
+        <div class="post-info">
+          <time>{{ post.date | date: "%-d thg %-m, %Y" }}</time>
+          <h3>{{ post.title }}</h3>
+          {% if post.description %}
+          <p>{{ post.description | truncate: 120 }}</p>
+          {% endif %}
+          <div class="post-tags">
+            {% assign skip_cats = "vi,en,jekyll" | split: "," %}
+            {% for cat in post.categories %}
+              {% unless skip_cats contains cat %}
+              <span class="post-tag">#{{ cat }}</span>
+              {% endunless %}
+            {% endfor %}
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+
+    {% if paginator.total_pages > 1 %}
+    <nav class="pagination">
+      {% if paginator.previous_page %}
+        <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" class="page-btn prev">&larr; Mới hơn</a>
+      {% else %}
+        <span class="page-btn prev disabled">&larr; Mới hơn</span>
+      {% endif %}
+
+      <span class="page-num">{{ paginator.page }} / {{ paginator.total_pages }}</span>
+
+      {% if paginator.next_page %}
+        <a href="{{ paginator.next_page_path | prepend: site.baseurl }}" class="page-btn next">Cũ hơn &rarr;</a>
+      {% else %}
+        <span class="page-btn next disabled">Cũ hơn &rarr;</span>
+      {% endif %}
+    </nav>
+    {% endif %}
+  </section>
 
 </div>

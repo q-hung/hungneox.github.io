@@ -1,11 +1,7 @@
 .wrapper {
   margin: 0 auto;
-  max-width: $content-width;
+  max-width: 1100px;
   padding: 0 2rem;
-
-  &:has(.post-layout) {
-    max-width: 1100px;
-  }
 }
 
 // Header
@@ -19,15 +15,61 @@
     justify-content: space-between;
   }
 
+  .site-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .site-avatar {
+    flex-shrink: 0;
+
+    img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: block;
+      transition: opacity 0.2s ease;
+    }
+
+    &:hover img {
+      opacity: 0.85;
+    }
+  }
+
+  .site-identity {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
   .site-title {
     color: $color-text;
     text-decoration: none;
     font-size: 1.2rem;
     font-weight: 700;
     letter-spacing: -0.02em;
+    line-height: 1.2;
 
     &:hover {
       color: $color-link;
+    }
+  }
+
+  .site-social {
+    display: flex;
+    gap: 0.6rem;
+
+    a {
+      font-size: 0.72rem;
+      color: $color-text-secondary;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s ease;
+
+      &:hover {
+        color: $color-link;
+      }
     }
   }
 
@@ -38,7 +80,7 @@
     a {
       color: $color-text-secondary;
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 1.05rem;
       font-weight: 500;
       transition: color 0.2s ease;
 
@@ -89,6 +131,10 @@
     .wrapper {
       flex-direction: column;
       gap: 0.75rem;
+    }
+
+    .site-brand {
+      justify-content: center;
     }
 
     .site-nav {

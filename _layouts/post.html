@@ -20,6 +20,17 @@ layout: default
       <h4 class="toc-title">Mục lục</h4>
       <ul class="toc-list" id="toc-list"></ul>
     </nav>
+    <div class="toc-author">
+      <img class="toc-avatar" src="{{ site.avatar }}" alt="{{ site.author }}" />
+      <div class="toc-author-info">
+        <span class="toc-author-name">{{ site.author }}</span>
+        <span class="toc-author-desc">{{ site.profile }}</span>
+        <div class="toc-author-links">
+          {% if site.linkedin_username %}<a href="https://linkedin.com/in/{{ site.linkedin_username }}" title="LinkedIn">LinkedIn</a>{% endif %}
+          {% if site.github_username %}<a href="https://github.com/{{ site.github_username }}" title="GitHub">GitHub</a>{% endif %}
+        </div>
+      </div>
+    </div>
   </aside>
 </div>
 

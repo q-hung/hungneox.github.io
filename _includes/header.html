@@ -1,6 +1,19 @@
 <header class="header">
   <div class="wrapper">
-    <a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a>
+    <div class="site-brand">
+      <a class="site-avatar" href="{{ site.baseurl }}/">
+        <img src="{{ site.avatar }}" alt="{{ site.author }}" />
+      </a>
+      <div class="site-identity">
+        <a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a>
+        <div class="site-social">
+          {% if site.github_username %}<a href="https://github.com/{{ site.github_username }}" title="GitHub">GitHub</a>{% endif %}
+          {% if site.linkedin_username %}<a href="https://linkedin.com/in/{{ site.linkedin_username }}" title="LinkedIn">LinkedIn</a>{% endif %}
+          {% if site.twitter_username %}<a href="https://twitter.com/{{ site.twitter_username }}" title="Twitter">Twitter</a>{% endif %}
+          {% if site.email %}<a href="mailto:{{ site.email }}" title="Email">Email</a>{% endif %}
+        </div>
+      </div>
+    </div>
     <nav class="site-nav">
       {% for page in site.pages %}
         {% if page.title and page.public %}

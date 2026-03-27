@@ -83,10 +83,33 @@
       font-size: 1.05rem;
       font-weight: 500;
       transition: color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+
+      .material-symbols-rounded {
+        font-size: 1.2em;
+      }
 
       &:hover {
         color: $color-text;
       }
+    }
+  }
+
+  .site-social a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+
+    .material-symbols-rounded {
+      font-size: 1.15em;
+    }
+
+    .icon {
+      width: 1em;
+      height: 1em;
+      flex-shrink: 0;
     }
   }
 }

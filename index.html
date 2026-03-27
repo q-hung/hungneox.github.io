@@ -17,7 +17,7 @@ layout: default
           {% endif %}
         </div>
         <div class="featured-info">
-          <time>{{ post.date | date: "%-d thg %-m, %Y" }}</time>
+          <time>{{ post.date | date: "%d/%m/%Y" }}</time>
           <h2>{{ post.title }}</h2>
           {% if post.description %}
           <p>{{ post.description | truncate: 90 }}</p>
@@ -45,7 +45,7 @@ layout: default
           {% endif %}
         </div>
         <div class="post-info">
-          <time>{{ post.date | date: "%-d thg %-m, %Y" }}</time>
+          <time>{{ post.date | date: "%d/%m/%Y" }}</time>
           <h3>{{ post.title }}</h3>
           {% if post.description %}
           <p>{{ post.description | truncate: 120 }}</p>

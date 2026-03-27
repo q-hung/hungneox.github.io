@@ -20,6 +20,9 @@ layout: default
       <h4 class="toc-title">Mục lục</h4>
       <ul class="toc-list" id="toc-list"></ul>
     </nav>
+    <button class="toc-back-top" id="back-to-top" aria-label="Về đầu trang">
+      <span class="material-symbols-rounded">arrow_upward</span> Về đầu trang
+    </button>
     <div class="toc-author">
       <img class="toc-avatar" src="{{ site.avatar }}" alt="{{ site.author }}" />
       <div class="toc-author-info">
@@ -90,5 +93,12 @@ layout: default
   }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
 
   headings.forEach(function (h) { observer.observe(h); });
+
+  var backBtn = document.getElementById('back-to-top');
+  if (backBtn) {
+    backBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 })();
 </script>

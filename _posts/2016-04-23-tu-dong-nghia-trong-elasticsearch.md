@@ -6,7 +6,7 @@ categories: [search-engine, information-retrieval]
 author: hungneox
 tags : [search-engine, information-retrieval, elasticsearch]
 description: Từ đồng nghĩa (synonyms) trong ElasticSearch
-image: /assets/posts/tu-dong-nghia-trong-elasticsearch/analyzer.png
+image: /assets/images/placeholder.jpg
 comments: true
 ---
 

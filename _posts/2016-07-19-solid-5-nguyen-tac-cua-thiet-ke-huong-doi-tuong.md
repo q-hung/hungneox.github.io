@@ -6,7 +6,7 @@ categories: [web-development, programming, oriented-design]
 author: hungneox
 tags : [php, software-engineering, oriented-design]
 description: "Nguyên tắc SOLID cơ bản kèm ví dụ"
-image: /assets/images/laravel.jpg
+image: /assets/images/solid.jpg
 comments: true
 <!-- published: false -->
 ---

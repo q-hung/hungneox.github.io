@@ -5,6 +5,7 @@ date: 2013-07-11 8:00 PM
 categories: [php, vi]
 author: hungneox
 tags : [php]
+image: /assets/images/placeholder.jpg
 comments: true
 ---
 ### Sử dụng toán tử so sánh 

@@ -1,29 +1,222 @@
-.post {
-  .post-header {
-    margin: 0 100px;
-    margin-bottom: 40px;
-    padding: 20px;
-    .post-title {
-      font-size: 40px;
-      font-weight: normal;
-      margin: 0 -100px;
-      @include media-query($on-palm) {
-        font-size: 34px;
+// ── Post page grid: content + sticky TOC ──
+.post-layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 2.5rem;
+  align-items: start;
+
+  &.no-toc {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ── TOC sidebar ──
+.toc-sidebar {
+  position: sticky;
+  top: 1.5rem;
+  max-height: calc(100vh - 3rem);
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 3px;
+  }
+}
+
+.toc {
+  .toc-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-secondary);
+    margin: 0 0 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .toc-item {
+    border-left: 2px solid transparent;
+    transition: border-color 0.2s ease;
+
+    a {
+      display: block;
+      padding: 0.35rem 0 0.35rem 0.75rem;
+      font-size: 0.92rem;
+      line-height: 1.45;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      transition: color 0.15s ease;
+
+      &:hover {
+        color: var(--color-text);
       }
     }
-    .post-meta {
-      color: #999;
-      font-size: $small-font-size;
-      margin: 0 -100px;
+
+    &.toc-level-1 a {
+      padding-left: 1.5rem;
     }
-    @include media-query($on-palm) {
-      text-align: center;
-      margin-bottom: 10px;
-      padding: 10px;
+
+    &.toc-level-2 a {
+      padding-left: 2.25rem;
+      font-size: 0.85rem;
+    }
+
+    &.active {
+      border-left-color: var(--color-link);
+
+      a {
+        color: var(--color-link);
+        font-weight: 600;
+      }
     }
   }
+}
+
+// ── Back to top button ──
+.toc-back-top {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  width: 100%;
+  margin-top: 1.25rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-secondary);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+
+  .material-symbols-rounded {
+    font-size: 1.1em;
+  }
+
+  &:hover {
+    color: var(--color-link);
+    border-color: var(--color-border-hover);
+    background: var(--color-bg);
+  }
+}
+
+// ── Author card in sidebar ──
+.toc-author {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+
+  .toc-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .toc-author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 0;
+  }
+
+  .toc-author-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text);
+    line-height: 1.2;
+  }
+
+  .toc-author-desc {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    line-height: 1.3;
+  }
+
+  .toc-author-links {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.3rem;
+
+    a {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-link);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// ── Post content ──
+.post {
+  min-width: 0;
+  max-width: 100%;
+
+  .post-header {
+    margin: 0 0 2.5rem;
+    padding: 0 0 1.75rem;
+    border-bottom: 1px solid var(--color-border);
+
+    .post-title {
+      font-size: 2.25rem;
+      font-weight: 750;
+      margin: 0 0 0.6rem;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+
+      @include media-query($on-palm) {
+        font-size: 1.625rem;
+      }
+    }
+
+    .post-meta {
+      color: var(--color-text-secondary);
+      font-size: $small-font-size;
+      margin: 0;
+      letter-spacing: 0.01em;
+    }
+  }
+
   .post-content {
-    color: #333;
+    color: var(--color-text);
+    line-height: 1.75;
+
+    > *:first-child {
+      margin-top: 0;
+    }
+
+    a {
+      text-decoration-line: underline;
+      text-decoration-color: color-mix(in srgb, var(--color-link) 40%, transparent);
+      text-underline-offset: 0.15em;
+      text-decoration-thickness: 1px;
+      transition: text-decoration-color 0.2s ease, color 0.2s ease;
+
+      &:hover {
+        text-decoration-color: var(--color-link-hover);
+      }
+    }
 
     h1,
     h2,
@@ -31,40 +224,127 @@
     h4,
     h5,
     h6 {
-      color: #000;
+      color: var(--color-text);
+      scroll-margin-top: 1rem;
+
+      &::before {
+        content: "#" / "";
+        margin-right: 0.4em;
+        color: var(--color-border);
+        font-weight: 400;
+        user-select: none;
+      }
     }
 
-    h1,
+    h1 {
+      font-size: 1.625rem;
+      margin-top: 2.5em;
+      margin-bottom: 0.6em;
+      letter-spacing: -0.025em;
+    }
+
     h2 {
-      margin-bottom: 10px;
-      margin-top: 30px;
+      font-size: 1.375rem;
+      margin-top: 2.25em;
+      margin-bottom: 0.5em;
+      padding-bottom: 0.35rem;
+      border-bottom: 1px solid var(--color-border);
+      letter-spacing: -0.02em;
     }
 
-    h2 {
-      font-weight: bold;
-    }
-
-    h1,
-    h2,
     h3 {
-      border-bottom: 1px solid #ccc;
+      font-size: 1.15rem;
+      margin-top: 1.75em;
+      margin-bottom: 0.4em;
+      letter-spacing: -0.01em;
+    }
+
+    h4 {
+      font-size: 1rem;
+      margin-top: 1.5em;
+      margin-bottom: 0.4em;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 1.15em 0;
+    }
+
+    > p:first-child,
+    > h1:first-child + p,
+    > h2:first-child + p {
+      font-size: 1.05em;
+      line-height: 1.8;
+    }
+
+    ul,
+    ol {
+      padding-left: 1.5em;
+      margin: 1em 0;
+    }
+
+    li {
+      margin-bottom: 0.3em;
+      line-height: 1.7;
+
+      > p {
+        margin: 0.5em 0;
+      }
+    }
+
+    li + li {
+      margin-top: 0.15em;
+    }
+
+    strong {
+      font-weight: 650;
+      color: var(--color-text);
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--color-border);
+      margin: 2.5em 0;
     }
 
     pre {
-      // margin: 0 -30px;
-      font-size: 0.75rem;
+      margin: 1.75em 0;
+
       @include media-query($on-palm) {
-        margin: 0 -10px;
+        margin: 1.25em -1rem;
+        border-radius: 0;
       }
+    }
+
+    img {
+      border-radius: 6px;
     }
 
     .middle-image {
       display: block;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 2em auto;
+    }
+
+    // Better table styling
+    table {
+      font-size: 0.92em;
     }
   }
+
   .post-comments {
-    padding-top: 30px;
+    padding-top: 2rem;
+    margin-top: 2.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+}
+
+// ── Responsive: hide TOC on small screens ──
+@include media-query($on-laptop) {
+  .post-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .toc-sidebar {
+    display: none;
   }
 }

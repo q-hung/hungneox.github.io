@@ -6,7 +6,7 @@ categories: [functional-programming, programming, vi]
 author: hungneox
 tags : [functional-programming, lambda-calculus, programming]
 description: "Y-Combinator là gì và tại sao nó thú vị"
-image: /assets/images/laravel.jpg
+image: /assets/images/placeholder.jpg
 comments: true
 published: true
 ---

@@ -6,7 +6,7 @@ categories: [kubernetes, devops]
 author: hungneox
 tags: [kubernetes, k8s, health-check, devops]
 description: "Phân biệt liveness và readiness probe trong Kubernetes, và cách cấu hình sai có thể giết chết cả hệ thống"
-image: /assets/images/laravel.jpg
+image: /assets/images/k8s.jpg
 comments: true
 published: true
 ---

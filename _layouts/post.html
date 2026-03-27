@@ -1,17 +1,104 @@
 ---
 layout: default
 ---
-<div class="post">
+<div class="post-layout">
+  <div class="post">
+    <header class="post-header">
+      <h1 class="post-title">{{ page.title }}</h1>
+      <p class="post-meta">{{ page.date | date: "%d/%m/%Y" }}{% if page.author %} &bull; {{ page.author }}{% endif %}{% if page.meta %} &bull; {{ page.meta }}{% endif %}</p>
+    </header>
 
-  <header class="post-header">
-    <h1 class="post-title">{{ page.title }}</h1>
-    <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
-  </header>
+    <article class="post-content" id="post-content">
+      {{ content }}
+    </article>
 
-  <article class="post-content">
-    {{ content }}
-  </article>
-  
-  {% include comment.html %}
+    {% include comment.html %}
+  </div>
 
+  <aside class="toc-sidebar" id="toc-sidebar">
+    <nav class="toc" id="toc">
+      <h4 class="toc-title">Mục lục</h4>
+      <ul class="toc-list" id="toc-list"></ul>
+    </nav>
+    <button class="toc-back-top" id="back-to-top" aria-label="Về đầu trang">
+      <span class="material-symbols-rounded">arrow_upward</span> Về đầu trang
+    </button>
+    <div class="toc-author">
+      <img class="toc-avatar" src="{{ site.avatar }}" alt="{{ site.author }}" />
+      <div class="toc-author-info">
+        <span class="toc-author-name">{{ site.author }}</span>
+        <span class="toc-author-desc">{{ site.profile }}</span>
+        <div class="toc-author-links">
+          {% if site.linkedin_username %}<a href="https://linkedin.com/in/{{ site.linkedin_username }}" title="LinkedIn">LinkedIn</a>{% endif %}
+          {% if site.github_username %}<a href="https://github.com/{{ site.github_username }}" title="GitHub">GitHub</a>{% endif %}
+        </div>
+      </div>
+    </div>
+  </aside>
 </div>
+
+<script>
+(function () {
+  var content = document.getElementById('post-content');
+  var tocList = document.getElementById('toc-list');
+  var tocSidebar = document.getElementById('toc-sidebar');
+  if (!content || !tocList) return;
+
+  var headings = content.querySelectorAll('h1, h2, h3');
+  if (headings.length < 2) {
+    tocSidebar.style.display = 'none';
+    document.querySelector('.post-layout').classList.add('no-toc');
+    return;
+  }
+
+  var minLevel = 6;
+  headings.forEach(function (h) {
+    var level = parseInt(h.tagName[1]);
+    if (level < minLevel) minLevel = level;
+  });
+
+  headings.forEach(function (heading, i) {
+    if (!heading.id) {
+      heading.id = 'heading-' + i;
+    }
+
+    var level = parseInt(heading.tagName[1]) - minLevel;
+    var li = document.createElement('li');
+    li.className = 'toc-item toc-level-' + level;
+    li.setAttribute('data-target', heading.id);
+
+    var a = document.createElement('a');
+    a.href = '#' + heading.id;
+    a.textContent = heading.textContent;
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      history.replaceState(null, '', '#' + heading.id);
+    });
+
+    li.appendChild(a);
+    tocList.appendChild(li);
+  });
+
+  // Highlight active heading on scroll
+  var tocItems = tocList.querySelectorAll('.toc-item');
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        tocItems.forEach(function (item) { item.classList.remove('active'); });
+        var active = tocList.querySelector('[data-target="' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+
+  headings.forEach(function (h) { observer.observe(h); });
+
+  var backBtn = document.getElementById('back-to-top');
+  if (backBtn) {
+    backBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+})();
+</script>

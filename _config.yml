@@ -1,5 +1,5 @@
 # Site settings
-title: Hung Neox
+title: Q-Hung
 url: "https://butchiso.com"
 baseurl: "" # the prefix of your site uri, eg. `/jekyll-theme-EasyBook` or just one slash `/`
 timezone: Europe/Helsinki
@@ -8,11 +8,12 @@ description: >
 
 # Your information
 email: hungnq1989@gmail.com
-author: Hung Neox
+author: Q-Hung
 avatar: "//avatars.githubusercontent.com/u/199614?v=4"
-profile: Full stack developer.
+profile: Software Engineer.
 twitter_username: hungneox
-github_username: hungneox
+github_username: q-hung
+linkedin_username: hungnq1989
 
 # Comment Service
 #  choose one and un-comment the line to active it
@@ -25,7 +26,7 @@ plugins:
   - jemoji
 
 # Build settings
-paginate: 20
+paginate: 10
 paginate_path: "page/:num"
 
 highlighter: rouge

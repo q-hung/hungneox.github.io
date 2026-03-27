@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Mã hoá bất đối xứng RSA"
-date: 2016-01-19 19:55 AM
+date: 2016-01-19 19:55
 categories: [cryptography, vi]
 author: hungneox
 tags : [cryptography, rsa, asymmetric cryptography]
@@ -25,26 +25,26 @@ cần được giữ bí mật. Và cả hai bên gửi và nhận thông tin đ
 còn `private key` được giữ bí mật, và nó đóng vai trò như chìa khoá vạn năng có thể mở được tất cả thông tin được 
 khoá bằng public key.
 
-# 2. Tại sao cần má hoá bất đối xứng?
+# 2. Tại sao cần mã hoá bất đối xứng?
 
 ![https](/assets/posts/rsa/https.jpg){: .center-image }
 
-Nói ngắn gọn thì hầu như các ứng dụng bạn dùng hàng ngày hiện nay như Facebook, Gmail, Amazon, PayPal v.v đều sử dụng giao thức HTTPs. Có thể hiểu là giao thức HTTPs an toàn hơn HTTP vì toàn bộ thông tin truyền đi giữa client và server được bảo vệ bởi bộ mã hoá SSL/TSL. SSL/TSL này hoạt động dựa trên cả hai loại mã hoá đối xứng và bất đối xứng. Nhờ nó mà chúng ta có thể đảm bảo bí mật khi thực hiện những giao dịch có chứa thông tin `nhạy cảm` trên Internet mà không bị đánh cắp thông tin trong suốt quá trình truyền nhận dữ liệu. Có thể nói, nếu không có mật mã, đặc biệt là mã hoá bất đối xứng thì **không có thương mại điện tử**.
+Nói ngắn gọn thì hầu như các ứng dụng bạn dùng hàng ngày hiện nay như Facebook, Gmail, Amazon, PayPal v.v đều sử dụng giao thức HTTPs. Có thể hiểu là giao thức HTTPs an toàn hơn HTTP vì toàn bộ thông tin truyền đi giữa client và server được bảo vệ bởi bộ mã hoá SSL/TLS. SSL/TLS này hoạt động dựa trên cả hai loại mã hoá đối xứng và bất đối xứng. Nhờ nó mà chúng ta có thể đảm bảo bí mật khi thực hiện những giao dịch có chứa thông tin `nhạy cảm` trên Internet mà không bị đánh cắp thông tin trong suốt quá trình truyền nhận dữ liệu. Có thể nói, nếu không có mật mã, đặc biệt là mã hoá bất đối xứng thì **không có thương mại điện tử**.
 
 Về cơ bản, HTTP truyền dữ liệu dưới dạng `plain text`, nghĩa là nếu ai đó `nghe lén` dữ liệu bạn truyền và nhận với server thì có thể đọc và can thiệp được nội dung (man-in-the-middle attack). Ngay cả khi dùng mã hoá đối xứng để encrypt và decrypt thông tin truyền và nhận thì cũng có lỗ hổng là hai bên phải trao đổi `key` mới mã hoá và giải mã được, như vậy attacker vẫn có thể tóm được `key` và đọc được thông tin như thường.
 
-Điểm yếu của mã hoá đối xứng được khắc chế trong mã hoá bất đối xứng. Ý tưởng là thay vì gửi chìa khoá cho phía client, thì server sẽ gửi ổ khoá, để client khoá thông điệp bí mật trong một chiếc hộp, và chỉ có server có thể giải mã được. Cho nên các client sẽ **không** đọc được thông điệp của nhau, và chỉ có sever với `private key` mới mở khoá được những chiếc hộp này. (Trên thực tế thì `public key` vừa dùng để mã hoá vừa dùng để giải mã thông tin nhận và gửi lên server!)
+Điểm yếu của mã hoá đối xứng được khắc phục trong mã hoá bất đối xứng. Ý tưởng là thay vì gửi chìa khoá cho phía client, thì server sẽ gửi ổ khoá, để client khoá thông điệp bí mật trong một chiếc hộp, và chỉ có server có thể giải mã được. Cho nên các client sẽ **không** đọc được thông điệp của nhau, và chỉ có server với `private key` mới mở khoá được những chiếc hộp này. (Trên thực tế thì `public key` vừa dùng để mã hoá vừa dùng để giải mã thông tin nhận và gửi lên server!)
 
 # 3. Về RSA
 
 
-RSA là một trong những hệ thống mã hoá bất đối xứng được sử dụng rộng rãi. Nó được đặt theo tên của 3 nhà khoa học MIT thiết kế ra nó là: Ron **Rivest**, Adi **Shamir**, và Leonard **Adleman**. Ý tưởng then chốt để đảm bảo tính an toàn của RSA là dựa trên sự khó khăn trong việc phân tích nhân tử của 2 số nguyên tố lớn. (a x b = c, tìm ngược lại a, b từ c là phân tích nhân tử).
+RSA là một trong những hệ thống mã hoá bất đối xứng được sử dụng rộng rãi. Nó được đặt theo tên của 3 nhà khoa học MIT thiết kế ra nó là: Ron **Rivest**, Adi **Shamir**, và Leonard **Adleman**. Ý tưởng then chốt để đảm bảo tính an toàn của RSA là dựa trên sự khó khăn trong việc phân tích một số rất lớn thành tích của 2 số nguyên tố. (a x b = c, tìm ngược lại a, b từ c là phân tích nhân tử).
 
-Hệ thống mã hoá RSA bao gồm 4 bước: **key generation**, **key distribution**, **encryption** và **decryption**. Vì để đảm bảo tính bí mật, nên mỗi hệ thống khác nhau cần tạo ra các public, và private key khác nhau. Sau qúa trình `handshake` và `public key` được gởi tới phía client thì thông tin mới chính thức được mã hoá khi server và client giao tiếp với nhau.
+Hệ thống mã hoá RSA bao gồm 4 bước: **key generation**, **key distribution**, **encryption** và **decryption**. Vì để đảm bảo tính bí mật, nên mỗi hệ thống khác nhau cần tạo ra các public, và private key khác nhau. Sau quá trình `handshake` và `public key` được gởi tới phía client thì thông tin mới chính thức được mã hoá khi server và client giao tiếp với nhau.
 
 # 4. Mã hoá và giải mã
 
-Tạm thời bỏ qua bước public key và private được tạo ra như thế nào. Chúng ta có công thức để mã hoá và giải mã dữ liệu như sau:
+Tạm thời bỏ qua bước public key và private key được tạo ra như thế nào. Chúng ta có công thức để mã hoá và giải mã dữ liệu như sau:
 
 - Encryption: $$m^e \mod n = c$$
 - Decryption: $$c^d \mod n = m$$
@@ -54,7 +54,7 @@ Trong đó:
 * m là message ban đầu
 * e, n là public key 
 * c là dữ liệu đã được mã hoá
-* d là private key thường là một số rất lớn, tích của 2 số nguyên tố, và được giữ an toàn tuyệt đối
+* d là private key, thường là một số rất lớn, và được giữ an toàn tuyệt đối
 
 Ví dụ cho e = 17, n = 3233, d = 2753 và cho thông điệp cần đc mã hoá là m = 42 
 
@@ -67,7 +67,7 @@ Số 2557 này khi được giải mã thì nó trở về 42 như cũ:
 `private key` d được tạo ra dựa vào 2 `prime factor` của n. Trong thực tế n được tạo ra bằng cách nhân hai số nguyên tố 2048 bits cho nên tính ra d thì dễ, còn từ n tính ngược lại 2 số đó để tìm private key là gần như bất khả thi với máy tính hiện giờ.
 
 # 5. Cách tạo public và private key
-Phần này thiêng về toán, hầu như chúng ta không cần quan tâm nếu như sử dụng các gói Cipher có sẵn của [Java](https://docs.oracle.com/javase/7/docs/api/java/security/KeyPairGenerator.html) hoặc [JavaScript](https://developer.mozilla.org/en/docs/Web/API/SubtleCrypto).
+Phần này thiên về toán, hầu như chúng ta không cần quan tâm nếu như sử dụng các gói Cipher có sẵn của [Java](https://docs.oracle.com/javase/7/docs/api/java/security/KeyPairGenerator.html) hoặc [JavaScript](https://developer.mozilla.org/en/docs/Web/API/SubtleCrypto).
 
 1. Chọn hai số nguyên tố ngẫu nhiên phân biệt p và q (trong thực tế là càng lớn càng tốt, cỡ 2048 bits hay 617 chữ số).
 	* Ví dụ:  p = 61 và q = 53
@@ -83,7 +83,7 @@ $$
  \\ 17*d \mod 3120 = 1
 $$
 
-Hoặc là dùng cách `brute force` để tính d (có thể được vì chúng ta chọn các số nhỏ), hoặc dùng thuật toán Euclid mở rộng, ta có $$d = 2735$$
+Hoặc là dùng cách `brute force` để tính d (có thể được vì chúng ta chọn các số nhỏ), hoặc dùng thuật toán Euclid mở rộng, ta có $$d = 2753$$
 
 Cách brute force thì như sau (chạy chưa tới 15 bước là ra):
 
@@ -99,7 +99,7 @@ def compute_d(phi_n, e):
 compute_d(3120, 17)
 {% endhighlight %}
 
-Như vậy cuối cùng chúng ta tính toán được `public key`: e = 17, n = 3233 và `private key`: d = 2735
+Như vậy cuối cùng chúng ta tính toán được `public key`: e = 17, n = 3233 và `private key`: d = 2753
 
 # 6. Tính an toàn của RSA
 

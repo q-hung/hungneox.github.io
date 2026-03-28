@@ -69,8 +69,20 @@ const canonicalUrl = new URL(
 
 <script is:inline type="text/x-mathjax-config">
   MathJax.Hub.Config({
-    displayAlign: "left",
+    displayAlign: "center",
     displayIndent: "0",
+    tex2jax: {
+      inlineMath: [
+        ["\\(", "\\)"],
+        ["$", "$"],
+      ],
+      displayMath: [
+        ["$$", "$$"],
+        ["\\[", "\\]"],
+      ],
+      processEscapes: true,
+      skipTags: ["script", "noscript", "style", "textarea", "pre", "code"],
+    },
   });
 </script>
 <script

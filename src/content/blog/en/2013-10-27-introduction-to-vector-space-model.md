@@ -32,7 +32,6 @@ Illustration by [Christian S. Perone](https://plus.google.com/118258566074039785
 **Example:**  
 The first row lists Shakespeare plays. The first column lists terms, and the cells show whether each term appears in each play (binary presence).
 
-{:.table.table-bordered}
 |           | Anthony and Cleopatra | Julius Caesar | The Tempest | Hamlet | Othello | Macbeth |
 | --------- | --------------------: | ------------: | ----------: | -----: | ------: | ------: |
 | Anthony   |                     1 |             1 |           0 |      0 |       0 |       1 |
@@ -46,11 +45,12 @@ The first row lists Shakespeare plays. The first column lists terms, and the cel
 Binary incidence matrix (*Introduction to Information Retrieval*)
 
 
-Each document is then a vector—for example, *Julius Caesar* is $$\left[\begin{matrix} 1 \\ 1 \\ 1 \\1 \\0 \\0 \\0 \end{matrix}\right]$$
+Each document is then a vector—for example, *Julius Caesar* is
+
+$$\begin{bmatrix} 1 \\ 1 \\ 1 \\ 1 \\ 0 \\ 0 \\ 0 \end{bmatrix}$$
 
 The cells can instead show **how many times** each term appears in each play. That is **term frequency**.
 
-{:.table.table-bordered}
 |           | Anthony and Cleopatra | Julius Caesar | The Tempest | Hamlet | Othello | Macbeth |
 | --------- | --------------------: | ------------: | ----------: | -----: | ------: | ------: |
 | Anthony   |                   157 |            73 |           0 |      0 |       0 |       1 |
@@ -62,31 +62,34 @@ The cells can instead show **how many times** each term appears in each play. Th
 | Worser    |                     2 |             0 |           1 |      1 |       1 |       0 |
 
 
-Here each document (each play, in this case) is a **count vector**. For example, *Julius Caesar* is $$\left[\begin{matrix} 73 \\ 157 \\ 227 \\19 \\0 \\0 \\0 \end{matrix}\right]$$
+Here each document (each play, in this case) is a **count vector**. For example, *Julius Caesar* is
 
-**Term frequency** $$\mathit{tf}_{t,d}$$ counts how often term $$t$$ appears in document $$d$$. Raw counts alone are not enough.
+$$\begin{bmatrix} 73 \\ 157 \\ 227 \\ 19 \\ 0 \\ 0 \\ 0 \end{bmatrix}$$
+
+**Term frequency** \\(\mathit{tf}\_{t,d}\\) counts how often term \\(t\\) appears in document \\(d\\). Raw counts alone are not enough.
 
 If a term appears ten times in one document and once in another, the first document is **more** relevant—but not **ten times** more relevant. Relevance does **not** scale linearly with raw term frequency.
 
 ## Log-frequency weighting
 
-The **log-frequency** weight of term $$t$$ in document $$d$$ is:
+The **log-frequency** weight of term \\(t\\) in document \\(d\\) is:
 
-$$w_{t,d} = 1 + \log(tf_{t,d})$$
+$$w\_{t,d} = 1 + \log(\mathit{tf}\_{t,d})$$
 
-when $$tf_{t,d} > 0$$; otherwise $$w_{t,d} = 0$$.
+when \\(\mathit{tf}\_{t,d} > 0\\); otherwise \\(w\_{t,d} = 0\\).
 
-If the term does not appear, $$tf_{t,d} = 0$$. Because $$\log(0)$$ is undefined (and tends to $$-\infty$$), we add $$1$$ in the formula.
+If the term does not appear, \\(\mathit{tf}\_{t,d} = 0\\). Because \\(\log(0)\\) is undefined (and tends to \\(-\infty\\)), we add \\(1\\) in the formula.
 
 If the term appears in the document:
-- once → $$w = 1$$
-- twice → $$w \approx 1.3$$
-- ten times → $$w = 2$$
-- a thousand times → $$w = 4$$
+
+- once → \\(w = 1\\)
+- twice → \\(w \approx 1.3\\)
+- ten times → \\(w = 2\\)
+- a thousand times → \\(w = 4\\)
 
 The score for a document–query pair is the sum of weights for terms that appear in **both** the query and the document:
 
-$$\sum_{t\in q \cap d }({1 + \log(tf_{t,d})})$$
+$$\sum\_{t \in q \cap d} \bigl(1 + \log(\mathit{tf}\_{t,d})\bigr)$$
 
 The score is **zero** if none of the query terms appear in the document.
 
@@ -96,17 +99,17 @@ The score is **zero** if none of the query terms appear in the document.
 
 With raw term frequency, more occurrences mean a higher score and rare terms get pushed down—yet rare terms often carry **more** information than common ones, so we need a different treatment.
 
-In a collection of documents about the **auto industry**, the word “car” might appear in almost every document. To limit that effect and improve relevance between query and document, we **down-weight** terms with high **document frequency**: take the total number of documents $$N$$ and divide by the number of documents in which the term appears.
+In a collection of documents about the **auto industry**, the word “car” might appear in almost every document. To limit that effect and improve relevance between query and document, we **down-weight** terms with high **document frequency**: take the total number of documents \\(N\\) and divide by the number of documents in which the term appears.
 
-Let $$\mathit{df}_t$$ be the number of documents that contain term $$t$$. Smaller $$\mathit{df}_t$$ (relative to $$N$$) means the term is more discriminative.
+Let \\(\mathit{df}\_t\\) be the number of documents that contain term \\(t\\). Smaller \\(\mathit{df}\_t\\) (relative to \\(N\\)) means the term is more discriminative.
 
-We define the **idf** weight of term $$t$$ as:
+We define the **idf** weight of term \\(t\\) as:
 
-$$idf_t = \log_{10} (N/df_t)$$
+$$\mathrm{idf}\_t = \log\_{10}\!\left(\frac{N}{\mathit{df}\_t}\right)$$
 
-We use $$\log_{10}(N/\mathit{df}_t)$$ instead of $$N/\mathit{df}_t$$ alone so idf does not explode—again, raw frequency is not the same as semantic importance.
+We use \\(\log\_{10}(N/\mathit{df}\_t)\\) instead of \\(N/\mathit{df}\_t\\) alone so idf does not explode—again, raw frequency is not the same as semantic importance.
 
-In MySQL’s internals this is sometimes expressed as $$\log_{10}((N-nf)/nf)$$ (see the manual).
+In MySQL’s internals this is sometimes expressed as \\(\log\_{10}\!\left(\frac{N - n\_f}{n\_f}\right)\\) (see the manual).
 
 [(More on MySQL full-text internals)](http://dev.mysql.com/doc/internals/en/full-text-search.html)
 
@@ -116,7 +119,6 @@ For a **single-keyword** query, idf does **not** change the ordering of document
 
 ### Collection frequency vs document frequency
 
-{:.table.table-bordered}
 |    term   |    dtf    |        idft        |
 | :-------- | --------: | -----------------: |
 | calpurnia |         1 |   log(1000000/1)=6 |
@@ -126,7 +128,7 @@ For a **single-keyword** query, idf does **not** change the ordering of document
 | under     |   100,000 |                  1 |
 | the       | 1,000,000 |                  0 |
 
-**Collection frequency** of term $$t$$ is how often $$t$$ appears across the whole collection. The table is an idf example with $$N = 1{,}000{,}000$$: each term gets a corresponding idf. **Document frequency** is how many **documents** contain term $$t$$.
+**Collection frequency** of term \\(t\\) is how often \\(t\\) appears across the whole collection. The table is an idf example with \\(N = 10^{6}\\): each term gets a corresponding idf. **Document frequency** is how many **documents** contain term \\(t\\).
 
 ### The query as a vector
 
@@ -134,13 +136,13 @@ To search for a phrase in a collection (full-text query), we compare that **quer
 
 Documents that are closer to the query get higher scores.
 
-We can compare two vectors by **Euclidean distance** or by the **angle** between them. Distance has a drawback: it can be large for vectors of **different lengths** even when the relative word distributions match—for example, if document $$d'$$ is simply document $$d$$ duplicated.
+We can compare two vectors by **Euclidean distance** or by the **angle** between them. Distance has a drawback: it can be large for vectors of **different lengths** even when the relative word distributions match—for example, if document \\(d'\\) is simply document \\(d\\) duplicated.
 
-The Euclidean distance between $$\vec q$$ and $$\vec d_2$$ can be large even when the term distributions in $$q$$ and $$d_2$$ are very similar.
+The Euclidean distance between \\(\vec{q}\\) and \\(\vec{d}\_2\\) can be large even when the term distributions in \\(\vec{q}\\) and \\(\vec{d}\_2\\) are very similar.
 
 ![Euclidean distance](/assets/posts/tim-hieu-ve-mo-hinh-khong-gian-vector/distance.png)
 
-In the figure, you can see that the distance between $$\vec q$$ and $$\vec d_2$$ is sizable even though the term distributions in query $$q$$ and document $$d_2$$ are quite alike.
+In the figure, you can see that the distance between \\(\vec{q}\\) and \\(\vec{d}\_2\\) is sizable even though the term distributions in query \\(\vec{q}\\) and document \\(\vec{d}\_2\\) are quite alike.
 
 So in vector space we care more about the **angle** than about the distance between points.
 
@@ -148,15 +150,15 @@ So in vector space we care more about the **angle** than about the distance betw
 
 ![Using the angle](/assets/posts/tim-hieu-ve-mo-hinh-khong-gian-vector/angle.png)
 
-As a thought experiment, take a document $$d$$ and **append a copy of itself** to get $$d'$$. Semantically the content is the same. Then $$\vec{d'}$$ has **twice** the length of $$\vec d$$ but the **same direction** as $$\vec d$$.
+As a thought experiment, take a document \\(d\\) and **append a copy of itself** to get \\(d'\\). Semantically the content is the same. Then \\(\vec{d}^{\prime}\\) has **twice** the length of \\(\vec{d}\\) but the **same direction** as \\(\vec{d}\\).
 
-Yet the Euclidean distance between $$d$$ and $$d'$$ is large, even though the content is identical.
+Yet the Euclidean distance between \\(d\\) and \\(d'\\) is large, even though the content is identical.
 
 ![Euclidean distance](/assets/posts/tim-hieu-ve-mo-hinh-khong-gian-vector/euclidean_distance.png)
 
 So instead of ranking by Euclidean distance, we rank by the **angle** between the document vector and the query vector.
 
-Larger angle → lower cosine and lower score. When the angle is **0**, the score is maximal ($$= 1$$).
+Larger angle → lower cosine and lower score. When the angle is **0**, the score is maximal (\\(= 1\\)).
 
 Two equivalent ways to say it:
 
@@ -167,43 +169,55 @@ Two equivalent ways to say it:
 
 Documents are ranked by **decreasing** cosine similarity:
 
-* $$\cos(d,q) = 1$$ when $$d$$ and $$q$$ align  
-* $$\cos(d,q) = 0$$ when document $$d$$ and query $$q$$ share **no** terms
+* \\(\cos(\vec{d}, \vec{q}) = 1\\) when \\(\vec{d}\\) and \\(\vec{q}\\) align  
+* \\(\cos(\vec{d}, \vec{q}) = 0\\) when document \\(\vec{d}\\) and query \\(\vec{q}\\) share **no** terms
 
 ### Why normalize document length?
 
 **Longer documents** tend to have:
+
 - higher term frequencies—the same word can appear more often simply because there is more text;  
 - more distinct terms, which increases overlap with the query by chance.
 
 **Cosine normalization** reduces the bias of long documents versus short ones. A vector can be **length-normalized** by dividing each component by the vector’s length. Length is computed with the **L2 norm**:
 
-$$\mid\mid\vec x\mid\mid=\sqrt{\sum_i{x^2_i}}$$
+$$\lVert \vec{x} \rVert = \sqrt{\sum\_i x\_i^2}$$
 
-For $$\vec d = \left[\begin{matrix} 3 \\ 4 \end{matrix}\right]$$, $$\sqrt{\sum{x^2}} = \sqrt{3^2 + 4^2}=5$$.
+For \\(\vec{d}\\):
 
-For $$\vec{d'} = \left[\begin{matrix} 6 \\ 8 \end{matrix}\right]$$, $$\sqrt{\sum{x^2}} = \sqrt{6^2 + 8^2}=10$$.
+$$\begin{bmatrix} 3 \\ 4 \end{bmatrix}$$
+
+we have \\(\lVert \vec{d} \rVert = \sqrt{3^2 + 4^2} = 5\\).
+
+For \\(\vec{d}'\\):
+
+$$\begin{bmatrix} 6 \\ 8 \end{bmatrix}$$
+
+we have \\(\lVert \vec{d}' \rVert = \sqrt{6^2 + 8^2} = 10\\).
 
 Dividing a vector by its L2 norm yields a **unit-length** vector ([unit vector](http://en.wikipedia.org/wiki/Unit_vector)).
 
 ![Euclidean distance](/assets/posts/tim-hieu-ve-mo-hinh-khong-gian-vector/euclidean_distance.png)
 
-The Euclidean distance between the two vectors is large even though the **angle** is the same. After normalizing $$d$$ and $$d'$$, both become $$\left[\begin{matrix} 0.6 \\ 0.8 \end{matrix}\right]$$—identical. Long and short documents become **comparable** after normalization.
+The Euclidean distance between the two vectors is large even though the **angle** is the same. After normalizing \\(d\\) and \\(d'\\), both become
+
+$$\begin{bmatrix} 0.6 \\ 0.8 \end{bmatrix}$$
+
+—identical. Long and short documents become **comparable** after normalization.
 
 That still is not a complete fix, which is why people also use **pivoted document length normalization**.
 
 ### Cosine similarity
 
-$$\cos(\vec q, \vec d)= \dfrac{\vec q \cdot \vec d}{\mid\vec q\mid \mid\vec d\mid} = \dfrac{\vec q}{\mid\vec q\mid} \cdot \dfrac{\vec d}{\mid\vec d\mid} = \dfrac{\sum_{i=1}^{\mid v \mid} q_i d_i}{\sqrt{\sum_{i=1}^{\mid v \mid} q^2_i}  \sqrt{\sum_{i=1}^{\mid v \mid} d^2_i}}$$
+$$\cos(\vec{q}, \vec{d}) = \frac{\vec{q} \cdot \vec{d}}{\lVert \vec{q} \rVert \, \lVert \vec{d} \rVert} = \frac{\vec{q}}{\lVert \vec{q} \rVert} \cdot \frac{\vec{d}}{\lVert \vec{d} \rVert} = \frac{\sum\_{i=1}^{\lvert V \rvert} q\_i d\_i}{\sqrt{\sum\_{i=1}^{\lvert V \rvert} q\_i^2} \; \sqrt{\sum\_{i=1}^{\lvert V \rvert} d\_i^2}}$$
 
-- $$q_i$$ is the tf–idf weight of term $$i$$ in the query.  
-- $$d_i$$ is the tf–idf weight of term $$i$$ in the document.  
-- $$\cos(\vec q, \vec d)$$ is the **cosine similarity** between $$\vec q$$ and $$\vec d$$—the cosine of the angle between them.
+- \\(q\_i\\) is the tf–idf weight of term \\(i\\) in the query.  
+- \\(d\_i\\) is the tf–idf weight of term \\(i\\) in the document.  
+- \\(\cos(\vec{q}, \vec{d})\\) is the **cosine similarity** between \\(\vec{q}\\) and \\(\vec{d}\\)—the cosine of the angle between them.
 
 For **length-normalized** vectors, cosine similarity is just the **dot product**:
 
-$$\cos(\vec q, \vec d) = \vec q \cdot \vec d = \sum_{i=1}^{\mid v \mid} q_i d_i$$
-$$\quad\quad \text{for } \vec q, \vec d \text{ length-normalized}$$
+$$\cos(\vec{q}, \vec{d}) = \vec{q} \cdot \vec{d} = \sum\_{i=1}^{\lvert V \rvert} q\_i d\_i \qquad \text{for } \vec{q}, \vec{d} \text{ length-normalized}$$
 
 For turning the ideas above into code, see: [Short introduction to the vector space model](http://pyevolve.sourceforge.net/wordpress/?p=1589)
 

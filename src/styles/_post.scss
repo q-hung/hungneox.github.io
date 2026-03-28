@@ -725,9 +725,17 @@ html[data-theme="dark"] .post-header .post-translation {
       margin: 2.5em 0;
     }
 
+    // Code blocks: tie size to reading text so long blocks stay legible (global $code-font-size is 14px).
     pre {
       margin: 1.75em 0;
       box-shadow: none;
+      font-size: calc(var(--font-reading) * 0.8125);
+      line-height: 1.6;
+      tab-size: 2;
+
+      code {
+        font-size: inherit;
+      }
 
       @include media-query($on-palm) {
         margin: 1.25em -1.25rem;

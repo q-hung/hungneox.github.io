@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import { homepageSectionIdFromCategories } from "../lib/home";
 
 const { frontmatter } = Astro.props;
 const d = new Date(frontmatter.date);
@@ -32,6 +33,11 @@ const tagList: string[] = Array.isArray(rawTags)
 const ribbonLabel = Astro.currentLocale === "en" ? "Article" : "Bài viết";
 const tocHeading =
   Astro.currentLocale === "en" ? "Table of Contents" : "Mục lục";
+
+const postSectionId = homepageSectionIdFromCategories(frontmatter.categories);
+const postRibbonSectionClass = postSectionId
+  ? `post-ribbon--${postSectionId}`
+  : undefined;
 ---
 
 <BaseLayout
@@ -47,7 +53,9 @@ const tocHeading =
       <div class="post-card__window">
         <div class="post">
           <header class="post-header">
-            <div class="post-header__ribbon">
+            <div
+              class:list={["post-header__ribbon", postRibbonSectionClass]}
+            >
               <span
                 class="material-symbols-rounded post-header__ribbon-icon"
                 aria-hidden="true">article</span
@@ -126,7 +134,7 @@ const tocHeading =
     </div>
 
     <aside class="toc-sidebar" id="toc-sidebar">
-      <div class="toc-sidebar__ribbon">
+      <div class:list={["toc-sidebar__ribbon", postRibbonSectionClass]}>
         <span
           class="material-symbols-rounded toc-sidebar__ribbon-icon"
           aria-hidden="true">list</span

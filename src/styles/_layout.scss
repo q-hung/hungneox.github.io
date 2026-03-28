@@ -135,13 +135,6 @@
       &[aria-current="page"] {
         color: var(--nav-current-ribbon-text);
         background-color: var(--nav-current-ribbon-bg);
-        background-image: repeating-linear-gradient(
-          -14deg,
-          transparent,
-          transparent 9px,
-          var(--nav-current-ribbon-stripe) 9px,
-          var(--nav-current-ribbon-stripe) 18px
-        );
         border-color: var(--nav-current-ribbon-border);
         box-shadow: var(--nav-current-ribbon-inset);
         font-weight: 800;

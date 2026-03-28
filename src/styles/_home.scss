@@ -20,13 +20,6 @@
 
   .featured-hub__ribbon {
     background-color: $hub-retro-orange;
-    background-image: repeating-linear-gradient(
-      -14deg,
-      transparent,
-      transparent 9px,
-      rgba(0, 0, 0, 0.045) 9px,
-      rgba(0, 0, 0, 0.045) 18px
-    );
     color: $hub-retro-cream;
     text-align: center;
     padding: 0.55rem 1rem;
@@ -306,13 +299,6 @@
 
     .featured-hub__ribbon {
       background-color: #c45a28;
-      background-image: repeating-linear-gradient(
-        -14deg,
-        transparent,
-        transparent 9px,
-        rgba(0, 0, 0, 0.1) 9px,
-        rgba(0, 0, 0, 0.1) 18px
-      );
       color: #fff4e8;
       border-bottom-color: var(--color-border);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -459,46 +445,18 @@
     // Category ribbons: slightly deeper tints on dark pages (outer card stays transparent)
     .category-card--information-retrieval .category-card__ribbon {
       background-color: #4a7a9a;
-      background-image: repeating-linear-gradient(
-        -14deg,
-        transparent,
-        transparent 9px,
-        rgba(0, 0, 0, 0.08) 9px,
-        rgba(0, 0, 0, 0.08) 18px
-      );
     }
 
     .category-card--systems .category-card__ribbon {
       background-color: #6d8238;
-      background-image: repeating-linear-gradient(
-        -14deg,
-        transparent,
-        transparent 9px,
-        rgba(0, 0, 0, 0.08) 9px,
-        rgba(0, 0, 0, 0.08) 18px
-      );
     }
 
     .category-card--programming .category-card__ribbon {
       background-color: #b84e24;
-      background-image: repeating-linear-gradient(
-        -14deg,
-        transparent,
-        transparent 9px,
-        rgba(0, 0, 0, 0.08) 9px,
-        rgba(0, 0, 0, 0.08) 18px
-      );
     }
 
     .category-card--lab .category-card__ribbon {
       background-color: #2d4550;
-      background-image: repeating-linear-gradient(
-        -14deg,
-        transparent,
-        transparent 9px,
-        rgba(0, 0, 0, 0.12) 9px,
-        rgba(0, 0, 0, 0.12) 18px
-      );
     }
   }
 
@@ -512,14 +470,6 @@
 
   // Category cards: featured-hub retro frame + per-section color + cream ribbon
   $cat-paper: $hub-retro-cream;
-
-  $cat-stripe: repeating-linear-gradient(
-    -14deg,
-    transparent,
-    transparent 9px,
-    rgba(0, 0, 0, 0.045) 9px,
-    rgba(0, 0, 0, 0.045) 18px
-  );
 
   // ── Category Card ──
   .category-card {
@@ -584,7 +534,6 @@
 
   .category-card--information-retrieval .category-card__ribbon {
     background-color: rgb(165, 216, 255);
-    background-image: $cat-stripe;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
   }
 
@@ -596,7 +545,6 @@
 
   .category-card--systems .category-card__ribbon {
     background-color: #8da249;
-    background-image: $cat-stripe;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
   }
 
@@ -608,7 +556,6 @@
 
   .category-card--programming .category-card__ribbon {
     background-color: #f89254;
-    background-image: $cat-stripe;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
 
@@ -620,7 +567,6 @@
 
   .category-card--lab .category-card__ribbon {
     background-color: #2e434f;
-    background-image: $cat-stripe;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
   }
 

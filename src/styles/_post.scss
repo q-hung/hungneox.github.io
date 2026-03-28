@@ -4,11 +4,6 @@ $post-retro-ink: #1a100c;
 $post-retro-cream: #fff4e8;
 $post-retro-cream-muted: #ffe8d4;
 $post-ribbon-orange: #f89254;
-$post-ribbon-stripe: repeating-linear-gradient(-14deg,
-    transparent,
-    transparent 9px,
-    rgba(0, 0, 0, 0.045) 9px,
-    rgba(0, 0, 0, 0.045) 18px);
 
 .post-layout {
   display: grid;
@@ -55,7 +50,6 @@ html[data-theme="dark"] .post-card__window {
   flex-wrap: wrap;
   padding: 0.52rem 1rem;
   background-color: $post-ribbon-orange;
-  background-image: $post-ribbon-stripe;
   color: $post-retro-cream;
   border-bottom: 3px solid $post-retro-ink;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
@@ -79,16 +73,112 @@ html[data-theme="dark"] .post-card__window {
   padding: 1rem 1.25rem 1.1rem;
 }
 
+// Ribbon colors by category — same palette as .home--categorized category cards
+.post-header__ribbon.post-ribbon--information-retrieval,
+.toc-sidebar__ribbon.post-ribbon--information-retrieval {
+  background-color: rgb(165, 216, 255);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+
+  .post-header__ribbon-icon,
+  .post-header__ribbon-text,
+  .toc-sidebar__ribbon-icon,
+  .toc-sidebar__ribbon-title {
+    color: $post-retro-ink;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+  }
+}
+
+.post-header__ribbon.post-ribbon--systems,
+.toc-sidebar__ribbon.post-ribbon--systems {
+  background-color: #8da249;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+  .post-header__ribbon-icon,
+  .post-header__ribbon-text,
+  .toc-sidebar__ribbon-icon,
+  .toc-sidebar__ribbon-title {
+    color: #1a210c;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.35);
+  }
+}
+
+.post-header__ribbon.post-ribbon--programming,
+.toc-sidebar__ribbon.post-ribbon--programming {
+  background-color: #f89254;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+
+  .post-header__ribbon-icon,
+  .post-header__ribbon-text,
+  .toc-sidebar__ribbon-icon,
+  .toc-sidebar__ribbon-title {
+    color: #3a1c0c;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.35);
+  }
+}
+
+.post-header__ribbon.post-ribbon--lab,
+.toc-sidebar__ribbon.post-ribbon--lab {
+  background-color: #2e434f;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+  .post-header__ribbon-icon,
+  .post-header__ribbon-text,
+  .toc-sidebar__ribbon-icon,
+  .toc-sidebar__ribbon-title {
+    color: #ece8dc;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+  }
+}
+
 html[data-theme="dark"] .post-header__ribbon {
   background-color: #c45a28;
-  background-image: repeating-linear-gradient(-14deg,
-      transparent,
-      transparent 9px,
-      rgba(0, 0, 0, 0.1) 9px,
-      rgba(0, 0, 0, 0.1) 18px);
   color: #fff4e8;
   border-bottom-color: var(--color-border);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+html[data-theme="dark"] .post-header__ribbon.post-ribbon--information-retrieval {
+  background-color: #4a7a9a;
+  color: $post-retro-ink;
+
+  .post-header__ribbon-icon,
+  .post-header__ribbon-text {
+    color: $post-retro-ink;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.35);
+  }
+}
+
+html[data-theme="dark"] .post-header__ribbon.post-ribbon--systems {
+  background-color: #6d8238;
+  color: #1a210c;
+
+  .post-header__ribbon-icon,
+  .post-header__ribbon-text {
+    color: #1a210c;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.25);
+  }
+}
+
+html[data-theme="dark"] .post-header__ribbon.post-ribbon--programming {
+  background-color: #b84e24;
+  color: #3a1c0c;
+
+  .post-header__ribbon-icon,
+  .post-header__ribbon-text {
+    color: #3a1c0c;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.2);
+  }
+}
+
+html[data-theme="dark"] .post-header__ribbon.post-ribbon--lab {
+  background-color: #2d4550;
+  color: #ece8dc;
+
+  .post-header__ribbon-icon,
+  .post-header__ribbon-text {
+    color: #ece8dc;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+  }
 }
 
 // ── TOC sidebar: ribbon + cream body (same vocabulary as post header) ──
@@ -127,7 +217,6 @@ html[data-theme="dark"] .post-header__ribbon {
   flex-wrap: wrap;
   padding: 0.48rem 0.75rem;
   background-color: $post-ribbon-orange;
-  background-image: $post-ribbon-stripe;
   border-bottom: 3px solid $post-retro-ink;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
   text-align: center;
@@ -157,11 +246,6 @@ html[data-theme="dark"] .post-header__ribbon {
 
 html[data-theme="dark"] .toc-sidebar__ribbon {
   background-color: #c45a28;
-  background-image: repeating-linear-gradient(-14deg,
-      transparent,
-      transparent 9px,
-      rgba(0, 0, 0, 0.1) 9px,
-      rgba(0, 0, 0, 0.1) 18px);
   border-bottom-color: var(--color-border);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
@@ -169,6 +253,46 @@ html[data-theme="dark"] .toc-sidebar__ribbon {
 html[data-theme="dark"] .toc-sidebar__ribbon-icon,
 html[data-theme="dark"] .toc-sidebar__ribbon-title {
   color: #fff4e8;
+}
+
+html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--information-retrieval {
+  background-color: #4a7a9a;
+}
+
+html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--information-retrieval .toc-sidebar__ribbon-icon,
+html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--information-retrieval .toc-sidebar__ribbon-title {
+  color: $post-retro-ink;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--systems {
+  background-color: #6d8238;
+}
+
+html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--systems .toc-sidebar__ribbon-icon,
+html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--systems .toc-sidebar__ribbon-title {
+  color: #1a210c;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--programming {
+  background-color: #b84e24;
+}
+
+html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--programming .toc-sidebar__ribbon-icon,
+html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--programming .toc-sidebar__ribbon-title {
+  color: #3a1c0c;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--lab {
+  background-color: #2d4550;
+}
+
+html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--lab .toc-sidebar__ribbon-icon,
+html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--lab .toc-sidebar__ribbon-title {
+  color: #ece8dc;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
 }
 
 html[data-theme="dark"] .toc-sidebar__body {

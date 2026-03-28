@@ -40,7 +40,6 @@
   --color-header-nav-toggle-bg: #dde5e2;
   /* Current nav item — same palette as home “Featured content” ribbon */
   --nav-current-ribbon-bg: #f89254;
-  --nav-current-ribbon-stripe: rgba(0, 0, 0, 0.045);
   --nav-current-ribbon-text: #fff4e8;
   --nav-current-ribbon-border: #1a100c;
   --nav-current-ribbon-inset: inset 0 1px 0 rgba(255, 255, 255, 0.25);
@@ -83,7 +82,6 @@ html[data-theme="dark"] {
   --color-header-nav-link-hover-bg: #1a2422;
   --color-header-nav-toggle-bg: #141c1a;
   --nav-current-ribbon-bg: #c45a28;
-  --nav-current-ribbon-stripe: rgba(0, 0, 0, 0.12);
   --nav-current-ribbon-text: #fff4e8;
   --nav-current-ribbon-border: #4a5c58;
   --nav-current-ribbon-inset: inset 0 1px 0 rgba(255, 255, 255, 0.1);

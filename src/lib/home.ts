@@ -119,16 +119,38 @@ export interface CategorizedHomePageProps {
   sections: CategorySection[];
 }
 
-function postBelongsToSection(
-  post: CollectionEntry<"blog">,
+function categoriesMatchSection(
+  categories: string | string[] | undefined,
   matchCategories: readonly string[],
 ): boolean {
-  const cats = normalizeCategories(post.data.categories);
+  const cats = normalizeCategories(categories);
   return cats.some(
     (c) =>
       !META_CATEGORIES.has(c.toLowerCase()) &&
       matchCategories.includes(categorySlug(c)),
   );
+}
+
+function postBelongsToSection(
+  post: CollectionEntry<"blog">,
+  matchCategories: readonly string[],
+): boolean {
+  return categoriesMatchSection(post.data.categories, matchCategories);
+}
+
+/**
+ * First homepage section that matches the post's categories (same order as the category grid).
+ * Used for post header ribbon colors aligned with {@link HOMEPAGE_SECTIONS}.
+ */
+export function homepageSectionIdFromCategories(
+  categories: string | string[] | undefined,
+): SectionId | null {
+  for (const sec of HOMEPAGE_SECTIONS) {
+    if (categoriesMatchSection(categories, sec.matchCategories)) {
+      return sec.id;
+    }
+  }
+  return null;
 }
 
 /** Compact section tag for the featured hub sidebar (e.g. "IR", "Systems"). */

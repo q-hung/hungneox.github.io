@@ -151,7 +151,7 @@
   }
 
   .featured-hub__main-title {
-    font-size: clamp(1.15rem, 2.6vw, 1.6rem);
+    font-size: clamp(1.22rem, 2.75vw, 1.72rem);
     font-weight: 800;
     line-height: 1.2;
     margin: 0 0 0.45rem;
@@ -160,7 +160,7 @@
   }
 
   .featured-hub__main-desc {
-    font-size: 0.86rem;
+    font-size: var(--font-reading);
     line-height: 1.5;
     margin: 0 0 0.65rem;
     opacity: 0.92;
@@ -177,7 +177,7 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 1rem 1.25rem;
-    font-size: 0.78rem;
+    font-size: calc(var(--font-reading) * 0.8125);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -287,7 +287,7 @@
   }
 
   .featured-hub__pick-title {
-    font-size: 0.78rem;
+    font-size: var(--font-reading);
     font-weight: 800;
     line-height: 1.35;
     color: $hub-retro-ink;
@@ -692,7 +692,7 @@
   }
 
   .category-card__latest-title {
-    font-size: 1rem;
+    font-size: calc(var(--font-reading) * 1.0625);
     font-weight: 700;
     line-height: 1.35;
     margin: 0 0 0.35rem;
@@ -701,14 +701,14 @@
   }
 
   .category-card__latest-desc {
-    font-size: 0.82rem;
+    font-size: var(--font-reading);
     color: #3d3d3d;
     line-height: 1.5;
     margin: 0;
   }
 
   .category-card__empty {
-    font-size: 0.85rem;
+    font-size: var(--font-reading);
     color: #5c5c5c;
     font-style: italic;
     margin: 0;
@@ -726,7 +726,7 @@
     }
 
     a {
-      font-size: 0.82rem;
+      font-size: var(--font-reading);
       color: #4a4a4a;
       text-decoration: none;
       display: flex;

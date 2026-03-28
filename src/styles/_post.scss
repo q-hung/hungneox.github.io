@@ -338,14 +338,14 @@ html[data-theme="dark"] .toc-author {
     box-shadow: none;
 
     .post-title {
-      font-size: 2.25rem;
+      font-size: clamp(1.45rem, 4vw, 1.85rem);
       font-weight: 800;
       margin: 0 0 0.6rem;
       letter-spacing: -0.03em;
       line-height: 1.2;
 
       @include media-query($on-palm) {
-        font-size: 1.625rem;
+        font-size: clamp(1.3rem, 5vw, 1.55rem);
       }
     }
 
@@ -370,7 +370,7 @@ html[data-theme="dark"] .toc-author {
 
     .post-meta {
       color: var(--color-text-secondary);
-      font-size: $small-font-size;
+      font-size: calc(var(--font-reading) * 0.875);
       margin: 0;
       letter-spacing: 0.01em;
       font-weight: 600;
@@ -380,7 +380,7 @@ html[data-theme="dark"] .toc-author {
       margin: 1rem 0 0;
       padding-top: 0.85rem;
       border-top: 1px solid rgba(26, 16, 12, 0.12);
-      font-size: $small-font-size;
+      font-size: calc(var(--font-reading) * 0.875);
       font-weight: 600;
     }
 
@@ -399,6 +399,7 @@ html[data-theme="dark"] .toc-author {
 
   .post-content {
     color: var(--color-text);
+    font-size: var(--font-reading);
     line-height: 1.75;
 
     > *:first-child {
@@ -436,14 +437,14 @@ html[data-theme="dark"] .toc-author {
     }
 
     h1 {
-      font-size: 1.625rem;
+      font-size: 1.625em;
       margin-top: 2.5em;
       margin-bottom: 0.6em;
       letter-spacing: -0.025em;
     }
 
     h2 {
-      font-size: 1.375rem;
+      font-size: 1.375em;
       margin-top: 2.25em;
       margin-bottom: 0.5em;
       padding-bottom: 0.35rem;
@@ -452,14 +453,14 @@ html[data-theme="dark"] .toc-author {
     }
 
     h3 {
-      font-size: 1.15rem;
+      font-size: 1.15em;
       margin-top: 1.75em;
       margin-bottom: 0.4em;
       letter-spacing: -0.01em;
     }
 
     h4 {
-      font-size: 1rem;
+      font-size: 1em;
       margin-top: 1.5em;
       margin-bottom: 0.4em;
       font-weight: 700;

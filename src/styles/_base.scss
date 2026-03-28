@@ -5,6 +5,8 @@
 :root {
   --radius-sm: 6px;
   --radius-md: 10px;
+  /* Shared body text: home cards + blog article (post uses .post .post-content) */
+  --font-reading: 16px;
 
   --color-text: #1f2e2c;
   --color-text-secondary: #4d605c;

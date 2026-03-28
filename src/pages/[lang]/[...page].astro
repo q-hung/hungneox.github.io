@@ -12,13 +12,19 @@ export async function getStaticPaths({ paginate }: any) {
   viPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
   enPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
+  const viPaginated = paginate(viPosts, { params: { lang: 'vi' }, pageSize: 10 });
+  const viFromPage2 = viPaginated.filter(
+    (entry: { props: { page: { currentPage: number } } }) =>
+      entry.props.page.currentPage > 1,
+  );
+
   const enPaginated = paginate(enPosts, { params: { lang: 'en' }, pageSize: 10 });
   const enFromPage2 = enPaginated.filter(
     (entry: { props: { page: { currentPage: number } } }) =>
       entry.props.page.currentPage > 1,
   );
 
-  return [...paginate(viPosts, { params: { lang: 'vi' }, pageSize: 10 }), ...enFromPage2];
+  return [...viFromPage2, ...enFromPage2];
 }
 
 const { lang } = Astro.params;

@@ -70,6 +70,7 @@ export const HOMEPAGE_SECTIONS = [
   {
     id: "information-retrieval",
     label: { en: "Information Retrieval", vi: "Truy xuất thông tin" },
+    shortLabel: { en: "IR", vi: "TXTT" },
     matchCategories: ["information-retrieval"],
     viewAllSlug: "information-retrieval",
     icon: "search",
@@ -77,6 +78,7 @@ export const HOMEPAGE_SECTIONS = [
   {
     id: "systems",
     label: { en: "Systems & Scalability", vi: "Hệ thống & Mở rộng" },
+    shortLabel: { en: "Systems", vi: "Hệ thống" },
     matchCategories: ["systems"],
     viewAllSlug: "systems",
     icon: "dns",
@@ -84,6 +86,7 @@ export const HOMEPAGE_SECTIONS = [
   {
     id: "programming",
     label: { en: "Advanced Programming", vi: "Lập trình nâng cao" },
+    shortLabel: { en: "Programming", vi: "Lập trình" },
     matchCategories: ["programming", "web-backend", "security", "data-science"],
     viewAllSlug: "programming",
     icon: "code",
@@ -91,6 +94,7 @@ export const HOMEPAGE_SECTIONS = [
   {
     id: "lab",
     label: { en: "The Lab (TIL)", vi: "Phòng thí nghiệm (TIL)" },
+    shortLabel: { en: "The Lab", vi: "Lab" },
     matchCategories: ["til", "lab"],
     viewAllSlug: "til",
     icon: "science",
@@ -110,9 +114,8 @@ export interface CategorySection {
 }
 
 export interface CategorizedHomePageProps {
-  featured: CollectionEntry<"blog"> | null;
-  /** Up to four posts after the featured item (same sort order). */
-  recentPosts: CollectionEntry<"blog">[];
+  /** Up to five most recent posts for the featured hub (main + switcher). */
+  featuredHubPosts: CollectionEntry<"blog">[];
   sections: CategorySection[];
 }
 
@@ -126,6 +129,19 @@ function postBelongsToSection(
       !META_CATEGORIES.has(c.toLowerCase()) &&
       matchCategories.includes(categorySlug(c)),
   );
+}
+
+/** Compact section tag for the featured hub sidebar (e.g. "IR", "Systems"). */
+export function getPostHubBadge(
+  post: CollectionEntry<"blog">,
+  lang: "vi" | "en",
+): string {
+  for (const sec of HOMEPAGE_SECTIONS) {
+    if (postBelongsToSection(post, sec.matchCategories)) {
+      return sec.shortLabel[lang];
+    }
+  }
+  return lang === "en" ? "Article" : "Bài viết";
 }
 
 /** Estimate reading time in minutes */
@@ -144,9 +160,8 @@ export async function getCategorizedHomePage(
   );
   const sorted = sortedPostsForLang(allPosts, lang);
 
-  // Featured = most recent post overall
-  const featured = sorted.length > 0 ? sorted[0] : null;
-  const recentPosts = sorted.slice(1, 5);
+  const featuredHubPosts = sorted.slice(0, 5);
+  const hubIds = new Set(featuredHubPosts.map((p) => p.id));
 
   // Build sections
   const sections: CategorySection[] = HOMEPAGE_SECTIONS.map((sec) => {
@@ -154,10 +169,7 @@ export async function getCategorizedHomePage(
       postBelongsToSection(p, sec.matchCategories),
     );
 
-    // Exclude the featured post from section listings to avoid duplication
-    const filtered = featured
-      ? matching.filter((p) => p.id !== featured.id)
-      : matching;
+    const filtered = matching.filter((p) => !hubIds.has(p.id));
 
     return {
       id: sec.id,
@@ -170,7 +182,7 @@ export async function getCategorizedHomePage(
     };
   });
 
-  return { featured, recentPosts, sections };
+  return { featuredHubPosts, sections };
 }
 
 // ── Keep old helpers for backward compat (paginated pages) ──

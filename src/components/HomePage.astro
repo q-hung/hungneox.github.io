@@ -1,6 +1,6 @@
 ---
 import type { CategorizedHomePageProps } from "../lib/home";
-import { estimateReadingTime } from "../lib/home";
+import { estimateReadingTime, getPostHubBadge } from "../lib/home";
 import CategoryCard from "./CategoryCard.astro";
 
 export interface Props {
@@ -9,7 +9,7 @@ export interface Props {
 }
 
 const { lang, home } = Astro.props;
-const { featured, recentPosts, sections } = home;
+const { featuredHubPosts: hubPosts, sections } = home;
 
 function getPostHref(postId: string): string {
   const slug = postId.split("/").pop();
@@ -23,73 +23,94 @@ function truncateDescription(str: string | undefined, max: number): string {
 }
 
 const readMoreLabel = lang === "en" ? "Read More" : "Đọc tiếp";
-const featuredLabel = lang === "en" ? "Featured Article" : "Bài viết nổi bật";
-const recentLabel = lang === "en" ? "Recent posts" : "Bài viết gần đây";
+const hubRibbonLabel = lang === "en" ? "Featured content" : "Nội dung nổi bật";
+const hubSideLabel =
+  lang === "en" ? "Other recent posts" : "Bài viết gần đây khác";
 const minReadLabel = lang === "en" ? "min read" : "phút đọc";
+
+const hubSolo = hubPosts.length <= 1;
 ---
 
 <div class="home home--categorized">
-  <!-- ═══ Featured Article Hero ═══ -->
-  {featured && (
-    <section class="featured-hero" id="featured-hero">
-      <div class="featured-hero__label">
-        <span class="material-symbols-rounded">auto_awesome</span>
-        {featuredLabel}
+  {hubPosts.length > 0 && (
+    <section
+      class:list={["featured-hub", hubSolo && "featured-hub--solo"]}
+      id="featured-content-hub"
+      data-active="0"
+      aria-label={hubRibbonLabel}
+    >
+      <div class="featured-hub__ribbon">
+        <span class="featured-hub__ribbon-text">{hubRibbonLabel}</span>
       </div>
-      <a class="featured-hero__card" href={getPostHref(featured.id)}>
-        <div class="featured-hero__image">
-          {featured.data.image ? (
-            <img src={featured.data.image} alt={featured.data.title} loading="eager" />
-          ) : (
-            <img src="/assets/images/abstract-0.jpg" alt={featured.data.title} loading="eager" />
-          )}
-          <div class="featured-hero__overlay"></div>
+      <div class="featured-hub__frame">
+        <div class="featured-hub__main">
+          {hubPosts.map((post, i) => (
+            <a
+              class="featured-hub__main-card"
+              id={`hub-main-${i}`}
+              data-hub-index={i}
+              href={getPostHref(post.id)}
+              aria-hidden={i === 0 ? "false" : "true"}
+              tabindex={i === 0 ? 0 : -1}
+            >
+              <div class="featured-hub__main-media">
+                <img
+                  src={post.data.image || "/assets/images/abstract-0.jpg"}
+                  alt={post.data.title}
+                  loading={i === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                />
+                <div class="featured-hub__main-overlay"></div>
+              </div>
+              <div class="featured-hub__main-content">
+                <p class="featured-hub__main-kicker">
+                  {i + 1}. {lang === "en" ? "Main feature" : "Bài chính"}
+                </p>
+                <h2 class="featured-hub__main-title">{post.data.title}</h2>
+                {post.data.description?.trim() && (
+                  <p class="featured-hub__main-desc">
+                    {truncateDescription(post.data.description, 220)}
+                  </p>
+                )}
+                <div class="featured-hub__main-meta">
+                  <span class="featured-hub__main-read">
+                    <span class="material-symbols-rounded" aria-hidden="true">schedule</span>
+                    {estimateReadingTime(post.body)} {minReadLabel}
+                  </span>
+                  <span class="featured-hub__main-cta">
+                    {readMoreLabel}
+                    <span aria-hidden="true">→</span>
+                  </span>
+                </div>
+              </div>
+            </a>
+          ))}
         </div>
-        <div class="featured-hero__content">
-          <h1 class="featured-hero__title">{featured.data.title}</h1>
-          {featured.data.description && (
-            <p class="featured-hero__desc">{featured.data.description}</p>
-          )}
-          <div class="featured-hero__meta">
-            <span class="featured-hero__read-time">
-              <span class="material-symbols-rounded">schedule</span>
-              {estimateReadingTime(featured.body)} {minReadLabel}
-            </span>
-            <span class="featured-hero__cta">
-              {readMoreLabel}
-              <span aria-hidden="true">→</span>
-            </span>
-          </div>
-        </div>
-      </a>
-    </section>
-  )}
 
-  {recentPosts.length > 0 && (
-    <section class="recent-posts" id="recent-posts" aria-labelledby="recent-posts-heading">
-      <h2 class="recent-posts__heading" id="recent-posts-heading">{recentLabel}</h2>
-      <div class="recent-posts__grid">
-        {recentPosts.map((post) => (
-          <a class="recent-posts__card" href={getPostHref(post.id)}>
-            <div class="recent-posts__thumb">
-              <img
-                src={post.data.image || "/assets/images/abstract-0.jpg"}
-                alt={post.data.title}
-                loading="lazy"
-              />
+        {!hubSolo && (
+          <aside class="featured-hub__side" aria-label={hubSideLabel}>
+            <div class="featured-hub__side-list">
+              {hubPosts.map((post, i) => (
+                <button
+                  type="button"
+                  class="featured-hub__pick"
+                  id={`hub-tab-${i}`}
+                  data-hub-index={i}
+                  aria-pressed={i === 0 ? "true" : "false"}
+                  aria-controls={`hub-main-${i}`}
+                >
+                  <span class="featured-hub__pick-index" aria-hidden="true">{i + 1}</span>
+                  <span class="featured-hub__pick-body">
+                    <span class="featured-hub__pick-badge">
+                      [{getPostHubBadge(post, lang)}]
+                    </span>
+                    <span class="featured-hub__pick-title">{post.data.title}</span>
+                  </span>
+                </button>
+              ))}
             </div>
-            <div class="recent-posts__body">
-              <h3 class="recent-posts__title">{post.data.title}</h3>
-              {post.data.description?.trim() && (
-                <p class="recent-posts__desc">{truncateDescription(post.data.description, 140)}</p>
-              )}
-              <span class="recent-posts__meta">
-                <span class="material-symbols-rounded" aria-hidden="true">schedule</span>
-                {estimateReadingTime(post.body)} {minReadLabel}
-              </span>
-            </div>
-          </a>
-        ))}
+          </aside>
+        )}
       </div>
     </section>
   )}
@@ -110,3 +131,37 @@ const minReadLabel = lang === "en" ? "min read" : "phút đọc";
     ))}
   </section>
 </div>
+
+{hubPosts.length > 1 && (
+  <script is:inline>
+    (function () {
+      var root = document.getElementById("featured-content-hub");
+      if (!root) return;
+
+      function setActive(i) {
+        var idx = String(i);
+        root.setAttribute("data-active", idx);
+
+        root.querySelectorAll(".featured-hub__pick").forEach(function (btn) {
+          var bi = btn.getAttribute("data-hub-index");
+          var on = bi === idx;
+          btn.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+
+        root.querySelectorAll(".featured-hub__main-card").forEach(function (panel) {
+          var pi = panel.getAttribute("data-hub-index");
+          var on = pi === idx;
+          panel.setAttribute("aria-hidden", on ? "false" : "true");
+          panel.setAttribute("tabindex", on ? "0" : "-1");
+        });
+      }
+
+      root.querySelectorAll(".featured-hub__pick").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var i = btn.getAttribute("data-hub-index");
+          if (i != null) setActive(i);
+        });
+      });
+    })();
+  </script>
+)}

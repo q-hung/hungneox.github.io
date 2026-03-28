@@ -28,6 +28,13 @@ const canonicalUrl = new URL(
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Favicon early: browsers cache aggressively; SVG needs sizes="any" for broad support -->
+<link
+  rel="icon"
+  href={`${import.meta.env.BASE_URL}favicon.svg`}
+  type="image/svg+xml"
+  sizes="any"
+/>
 
 <title>{finalTitle}</title>
 <meta name="description" content={finalDesc} />
@@ -70,9 +77,6 @@ const canonicalUrl = new URL(
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_upward,article,category,dark_mode,home,language,light_mode,mail,rss_feed&display=block"
   rel="stylesheet"
 />
-
-<!-- Favicon -->
-<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
 <script is:inline type="text/x-mathjax-config">
   MathJax.Hub.Config({

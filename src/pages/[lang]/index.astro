@@ -21,6 +21,41 @@ const title = lang === 'en' ? 'Home' : 'Trang chủ';
 ---
 <BaseLayout title={title}>
   <div class="home">
+    {posts.length > 0 && (
+      <section class="featured-section">
+        <div class="featured-grid">
+          {posts.slice(0, 4).map((post, index) => {
+            const slug = post.id.split('/').pop();
+            return (
+              <a class="featured-card" href={`/${lang}/blog/${slug}`}>
+                <div class="featured-thumb">
+                  {post.data.image ? (
+                    <img src={post.data.image} alt={post.data.title} loading="lazy" />
+                  ) : (
+                    <img src={`/assets/images/abstract-${index % 6}.jpg`} alt={post.data.title} loading="lazy" />
+                  )}
+                </div>
+                <div class="featured-info">
+                  {(() => {
+                    const d = new Date(post.data.date);
+                    if (isNaN(d.getTime())) return null;
+                    return (
+                      <time datetime={d.toISOString()}>
+                        {d.toLocaleDateString(lang === 'en' ? 'en-US' : 'vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit' })}
+                      </time>
+                    );
+                  })()}
+                  <h2>{post.data.title}</h2>
+                  {post.data.description && <p>{post.data.description.length > 90 ? post.data.description.substring(0, 90) + '...' : post.data.description}</p>}
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+      <hr class="section-divider" />
+    )}
+
     <section class="post-list-section">
       <h2 class="section-title">{lang === 'en' ? 'All Posts' : 'Tất cả bài viết'}</h2>
       <div class="post-list">

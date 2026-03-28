@@ -161,23 +161,20 @@ export async function getCategorizedHomePage(
   const sorted = sortedPostsForLang(allPosts, lang);
 
   const featuredHubPosts = sorted.slice(0, 5);
-  const hubIds = new Set(featuredHubPosts.map((p) => p.id));
 
-  // Build sections
+  // Build sections (same posts may appear in the hub and in a category card)
   const sections: CategorySection[] = HOMEPAGE_SECTIONS.map((sec) => {
     const matching = sorted.filter((p) =>
       postBelongsToSection(p, sec.matchCategories),
     );
-
-    const filtered = matching.filter((p) => !hubIds.has(p.id));
 
     return {
       id: sec.id,
       label: sec.label[lang],
       icon: sec.icon,
       viewAllHref: `/${lang}/category/${sec.viewAllSlug}/`,
-      latest: filtered.length > 0 ? filtered[0] : null,
-      older: filtered.slice(1, 5),
+      latest: matching.length > 0 ? matching[0] : null,
+      older: matching.slice(1, 5),
       totalCount: matching.length,
     };
   });

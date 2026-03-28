@@ -1,6 +1,6 @@
 // ── Shiki dual-theme support ──
-// Astro's Shiki generates inline --shiki-light-* and --shiki-dark-* CSS vars.
-// By default, the light theme is active. When data-theme="dark", swap to dark.
+// Themes: github-light-default / github-dark-dimmed (neutral cool tones, fits site palette).
+// Astro emits --shiki-light-* and --shiki-dark-*; default is light, html[data-theme="dark"] uses dark.
 
 // Light mode (default): use light theme colors
 pre.astro-code,
@@ -13,8 +13,8 @@ pre.shiki {
   font-family: $code-font-family;
   font-size: $code-font-size;
   line-height: 1.65;
-  border: 2px solid var(--color-text);
-  box-shadow: var(--shadow-block);
+  border: 2px solid var(--color-border);
+  box-shadow: var(--shadow-block-sm);
 
   code {
     font-family: inherit;

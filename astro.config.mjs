@@ -6,6 +6,8 @@ export default defineConfig({
   redirects: {
     '/en/blog/2013-08-03-sphinx-and-vietnamese-searching':
       '/en/blog/2013-08-03-sphinx-vietnamese-full-text-search-charset-table',
+    '/en/blog/2016-07-19-solid-5-nguyen-tac-cua-thiet-ke-huong-doi-tuong':
+      '/en/blog/2016-07-19-solid-five-principles-of-object-oriented-design',
   },
   integrations: [sitemap()],
   markdown: {

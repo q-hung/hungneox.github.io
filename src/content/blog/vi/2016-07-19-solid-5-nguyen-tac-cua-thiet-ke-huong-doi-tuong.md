@@ -7,7 +7,9 @@ author: hungneox
 description: "Nguyên tắc SOLID cơ bản kèm ví dụ"
 image: /assets/images/solid.jpg
 comments: true
-<!-- published: false -->
+alternate:
+  lang: en
+  slug: 2016-07-19-solid-five-principles-of-object-oriented-design
 ---
 
 !["Laravel"](/assets/images/solid.jpg "solid princiles")

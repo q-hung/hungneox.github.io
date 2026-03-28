@@ -9,15 +9,22 @@ export interface Props {
 }
 
 const { lang, home } = Astro.props;
-const { featured, sections } = home;
+const { featured, recentPosts, sections } = home;
 
 function getPostHref(postId: string): string {
   const slug = postId.split("/").pop();
   return `/${lang}/blog/${slug}/`;
 }
 
+function truncateDescription(str: string | undefined, max: number): string {
+  if (!str) return "";
+  const t = str.trim();
+  return t.length > max ? t.substring(0, max) + "…" : t;
+}
+
 const readMoreLabel = lang === "en" ? "Read More" : "Đọc tiếp";
 const featuredLabel = lang === "en" ? "Featured Article" : "Bài viết nổi bật";
+const recentLabel = lang === "en" ? "Recent posts" : "Bài viết gần đây";
 const minReadLabel = lang === "en" ? "min read" : "phút đọc";
 ---
 
@@ -55,6 +62,35 @@ const minReadLabel = lang === "en" ? "min read" : "phút đọc";
           </div>
         </div>
       </a>
+    </section>
+  )}
+
+  {recentPosts.length > 0 && (
+    <section class="recent-posts" id="recent-posts" aria-labelledby="recent-posts-heading">
+      <h2 class="recent-posts__heading" id="recent-posts-heading">{recentLabel}</h2>
+      <div class="recent-posts__grid">
+        {recentPosts.map((post) => (
+          <a class="recent-posts__card" href={getPostHref(post.id)}>
+            <div class="recent-posts__thumb">
+              <img
+                src={post.data.image || "/assets/images/abstract-0.jpg"}
+                alt={post.data.title}
+                loading="lazy"
+              />
+            </div>
+            <div class="recent-posts__body">
+              <h3 class="recent-posts__title">{post.data.title}</h3>
+              {post.data.description?.trim() && (
+                <p class="recent-posts__desc">{truncateDescription(post.data.description, 140)}</p>
+              )}
+              <span class="recent-posts__meta">
+                <span class="material-symbols-rounded" aria-hidden="true">schedule</span>
+                {estimateReadingTime(post.body)} {minReadLabel}
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
     </section>
   )}
 

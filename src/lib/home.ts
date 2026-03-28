@@ -111,6 +111,8 @@ export interface CategorySection {
 
 export interface CategorizedHomePageProps {
   featured: CollectionEntry<"blog"> | null;
+  /** Up to four posts after the featured item (same sort order). */
+  recentPosts: CollectionEntry<"blog">[];
   sections: CategorySection[];
 }
 
@@ -144,6 +146,7 @@ export async function getCategorizedHomePage(
 
   // Featured = most recent post overall
   const featured = sorted.length > 0 ? sorted[0] : null;
+  const recentPosts = sorted.slice(1, 5);
 
   // Build sections
   const sections: CategorySection[] = HOMEPAGE_SECTIONS.map((sec) => {
@@ -167,7 +170,7 @@ export async function getCategorizedHomePage(
     };
   });
 
-  return { featured, sections };
+  return { featured, recentPosts, sections };
 }
 
 // ── Keep old helpers for backward compat (paginated pages) ──

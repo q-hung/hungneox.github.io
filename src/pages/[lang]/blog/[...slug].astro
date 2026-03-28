@@ -3,7 +3,7 @@ import { getCollection, render } from 'astro:content';
 import PostLayout from '../../../layouts/PostLayout.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const posts = await getCollection('blog', ({ data }) => data.published !== false);
   return posts.map(post => {
     // The id is e.g. "vi/2026-03-27-asyncio"
     const parts = post.id.split('/');

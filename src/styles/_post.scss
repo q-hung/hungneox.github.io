@@ -3,6 +3,12 @@
 $post-retro-ink: #1a100c;
 $post-retro-cream: #fff4e8;
 $post-retro-cream-muted: #ffe8d4;
+$post-ribbon-orange: #f89254;
+$post-ribbon-stripe: repeating-linear-gradient(-14deg,
+    transparent,
+    transparent 9px,
+    rgba(0, 0, 0, 0.045) 9px,
+    rgba(0, 0, 0, 0.045) 18px);
 
 .post-layout {
   display: grid;
@@ -27,7 +33,7 @@ $post-retro-cream-muted: #ffe8d4;
 .post-card__window {
   background: $post-retro-cream;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
-  padding: 1rem 1.25rem 1.35rem;
+  padding: 0;
 }
 
 html[data-theme="dark"] .post-card {
@@ -40,27 +46,65 @@ html[data-theme="dark"] .post-card__window {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-html[data-theme="dark"] .post .post-header {
-  border-bottom-color: var(--color-border);
-
-  .post-translation {
-    border-top-color: rgba(255, 255, 255, 0.08);
-  }
+// ── Post title block: orange ribbon + cream body (like category-card ribbon + sheet) ──
+.post-header__ribbon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  padding: 0.52rem 1rem;
+  background-color: $post-ribbon-orange;
+  background-image: $post-ribbon-stripe;
+  color: $post-retro-cream;
+  border-bottom: 3px solid $post-retro-ink;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  text-align: center;
 }
 
-// ── TOC sidebar (same shell as .post-card / home category cards) ──
+.post-header__ribbon-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.post-header__ribbon-text {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.post-header__body {
+  padding: 1rem 1.25rem 1.1rem;
+}
+
+html[data-theme="dark"] .post-header__ribbon {
+  background-color: #c45a28;
+  background-image: repeating-linear-gradient(-14deg,
+      transparent,
+      transparent 9px,
+      rgba(0, 0, 0, 0.1) 9px,
+      rgba(0, 0, 0, 0.1) 18px);
+  color: #fff4e8;
+  border-bottom-color: var(--color-border);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+// ── TOC sidebar: ribbon + cream body (same vocabulary as post header) ──
 .toc-sidebar {
   position: sticky;
   top: 1.5rem;
   max-height: calc(100vh - 3rem);
   overflow-y: auto;
+  overflow-x: hidden;
   background: $post-retro-cream;
   border: 3px solid $post-retro-ink;
   border-radius: var(--radius-md);
   box-shadow:
     6px 6px 0 $post-retro-ink,
     inset 0 1px 0 rgba(255, 255, 255, 0.85);
-  padding: 1rem 1.25rem 1.25rem;
+  padding: 0;
 
   scrollbar-width: thin;
   scrollbar-color: rgba(26, 16, 12, 0.35) transparent;
@@ -68,10 +112,67 @@ html[data-theme="dark"] .post .post-header {
   &::-webkit-scrollbar {
     width: 3px;
   }
+
   &::-webkit-scrollbar-thumb {
     background: rgba(26, 16, 12, 0.35);
     border-radius: var(--radius-sm);
   }
+}
+
+.toc-sidebar__ribbon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  padding: 0.48rem 0.75rem;
+  background-color: $post-ribbon-orange;
+  background-image: $post-ribbon-stripe;
+  border-bottom: 3px solid $post-retro-ink;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  text-align: center;
+}
+
+.toc-sidebar__ribbon-icon {
+  font-size: 1.05rem;
+  flex-shrink: 0;
+  color: $post-retro-cream;
+}
+
+.toc-sidebar__ribbon-title {
+  margin: 0;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+  color: $post-retro-cream;
+  line-height: 1.25;
+}
+
+.toc-sidebar__body {
+  padding: 1rem 1.25rem 1.25rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+html[data-theme="dark"] .toc-sidebar__ribbon {
+  background-color: #c45a28;
+  background-image: repeating-linear-gradient(-14deg,
+      transparent,
+      transparent 9px,
+      rgba(0, 0, 0, 0.1) 9px,
+      rgba(0, 0, 0, 0.1) 18px);
+  border-bottom-color: var(--color-border);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+html[data-theme="dark"] .toc-sidebar__ribbon-icon,
+html[data-theme="dark"] .toc-sidebar__ribbon-title {
+  color: #fff4e8;
+}
+
+html[data-theme="dark"] .toc-sidebar__body {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 html[data-theme="dark"] .toc-sidebar {
@@ -88,17 +189,6 @@ html[data-theme="dark"] .toc-sidebar {
 }
 
 .toc {
-  .toc-title {
-    font-size: 0.8rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-text);
-    margin: 0 0 0.75rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 3px solid $post-retro-ink;
-  }
-
   .toc-list {
     list-style: none;
     margin: 0;
@@ -142,10 +232,6 @@ html[data-theme="dark"] .toc-sidebar {
       }
     }
   }
-}
-
-html[data-theme="dark"] .toc .toc-title {
-  border-bottom-color: var(--color-border);
 }
 
 // ── Back to top (category-card__view-all style) ──
@@ -272,6 +358,7 @@ html[data-theme="dark"] .toc-author {
 // ── About / category index (reuse .post typography) ──
 .page-about .post-content,
 .page-category-index .post-content {
+
   h2::before,
   h3::before {
     content: none;
@@ -323,86 +410,93 @@ html[data-theme="dark"] .toc-author {
   flex-shrink: 0;
 }
 
-// ── Post content ──
+// ── Post title / meta ──
+.post .post-header {
+  margin: 0 0 1.75rem;
+}
+
+.post-header {
+  .post-title {
+    font-size: clamp(1.45rem, 4vw, 1.85rem);
+    font-weight: 800;
+    margin: 0 0 0.6rem;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    color: #1a1a1a;
+
+    @include media-query($on-palm) {
+      font-size: clamp(1.3rem, 5vw, 1.55rem);
+    }
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: -0.15rem 0 0.85rem;
+  }
+
+  .post-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--color-tag);
+    background: var(--color-tag-bg);
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--color-tag);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .post-meta {
+    color: var(--color-text-secondary);
+    font-size: calc(var(--font-reading) * 0.875);
+    margin: 0;
+    letter-spacing: 0.01em;
+    font-weight: 600;
+  }
+
+  .post-translation {
+    margin: 1rem 0 0;
+    padding-top: 0.85rem;
+    border-top: 1px solid rgba(26, 16, 12, 0.12);
+    font-size: calc(var(--font-reading) * 0.875);
+    font-weight: 600;
+  }
+
+  .post-translation-link {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-decoration-color: var(--color-link);
+    text-underline-offset: 0.15em;
+
+    &:hover {
+      color: var(--color-link-hover);
+      text-decoration-color: var(--color-link-hover);
+    }
+  }
+}
+
+html[data-theme="dark"] .post-header .post-title {
+  color: var(--color-heading);
+}
+
+html[data-theme="dark"] .post-header .post-translation {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+// ── Post article body ──
 .post {
   min-width: 0;
   max-width: 100%;
-
-  .post-header {
-    margin: 0 0 1.75rem;
-    padding: 0 0 1.15rem;
-    border: none;
-    border-bottom: 3px solid $post-retro-ink;
-    border-radius: 0;
-    background: transparent;
-    box-shadow: none;
-
-    .post-title {
-      font-size: clamp(1.45rem, 4vw, 1.85rem);
-      font-weight: 800;
-      margin: 0 0 0.6rem;
-      letter-spacing: -0.03em;
-      line-height: 1.2;
-
-      @include media-query($on-palm) {
-        font-size: clamp(1.3rem, 5vw, 1.55rem);
-      }
-    }
-
-    .post-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-      margin: -0.15rem 0 0.85rem;
-    }
-
-    .post-tag {
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--color-tag);
-      background: var(--color-tag-bg);
-      padding: 0.2rem 0.55rem;
-      border-radius: var(--radius-sm);
-      border: 1.5px solid var(--color-tag);
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
-
-    .post-meta {
-      color: var(--color-text-secondary);
-      font-size: calc(var(--font-reading) * 0.875);
-      margin: 0;
-      letter-spacing: 0.01em;
-      font-weight: 600;
-    }
-
-    .post-translation {
-      margin: 1rem 0 0;
-      padding-top: 0.85rem;
-      border-top: 1px solid rgba(26, 16, 12, 0.12);
-      font-size: calc(var(--font-reading) * 0.875);
-      font-weight: 600;
-    }
-
-    .post-translation-link {
-      color: var(--color-link);
-      text-decoration: underline;
-      text-decoration-color: var(--color-link);
-      text-underline-offset: 0.15em;
-
-      &:hover {
-        color: var(--color-link-hover);
-        text-decoration-color: var(--color-link-hover);
-      }
-    }
-  }
 
   .post-content {
     color: var(--color-text);
     font-size: var(--font-reading);
     line-height: 1.75;
+    padding: 0 1.25rem 1.35rem;
 
-    > *:first-child {
+    >*:first-child {
       margin-top: 0;
     }
 
@@ -470,9 +564,9 @@ html[data-theme="dark"] .toc-author {
       margin: 1.15em 0;
     }
 
-    > p:first-child,
-    > h1:first-child + p,
-    > h2:first-child + p {
+    >p:first-child,
+    >h1:first-child+p,
+    >h2:first-child+p {
       font-size: 1.05em;
       line-height: 1.8;
     }
@@ -487,12 +581,12 @@ html[data-theme="dark"] .toc-author {
       margin-bottom: 0.3em;
       line-height: 1.7;
 
-      > p {
+      >p {
         margin: 0.5em 0;
       }
     }
 
-    li + li {
+    li+li {
       margin-top: 0.15em;
     }
 
@@ -511,7 +605,7 @@ html[data-theme="dark"] .toc-author {
       margin: 1.75em 0;
 
       @include media-query($on-palm) {
-        margin: 1.25em -1rem;
+        margin: 1.25em -1.25rem;
         border-radius: var(--radius-md);
       }
     }
@@ -559,7 +653,7 @@ html[data-theme="dark"] .toc-author {
   }
 }
 
-// ── Responsive: hide TOC on small screens ──
+// ── Responsive: hide TOC sidebar on small screens ──
 @include media-query($on-laptop) {
   .post-layout {
     grid-template-columns: 1fr;

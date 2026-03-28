@@ -28,6 +28,10 @@ const tagList: string[] = Array.isArray(rawTags)
   : rawTags != null && rawTags !== ""
     ? [String(rawTags)]
     : [];
+
+const ribbonLabel = Astro.currentLocale === "en" ? "Article" : "Bài viết";
+const tocHeading =
+  Astro.currentLocale === "en" ? "Table of Contents" : "Mục lục";
 ---
 
 <BaseLayout
@@ -43,67 +47,78 @@ const tagList: string[] = Array.isArray(rawTags)
       <div class="post-card__window">
         <div class="post">
           <header class="post-header">
-            <h1 class="post-title" itemprop="name headline">{frontmatter.title}</h1>
-            {
-              tagList.length > 0 && (
-                <div
-                  class="post-tags"
-                  role="list"
-                  aria-label={
-                    Astro.currentLocale === "en" ? "Tags" : "Thẻ chủ đề"
-                  }
-                >
-                  {tagList.map((tag) => (
-                    <span class="post-tag" role="listitem">
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-              )
-            }
-            <p class="post-meta">
+            <div class="post-header__ribbon">
+              <span
+                class="material-symbols-rounded post-header__ribbon-icon"
+                aria-hidden="true">article</span
+              >
+              <span class="post-header__ribbon-text">{ribbonLabel}</span>
+            </div>
+            <div class="post-header__body">
+              <h1 class="post-title" itemprop="name headline">
+                {frontmatter.title}
+              </h1>
               {
-                isDateValid && (
-                  <time datetime={d.toISOString()} itemprop="datePublished">
-                    {d.toLocaleDateString(
-                      Astro.currentLocale === "en" ? "en-US" : "vi-VN",
-                      { year: "numeric", month: "long", day: "numeric" },
-                    )}
-                  </time>
-                )
-              }
-              {
-                frontmatter.author && (
-                  <span
-                    itemprop="author"
-                    itemscope
-                    itemtype="http://schema.org/Person"
-                  >
-                    <span itemprop="name"> • {frontmatter.author}</span>
-                  </span>
-                )
-              }
-            </p>
-            {
-              alt && (
-                <p class="post-translation">
-                  <a
-                    href={altPath}
-                    hreflang={alt.lang}
-                    lang={alt.lang}
-                    class="post-translation-link"
-                  >
-                    {
-                      alt.lang === "en"
-                        ? "English version"
-                        : "Bản tiếng Việt"
+                tagList.length > 0 && (
+                  <div
+                    class="post-tags"
+                    role="list"
+                    aria-label={
+                      Astro.currentLocale === "en" ? "Tags" : "Thẻ chủ đề"
                     }
-                  </a>
-                </p>
-              )
-            }
+                  >
+                    {tagList.map((tag) => (
+                      <span class="post-tag" role="listitem">
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                )
+              }
+              <p class="post-meta">
+                {
+                  isDateValid && (
+                    <time datetime={d.toISOString()} itemprop="datePublished">
+                      {d.toLocaleDateString(
+                        Astro.currentLocale === "en" ? "en-US" : "vi-VN",
+                        { year: "numeric", month: "long", day: "numeric" },
+                      )}
+                    </time>
+                  )
+                }
+                {
+                  frontmatter.author && (
+                    <span
+                      itemprop="author"
+                      itemscope
+                      itemtype="http://schema.org/Person"
+                    >
+                      <span itemprop="name"> • {frontmatter.author}</span>
+                    </span>
+                  )
+                }
+              </p>
+              {
+                alt && (
+                  <p class="post-translation">
+                    <a
+                      href={altPath}
+                      hreflang={alt.lang}
+                      lang={alt.lang}
+                      class="post-translation-link"
+                    >
+                      {alt.lang === "en" ? "English version" : "Bản tiếng Việt"}
+                    </a>
+                  </p>
+                )
+              }
+            </div>
           </header>
-          <article class="post-content" id="post-content" itemprop="articleBody">
+          <article
+            class="post-content"
+            id="post-content"
+            itemprop="articleBody"
+          >
             <slot />
           </article>
         </div>
@@ -111,36 +126,46 @@ const tagList: string[] = Array.isArray(rawTags)
     </div>
 
     <aside class="toc-sidebar" id="toc-sidebar">
-      <nav class="toc" id="toc">
-        <h4 class="toc-title">
-          {Astro.currentLocale === "en" ? "Table of Contents" : "Mục lục"}
+      <div class="toc-sidebar__ribbon">
+        <span
+          class="material-symbols-rounded toc-sidebar__ribbon-icon"
+          aria-hidden="true">list</span
+        >
+        <h4 class="toc-sidebar__ribbon-title" id="toc-sidebar-heading">
+          {tocHeading}
         </h4>
-        <ul class="toc-list" id="toc-list"></ul>
-      </nav>
-      <button
-        class="toc-back-top"
-        id="back-to-top"
-        aria-label={Astro.currentLocale === "en"
-          ? "Back to top"
-          : "Về đầu trang"}
-      >
-        <span class="material-symbols-rounded">arrow_upward</span>
-        {Astro.currentLocale === "en" ? "Back to top" : "Về đầu trang"}
-      </button>
-      <div class="toc-author">
-        <img
-          class="toc-avatar"
-          src="//avatars.githubusercontent.com/u/199614?v=4"
-          alt="Q-Hung"
-        />
-        <div class="toc-author-info">
-          <span class="toc-author-name">Q-Hung</span>
-          <span class="toc-author-desc">Software Engineer | Coffee lover</span>
-          <div class="toc-author-links">
-            <a href="https://linkedin.com/in/hungnq1989" title="LinkedIn"
-              >LinkedIn</a
+      </div>
+      <div class="toc-sidebar__body">
+        <nav class="toc" id="toc" aria-labelledby="toc-sidebar-heading">
+          <ul class="toc-list" id="toc-list"></ul>
+        </nav>
+        <button
+          type="button"
+          class="toc-back-top"
+          id="back-to-top"
+          aria-label={Astro.currentLocale === "en"
+            ? "Back to top"
+            : "Về đầu trang"}
+        >
+          <span class="material-symbols-rounded">arrow_upward</span>
+          {Astro.currentLocale === "en" ? "Back to top" : "Về đầu trang"}
+        </button>
+        <div class="toc-author">
+          <img
+            class="toc-avatar"
+            src="//avatars.githubusercontent.com/u/199614?v=4"
+            alt="Q-Hung"
+          />
+          <div class="toc-author-info">
+            <span class="toc-author-name">Q-Hung</span>
+            <span class="toc-author-desc">Software Engineer | Coffee lover</span
             >
-            <a href="https://github.com/q-hung" title="GitHub">GitHub</a>
+            <div class="toc-author-links">
+              <a href="https://linkedin.com/in/hungnq1989" title="LinkedIn"
+                >LinkedIn</a
+              >
+              <a href="https://github.com/q-hung" title="GitHub">GitHub</a>
+            </div>
           </div>
         </div>
       </div>

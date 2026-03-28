@@ -71,4 +71,14 @@ Use a single **topic** value in `categories` (slug style), for example: `search-
 
 [GitHub Actions](.github/workflows/deploy.yml) builds on push to `main` or `master` and deploys the `dist/` folder to **GitHub Pages** (Node 22 on `ubuntu-latest`).
 
-Ensure the repository Pages source is set to **GitHub Actions** in the repo settings.
+### Use GitHub Actions only (no Jekyll)
+
+This site is **not** Jekyll. If Actions runs `actions/jekyll-build-pages` and errors on `.astro` files, GitHub Pages is still using the **branch + Jekyll** publisher instead of your workflow artifact.
+
+1. Open the repo on GitHub → **Settings** → **Pages**.
+2. Under **Build and deployment**, set **Source** to **GitHub Actions** (not “Deploy from a branch”).
+3. Remove or ignore any workflow named **pages-build-deployment** that builds with Jekyll; the only deploy workflow in this repo should be **Deploy Astro to GitHub Pages** ([`deploy.yml`](.github/workflows/deploy.yml)).
+
+After that, pushes trigger `npm run build`, upload `dist/`, and `deploy-pages` serves it as static files—no Jekyll step.
+
+`public/.nojekyll` is included so the published site does not apply Jekyll rules to paths such as `_astro/` if Pages ever treats the output as a Jekyll site.

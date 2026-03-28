@@ -1,6 +1,6 @@
 // ── Theme: CSS custom properties ──
 // Light: cool paper (blue‑gray), teal + burnt orange accents — no yellow/cream base.
-// Dark: charcoal + cream text (unchanged mood).
+// Dark: near-black surfaces + cool neutral text (not “washed” mid-gray).
 
 :root {
   --radius-sm: 6px;
@@ -46,44 +46,46 @@
 }
 
 html[data-theme="dark"] {
+  color-scheme: dark;
+
   .theme-toggle .icon-light { display: none !important; }
   .theme-toggle .icon-dark { display: inline !important; }
 
-  --color-text: #FFEDB7;
-  --color-text-secondary: #c4b08a;
-  --color-link: #4ABA94;
-  --color-link-hover: #6fd4b2;
-  --color-border: #3e504e;
-  --color-border-hover: #4f6563;
-  --color-bg: #2B3A39;
-  --color-bg-secondary: #344645;
-  --color-bg-card: #344645;
-  --color-accent: #D0542D;
-  --color-tag: #D0542D;
-  --color-tag-bg: rgba(208, 84, 45, 0.15);
-  --color-code-bg: #344645;
-  --color-code-text: #FFEDB7;
-  --color-code-inline-bg: rgba(208, 84, 45, 0.12);
-  --color-code-inline-border: rgba(208, 84, 45, 0.25);
-  --color-code-inline-text: #f09070;
-  --color-disabled: #4f6563;
-  --color-card-shadow: rgba(0, 0, 0, 0.4);
-  --color-card-dim: rgba(255, 237, 183, 0.04);
-  --color-row-hover: rgba(208, 84, 45, 0.08);
-  --color-heading: #FFEDB7;
-  --shadow-block: 4px 4px 0 #1a2625;
-  --shadow-block-sm: 3px 3px 0 #1a2625;
-  --shadow-block-hover: 6px 6px 0 #1a2625;
-  --color-header-nav-bg: #364846;
-  --color-header-nav-border: #4f6563;
-  --color-header-nav-link-hover-bg: #2c3a38;
-  --color-header-nav-toggle-bg: #2b3a39;
-  --nav-current-ribbon-bg: #b84e24;
-  --nav-current-ribbon-stripe: rgba(0, 0, 0, 0.08);
+  --color-text: #dce5e2;
+  --color-text-secondary: #8da8a1;
+  --color-link: #5ed4b4;
+  --color-link-hover: #8bedd4;
+  --color-border: #2f403d;
+  --color-border-hover: #3f5652;
+  --color-bg: #0b0f0e;
+  --color-bg-secondary: #121a18;
+  --color-bg-card: #161f1d;
+  --color-accent: #e8704a;
+  --color-tag: #ff8a65;
+  --color-tag-bg: rgba(232, 112, 74, 0.14);
+  --color-code-bg: #0f1514;
+  --color-code-text: #e2ebe8;
+  --color-code-inline-bg: rgba(94, 212, 180, 0.1);
+  --color-code-inline-border: rgba(94, 212, 180, 0.28);
+  --color-code-inline-text: #7ee0c5;
+  --color-disabled: #5a6f6a;
+  --color-card-shadow: rgba(0, 0, 0, 0.55);
+  --color-card-dim: rgba(255, 255, 255, 0.03);
+  --color-row-hover: rgba(94, 212, 180, 0.07);
+  --color-heading: #f2f7f5;
+  --shadow-block: 4px 4px 0 #020504;
+  --shadow-block-sm: 3px 3px 0 #020504;
+  --shadow-block-hover: 6px 6px 0 #020504;
+  --color-header-nav-bg: #111917;
+  --color-header-nav-border: #2a3835;
+  --color-header-nav-link-hover-bg: #1a2422;
+  --color-header-nav-toggle-bg: #141c1a;
+  --nav-current-ribbon-bg: #c45a28;
+  --nav-current-ribbon-stripe: rgba(0, 0, 0, 0.12);
   --nav-current-ribbon-text: #fff4e8;
-  --nav-current-ribbon-border: #d4c4b8;
-  --nav-current-ribbon-inset: inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  --nav-current-text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+  --nav-current-ribbon-border: #4a5c58;
+  --nav-current-ribbon-inset: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --nav-current-text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.45);
 }
 
 // ── Base reset ──
@@ -122,6 +124,11 @@ a:focus {
 ::selection {
   background: rgba(47, 143, 112, 0.28);
   color: var(--color-text);
+}
+
+html[data-theme="dark"] ::selection {
+  background: rgba(94, 212, 180, 0.32);
+  color: var(--color-heading);
 }
 
 blockquote {

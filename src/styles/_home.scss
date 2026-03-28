@@ -300,59 +300,160 @@
   html[data-theme="dark"] & {
     .featured-hub {
       background: transparent;
-      border-color: #d4c4b8;
-      box-shadow: 6px 6px 0 rgba(212, 196, 184, 0.28);
+      border-color: var(--color-border);
+      box-shadow: 6px 6px 0 var(--color-card-shadow);
     }
 
     .featured-hub__ribbon {
-      background-color: #b84e24;
+      background-color: #c45a28;
       background-image: repeating-linear-gradient(
         -14deg,
         transparent,
         transparent 9px,
-        rgba(0, 0, 0, 0.08) 9px,
-        rgba(0, 0, 0, 0.08) 18px
+        rgba(0, 0, 0, 0.1) 9px,
+        rgba(0, 0, 0, 0.1) 18px
       );
       color: #fff4e8;
-      border-bottom-color: #d4c4b8;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      border-bottom-color: var(--color-border);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
 
     .featured-hub__ribbon-text {
-      text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+      text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.45);
     }
 
     .featured-hub__main {
-      border-color: #d4c4b8;
+      border-color: var(--color-border);
       box-shadow:
-        4px 4px 0 rgba(0, 0, 0, 0.45),
-        inset 0 0 0 3px #3d3530;
+        4px 4px 0 var(--color-card-shadow),
+        inset 0 0 0 3px #1c2624;
     }
 
     .featured-hub__main-cta {
       background: #fff4e8;
       color: #1a100c;
-      border-color: #d4c4b8;
-      box-shadow: 3px 3px 0 #d4c4b8;
+      border-color: var(--color-border);
+      box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.45);
     }
 
-    // Sidebar picks: same cream + ink as light (no charcoal variant)
+    .featured-hub__side {
+      background: var(--color-bg-card);
+      border-color: var(--color-border);
+      box-shadow: 3px 3px 0 var(--color-card-shadow);
+    }
 
-    .category-card {
-      border-color: #d4c4b8;
-      box-shadow: 6px 6px 0 rgba(212, 196, 184, 0.28);
+    .featured-hub__pick {
+      color: var(--color-text);
+      background: var(--color-bg-card);
+      border-bottom-color: rgba(255, 255, 255, 0.07);
 
       &:hover {
-        box-shadow: 8px 8px 0 rgba(212, 196, 184, 0.28);
+        background: var(--color-bg-secondary);
+      }
+
+      &[aria-pressed="true"] {
+        background: #c45a28;
+        color: #fff4e8;
+        box-shadow: inset 4px 0 0 rgba(0, 0, 0, 0.35);
+
+        .featured-hub__pick-index,
+        .featured-hub__pick-badge,
+        .featured-hub__pick-title {
+          color: #fff4e8;
+        }
+
+        .featured-hub__pick-badge {
+          color: rgba(255, 244, 232, 0.92);
+        }
+      }
+    }
+
+    .featured-hub__pick-index {
+      color: var(--color-text-secondary);
+    }
+
+    .featured-hub__pick-badge {
+      color: #e8a882;
+    }
+
+    .featured-hub__pick-title {
+      color: var(--color-heading);
+    }
+
+    .category-card {
+      border-color: var(--color-border);
+      box-shadow: 6px 6px 0 var(--color-card-shadow);
+
+      &:hover {
+        box-shadow: 8px 8px 0 var(--color-card-shadow);
       }
 
       &:active {
-        box-shadow: 4px 4px 0 rgba(212, 196, 184, 0.22);
+        box-shadow: 4px 4px 0 var(--color-card-shadow);
       }
     }
 
     .category-card__ribbon {
-      border-bottom-color: #d4c4b8;
+      border-bottom-color: var(--color-border);
+    }
+
+    .category-card__window,
+    .category-card__sheet {
+      background: var(--color-bg-card);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .category-card__latest-title {
+      color: var(--color-heading);
+    }
+
+    .category-card__latest-desc {
+      color: var(--color-text-secondary);
+    }
+
+    .category-card__empty {
+      color: var(--color-text-secondary);
+    }
+
+    .category-card__older {
+      border-top-color: rgba(255, 255, 255, 0.08);
+
+      a {
+        color: var(--color-text-secondary);
+
+        &:hover {
+          color: var(--color-link);
+        }
+      }
+    }
+
+    .category-card__older-arrow {
+      color: var(--color-accent);
+    }
+
+    .category-card__footer {
+      border-top-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .category-card__view-all {
+      color: var(--color-heading);
+      border-color: var(--color-border);
+      background: var(--color-bg-secondary);
+      box-shadow: 2px 2px 0 var(--color-card-shadow);
+
+      &:hover {
+        color: var(--color-link-hover);
+        border-color: var(--color-border-hover);
+      }
+    }
+
+    .category-card__count {
+      color: var(--color-text-secondary);
+    }
+
+    .category-card__latest-thumb {
+      border-color: var(--color-border);
+      background: rgba(0, 0, 0, 0.25);
     }
 
     // Category ribbons: slightly deeper tints on dark pages (outer card stays transparent)
@@ -782,7 +883,7 @@
 html[data-theme="dark"] .home--categorized {
   @include media-query($on-laptop) {
     .featured-hub__main {
-      border-bottom-color: #d4c4b8;
+      border-bottom-color: var(--color-border);
     }
   }
 }

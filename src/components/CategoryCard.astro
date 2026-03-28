@@ -29,57 +29,59 @@ const emptyLabel = lang === "en" ? "No posts yet — stay tuned!" : "Chưa có b
 ---
 
 <div class={`category-card category-card--${id}`} id={`section-${id}`}>
-  <div class="category-card__header">
-    <span class="material-symbols-rounded category-card__icon">{icon}</span>
-    <h2 class="category-card__title">{label}</h2>
-  </div>
-
-  <div class="category-card__sheet">
-    <div class="category-card__body">
-      {latest ? (
-        <a class="category-card__latest" href={getPostHref(latest)}>
-          <div class="category-card__latest-thumb">
-            <img
-              src={latest.data.image || `/assets/images/abstract-0.jpg`}
-              alt={latest.data.title}
-              loading="lazy"
-            />
-          </div>
-          <div class="category-card__latest-text">
-            <h3 class="category-card__latest-title">{latest.data.title}</h3>
-            {latest.data.description && (
-              <p class="category-card__latest-desc">{truncate(latest.data.description, 100)}</p>
-            )}
-          </div>
-        </a>
-      ) : (
-        <p class="category-card__empty">{emptyLabel}</p>
-      )}
-
-      {older.length > 0 && (
-        <ul class="category-card__older">
-          {older.map((post) => (
-            <li>
-              <a href={getPostHref(post)}>
-                <span class="category-card__older-arrow" aria-hidden="true">›</span>
-                {truncate(post.data.title, 55)}
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
+  <div class="category-card__window">
+    <div class="category-card__ribbon">
+      <span class="material-symbols-rounded category-card__ribbon-icon">{icon}</span>
+      <h2 class="category-card__title">{label}</h2>
     </div>
 
-    <div class="category-card__footer">
-      {totalCount > 0 && (
-        <span class="category-card__count">
-          {totalCount} {lang === "en" ? (totalCount === 1 ? "post" : "posts") : "bài"}
-        </span>
-      )}
-      <a class="category-card__view-all" href={viewAllHref}>
-        {viewAllLabel}
-        <span class="category-card__view-all-arrow" aria-hidden="true">→</span>
-      </a>
+    <div class="category-card__sheet">
+      <div class="category-card__body">
+        {latest ? (
+          <a class="category-card__latest" href={getPostHref(latest)}>
+            <div class="category-card__latest-thumb">
+              <img
+                src={latest.data.image || `/assets/images/abstract-0.jpg`}
+                alt={latest.data.title}
+                loading="lazy"
+              />
+            </div>
+            <div class="category-card__latest-text">
+              <h3 class="category-card__latest-title">{latest.data.title}</h3>
+              {latest.data.description && (
+                <p class="category-card__latest-desc">{truncate(latest.data.description, 100)}</p>
+              )}
+            </div>
+          </a>
+        ) : (
+          <p class="category-card__empty">{emptyLabel}</p>
+        )}
+
+        {older.length > 0 && (
+          <ul class="category-card__older">
+            {older.map((post) => (
+              <li>
+                <a href={getPostHref(post)}>
+                  <span class="category-card__older-arrow" aria-hidden="true">›</span>
+                  {truncate(post.data.title, 55)}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      <div class="category-card__footer">
+        {totalCount > 0 && (
+          <span class="category-card__count">
+            {totalCount} {lang === "en" ? (totalCount === 1 ? "post" : "posts") : "bài"}
+          </span>
+        )}
+        <a class="category-card__view-all" href={viewAllHref}>
+          {viewAllLabel}
+          <span class="category-card__view-all-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
     </div>
   </div>
 </div>

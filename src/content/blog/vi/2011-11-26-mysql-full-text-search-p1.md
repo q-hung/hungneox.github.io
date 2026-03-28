@@ -2,7 +2,7 @@
 layout: post
 title: "MySQL Full-text Search - P1"
 date: 2011-11-26 8:00 PM
-categories: [search-data]
+categories: [information-retrieval]
 author: hungneox
 image: /assets/images/mysql.png
 comments: true

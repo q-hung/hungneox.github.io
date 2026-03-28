@@ -2,7 +2,7 @@
 layout: post
 title: "Introduction to the vector space model"
 date: 2013-10-27 8:00 PM
-categories: [search-data]
+categories: [information-retrieval]
 author: hungneox
 image: /assets/images/vector-space-model.png
 comments: true

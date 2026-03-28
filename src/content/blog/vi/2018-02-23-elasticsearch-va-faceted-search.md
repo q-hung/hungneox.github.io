@@ -2,7 +2,7 @@
 layout: post
 title: "ElasticSearch và Faceted search" 
 date: 2018-02-23 14:00
-categories: [search-data]
+categories: [information-retrieval]
 author: hungneox
 description: "ElasticSearch và Faceted search"
 image: /assets/images/placeholder.jpg

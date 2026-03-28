@@ -2,7 +2,7 @@
 layout: post
 title: "Sphinx Vietnamese full-text search: UTF-8 and charset_table"
 date: 2013-08-03 8:00 PM
-categories: [search-data]
+categories: [information-retrieval]
 author: hungneox
 comments: true
 ---

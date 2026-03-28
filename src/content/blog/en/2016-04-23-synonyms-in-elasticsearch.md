@@ -2,7 +2,7 @@
 layout: post
 title: "Synonyms in Elasticsearch"
 date: 2016-04-23 8:50 PM
-categories: [search-data]
+categories: [information-retrieval]
 author: hungneox
 description: Synonyms in Elasticsearch
 image: /assets/images/elasticsearch.jpg

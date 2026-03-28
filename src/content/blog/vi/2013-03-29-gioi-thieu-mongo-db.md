@@ -2,7 +2,7 @@
 layout: post
 title: " Giới thiệu MongoDB"
 date: 2013-03-29 8:00 PM
-categories: [search-data]
+categories: [information-retrieval]
 author: hungneox
 comments: true
 ---

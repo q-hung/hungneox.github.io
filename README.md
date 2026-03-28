@@ -65,7 +65,7 @@ comments: true
 Post body in Markdown…
 ```
 
-Use a single **topic** value in `categories` (slug style), for example: `search-data`, `web-backend`, `programming`, `systems`, `data-science`, `security`. Locale labels such as `vi` / `en` are treated as metadata only and are not shown as topics. `tags` is optional.
+Use a single **topic** value in `categories` (slug style), for example: `information-retrieval`, `web-backend`, `programming`, `systems`, `data-science`, `security`. Locale labels such as `vi` / `en` are treated as metadata only and are not shown as topics. `tags` is optional.
 
 ## Deployment
 

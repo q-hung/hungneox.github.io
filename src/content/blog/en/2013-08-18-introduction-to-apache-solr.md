@@ -2,7 +2,7 @@
 layout: post
 title: "Introduction to Apache Solr"
 date: 2013-08-18 8:00 PM
-categories: [search-data]
+categories: [information-retrieval]
 author: hungneox
 image: /assets/images/solr-server.png
 comments: true

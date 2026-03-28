@@ -2,7 +2,7 @@
 layout: post
 title: " Tìm hiểu về Apache Solr"
 date: 2013-08-18 8:00 PM
-categories: [search-data]
+categories: [information-retrieval]
 author: hungneox
 comments: true
 ---

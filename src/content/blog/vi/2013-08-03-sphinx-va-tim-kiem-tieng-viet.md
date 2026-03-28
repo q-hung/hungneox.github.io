@@ -2,7 +2,7 @@
 layout: post
 title: "Sphinx và tìm kiếm tiếng Việt"
 date: 2013-08-03 8:00 PM
-categories: [search-data]
+categories: [information-retrieval]
 author: hungneox
 comments: true
 ---

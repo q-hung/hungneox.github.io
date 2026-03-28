@@ -2,7 +2,7 @@
 layout: post
 title: "Tìm hiểu về mô hình không gian vector"
 date: 2013-10-27 8:00 PM
-categories: [search-data]
+categories: [information-retrieval]
 author: hungneox
 comments: true
 ---

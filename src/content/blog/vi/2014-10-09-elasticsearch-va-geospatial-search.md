@@ -2,7 +2,7 @@
 layout: post
 title: "ElasticSearch và Geospatial search"
 date: 2014-10-09 8:00 PM
-categories: [search-data]
+categories: [information-retrieval]
 author: hungneox
 comments: true
 ---

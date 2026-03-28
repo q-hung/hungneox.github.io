@@ -2,7 +2,7 @@
 layout: post
 title: "MySQL full-text search — part 2"
 date: 2011-12-28 8:00 PM
-categories: [search-data]
+categories: [information-retrieval]
 author: hungneox
 description: "MATCH … AGAINST syntax, natural language vs boolean mode, query expansion, and practical caveats."
 image: /assets/images/mysql.png

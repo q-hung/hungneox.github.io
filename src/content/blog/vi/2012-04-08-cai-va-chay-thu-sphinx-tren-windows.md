@@ -2,7 +2,7 @@
 layout: post
 title: "Cài và chạy thử Sphinx trên Windows"
 date: 2012-04-08 8:00 PM
-categories: [search-data]
+categories: [information-retrieval]
 author: hungneox
 comments: true
 ---

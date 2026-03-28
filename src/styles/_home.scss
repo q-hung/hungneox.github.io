@@ -11,10 +11,14 @@
 
   .featured-hub {
     margin-bottom: 2.5rem;
-    border: 4px solid $hub-retro-ink;
-    border-radius: 3px;
+    border: 3px solid $hub-retro-ink;
+    border-radius: var(--radius-md);
     overflow: hidden;
-    box-shadow: 8px 8px 0 $hub-retro-ink;
+    box-shadow: 6px 6px 0 $hub-retro-ink;
+    background: transparent;
+  }
+
+  .featured-hub__ribbon {
     background-color: $hub-retro-orange;
     background-image: repeating-linear-gradient(
       -14deg,
@@ -23,15 +27,11 @@
       rgba(0, 0, 0, 0.045) 9px,
       rgba(0, 0, 0, 0.045) 18px
     );
-  }
-
-  .featured-hub__ribbon {
-    background: $hub-retro-cream;
-    color: $hub-retro-ink;
+    color: $hub-retro-cream;
     text-align: center;
     padding: 0.55rem 1rem;
-    border-bottom: 4px solid $hub-retro-ink;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+    border-bottom: 3px solid $hub-retro-ink;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
   }
 
   .featured-hub__ribbon-text {
@@ -39,7 +39,7 @@
     font-weight: 800;
     letter-spacing: 0.24em;
     text-transform: uppercase;
-    text-shadow: 2px 2px 0 rgba(248, 146, 84, 0.45);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
 
     &::before {
       content: "/ ";
@@ -59,12 +59,7 @@
     align-items: stretch;
     min-height: 0;
     padding: 0.55rem;
-    background: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.06) 0%,
-      transparent 40%,
-      rgba(255, 255, 255, 0.12) 100%
-    );
+    background: transparent;
   }
 
   .featured-hub--solo .featured-hub__frame {
@@ -75,7 +70,7 @@
     position: relative;
     min-width: 0;
     border: 3px solid $hub-retro-ink;
-    border-radius: 2px;
+    border-radius: var(--radius-sm);
     background: #0d0d0d;
     box-shadow:
       4px 4px 0 rgba(26, 16, 12, 0.35),
@@ -206,7 +201,7 @@
     background: $hub-retro-cream;
     color: $hub-retro-ink;
     padding: 0.4rem 0.9rem;
-    border-radius: 2px;
+    border-radius: var(--radius-sm);
     border: 3px solid $hub-retro-ink;
     box-shadow: 3px 3px 0 $hub-retro-ink;
     font-weight: 800;
@@ -224,8 +219,8 @@
     min-width: 0;
     background: $hub-retro-cream;
     border: 3px solid $hub-retro-ink;
-    border-radius: 2px;
-    box-shadow: 4px 4px 0 rgba(26, 16, 12, 0.25);
+    border-radius: var(--radius-sm);
+    box-shadow: 3px 3px 0 rgba(26, 16, 12, 0.2);
   }
 
   .featured-hub__side-list {
@@ -304,20 +299,27 @@
 
   html[data-theme="dark"] & {
     .featured-hub {
-      background-color: #b84e24;
+      background: transparent;
       border-color: #d4c4b8;
-      box-shadow: 8px 8px 0 rgba(212, 196, 184, 0.28);
+      box-shadow: 6px 6px 0 rgba(212, 196, 184, 0.28);
     }
 
     .featured-hub__ribbon {
-      background: #2c2622;
+      background-color: #b84e24;
+      background-image: repeating-linear-gradient(
+        -14deg,
+        transparent,
+        transparent 9px,
+        rgba(0, 0, 0, 0.08) 9px,
+        rgba(0, 0, 0, 0.08) 18px
+      );
       color: #fff4e8;
       border-bottom-color: #d4c4b8;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
     }
 
     .featured-hub__ribbon-text {
-      text-shadow: 2px 2px 0 rgba(184, 78, 36, 0.65);
+      text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
     }
 
     .featured-hub__main {
@@ -334,120 +336,68 @@
       box-shadow: 3px 3px 0 #d4c4b8;
     }
 
-    .featured-hub__side {
-      background: #2c2622;
-      border-color: #d4c4b8;
-    }
-
-    .featured-hub__pick {
-      color: #fff4e8;
-      background: #2c2622;
-      border-bottom-color: rgba(212, 196, 184, 0.35);
-
-      &:hover {
-        background: #383028;
-      }
-
-      &[aria-pressed="true"] {
-        background: #b84e24;
-        box-shadow: inset 4px 0 0 #fff4e8;
-      }
-    }
-
-    .featured-hub__pick-index {
-      color: rgba(255, 244, 232, 0.5);
-    }
-
-    .featured-hub__pick-badge {
-      color: #ffc49a;
-    }
-
-    .featured-hub__pick-title {
-      color: #fff4e8;
-    }
+    // Sidebar picks: same cream + ink as light (no charcoal variant)
 
     .category-card {
       border-color: #d4c4b8;
-      box-shadow: 8px 8px 0 rgba(212, 196, 184, 0.28);
-    }
+      box-shadow: 6px 6px 0 rgba(212, 196, 184, 0.28);
 
-    .category-card--information-retrieval {
-      background-color: #3a5f7a;
-    }
+      &:hover {
+        box-shadow: 8px 8px 0 rgba(212, 196, 184, 0.28);
+      }
 
-    .category-card--systems {
-      background-color: #5a6d28;
-    }
-
-    .category-card--programming {
-      background-color: #b84e24;
-    }
-
-    .category-card--lab {
-      background-color: #243a44;
-    }
-
-    .category-card:hover {
-      box-shadow: 10px 10px 0 rgba(212, 196, 184, 0.28);
-    }
-
-    .category-card:active {
-      box-shadow: 6px 6px 0 rgba(212, 196, 184, 0.22);
-    }
-
-    .category-card__window {
-      border-color: #d4c4b8;
-      background: #2c2622;
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.08),
-        3px 3px 0 rgba(0, 0, 0, 0.35);
+      &:active {
+        box-shadow: 4px 4px 0 rgba(212, 196, 184, 0.22);
+      }
     }
 
     .category-card__ribbon {
-      background: #2c2622;
-      color: #fff4e8;
       border-bottom-color: #d4c4b8;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
     }
 
-    .category-card__ribbon-icon,
-    .category-card__title {
-      color: #fff4e8;
-      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.35);
+    // Category ribbons: slightly deeper tints on dark pages (outer card stays transparent)
+    .category-card--information-retrieval .category-card__ribbon {
+      background-color: #4a7a9a;
+      background-image: repeating-linear-gradient(
+        -14deg,
+        transparent,
+        transparent 9px,
+        rgba(0, 0, 0, 0.08) 9px,
+        rgba(0, 0, 0, 0.08) 18px
+      );
     }
 
-    .category-card__sheet {
-      background: #2c2622;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    .category-card--systems .category-card__ribbon {
+      background-color: #6d8238;
+      background-image: repeating-linear-gradient(
+        -14deg,
+        transparent,
+        transparent 9px,
+        rgba(0, 0, 0, 0.08) 9px,
+        rgba(0, 0, 0, 0.08) 18px
+      );
     }
 
-    .category-card__latest-title {
-      color: #fff4e8;
+    .category-card--programming .category-card__ribbon {
+      background-color: #b84e24;
+      background-image: repeating-linear-gradient(
+        -14deg,
+        transparent,
+        transparent 9px,
+        rgba(0, 0, 0, 0.08) 9px,
+        rgba(0, 0, 0, 0.08) 18px
+      );
     }
 
-    .category-card__latest-desc,
-    .category-card__empty {
-      color: rgba(255, 244, 232, 0.72);
-    }
-
-    .category-card__older a {
-      color: rgba(255, 244, 232, 0.65);
-    }
-
-    .category-card__count {
-      color: rgba(255, 244, 232, 0.55);
-    }
-
-    .category-card__view-all {
-      color: #fff4e8;
-      border-color: #d4c4b8;
-      background: #3a3330;
-      box-shadow: 2px 2px 0 #d4c4b8;
-
-      &:hover {
-        color: #fff4e8;
-        box-shadow: 3px 3px 0 #d4c4b8;
-      }
+    .category-card--lab .category-card__ribbon {
+      background-color: #2d4550;
+      background-image: repeating-linear-gradient(
+        -14deg,
+        transparent,
+        transparent 9px,
+        rgba(0, 0, 0, 0.12) 9px,
+        rgba(0, 0, 0, 0.12) 18px
+      );
     }
   }
 
@@ -462,49 +412,36 @@
   // Category cards: featured-hub retro frame + per-section color + cream ribbon
   $cat-paper: $hub-retro-cream;
 
+  $cat-stripe: repeating-linear-gradient(
+    -14deg,
+    transparent,
+    transparent 9px,
+    rgba(0, 0, 0, 0.045) 9px,
+    rgba(0, 0, 0, 0.045) 18px
+  );
+
   // ── Category Card ──
   .category-card {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    padding: 0.5rem;
-    border: 4px solid $hub-retro-ink;
-    border-radius: 3px;
-    box-shadow: 8px 8px 0 $hub-retro-ink;
-    background-image: repeating-linear-gradient(
-      -14deg,
-      transparent,
-      transparent 9px,
-      rgba(0, 0, 0, 0.045) 9px,
-      rgba(0, 0, 0, 0.045) 18px
-    );
+    padding: 0;
+    border: 3px solid $hub-retro-ink;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 6px 6px 0 $hub-retro-ink;
+    background: transparent;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
 
     &:hover {
       transform: translate(-2px, -2px);
-      box-shadow: 10px 10px 0 $hub-retro-ink;
+      box-shadow: 8px 8px 0 $hub-retro-ink;
     }
 
     &:active {
       transform: translate(1px, 1px);
-      box-shadow: 6px 6px 0 $hub-retro-ink;
+      box-shadow: 4px 4px 0 $hub-retro-ink;
     }
-  }
-
-  .category-card--information-retrieval {
-    background-color: rgb(165, 216, 255);
-  }
-
-  .category-card--systems {
-    background-color: #8da249;
-  }
-
-  .category-card--programming {
-    background-color: #f89254;
-  }
-
-  .category-card--lab {
-    background-color: #2e434f;
   }
 
   .category-card__window {
@@ -512,13 +449,11 @@
     flex-direction: column;
     min-width: 0;
     flex: 1;
-    border: 3px solid $hub-retro-ink;
-    border-radius: 2px;
+    border: none;
+    border-radius: 0;
     overflow: hidden;
     background: $cat-paper;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.85),
-      3px 3px 0 rgba(26, 16, 12, 0.12);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
   }
 
   .category-card__ribbon {
@@ -527,17 +462,13 @@
     justify-content: center;
     gap: 0.45rem;
     flex-wrap: wrap;
-    background: $hub-retro-cream;
-    color: $hub-retro-ink;
     padding: 0.48rem 0.75rem;
-    border-bottom: 4px solid $hub-retro-ink;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+    border-bottom: 3px solid $hub-retro-ink;
     text-align: center;
   }
 
   .category-card__ribbon-icon {
     font-size: 1.05rem;
-    color: $hub-retro-ink;
     flex-shrink: 0;
   }
 
@@ -548,20 +479,54 @@
     letter-spacing: 0.18em;
     margin: 0;
     line-height: 1.25;
-    color: $hub-retro-ink;
-    text-shadow: 2px 2px 0 rgba(248, 146, 84, 0.4);
   }
 
+  .category-card--information-retrieval .category-card__ribbon {
+    background-color: rgb(165, 216, 255);
+    background-image: $cat-stripe;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  }
+
+  .category-card--information-retrieval .category-card__ribbon-icon,
   .category-card--information-retrieval .category-card__title {
-    text-shadow: 2px 2px 0 rgba(90, 150, 210, 0.45);
+    color: $hub-retro-ink;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
   }
 
+  .category-card--systems .category-card__ribbon {
+    background-color: #8da249;
+    background-image: $cat-stripe;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+
+  .category-card--systems .category-card__ribbon-icon,
   .category-card--systems .category-card__title {
-    text-shadow: 2px 2px 0 rgba(70, 90, 28, 0.4);
+    color: #1a210c;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.35);
   }
 
+  .category-card--programming .category-card__ribbon {
+    background-color: #f89254;
+    background-image: $cat-stripe;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .category-card--programming .category-card__ribbon-icon,
+  .category-card--programming .category-card__title {
+    color: #3a1c0c;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.35);
+  }
+
+  .category-card--lab .category-card__ribbon {
+    background-color: #2e434f;
+    background-image: $cat-stripe;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+
+  .category-card--lab .category-card__ribbon-icon,
   .category-card--lab .category-card__title {
-    text-shadow: 2px 2px 0 rgba(110, 190, 210, 0.45);
+    color: #ece8dc;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
   }
 
   .category-card__sheet {

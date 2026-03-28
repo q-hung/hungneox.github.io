@@ -39,71 +39,75 @@ const tagList: string[] = Array.isArray(rawTags)
   langSwitcherHref={alt ? altPath : undefined}
 >
   <div class="post-layout">
-    <div class="post">
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">{frontmatter.title}</h1>
-        {
-          tagList.length > 0 && (
-            <div
-              class="post-tags"
-              role="list"
-              aria-label={
-                Astro.currentLocale === "en" ? "Tags" : "Thẻ chủ đề"
+    <div class="post-card">
+      <div class="post-card__window">
+        <div class="post">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">{frontmatter.title}</h1>
+            {
+              tagList.length > 0 && (
+                <div
+                  class="post-tags"
+                  role="list"
+                  aria-label={
+                    Astro.currentLocale === "en" ? "Tags" : "Thẻ chủ đề"
+                  }
+                >
+                  {tagList.map((tag) => (
+                    <span class="post-tag" role="listitem">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              )
+            }
+            <p class="post-meta">
+              {
+                isDateValid && (
+                  <time datetime={d.toISOString()} itemprop="datePublished">
+                    {d.toLocaleDateString(
+                      Astro.currentLocale === "en" ? "en-US" : "vi-VN",
+                      { year: "numeric", month: "long", day: "numeric" },
+                    )}
+                  </time>
+                )
               }
-            >
-              {tagList.map((tag) => (
-                <span class="post-tag" role="listitem">
-                  #{tag}
-                </span>
-              ))}
-            </div>
-          )
-        }
-        <p class="post-meta">
-          {
-            isDateValid && (
-              <time datetime={d.toISOString()} itemprop="datePublished">
-                {d.toLocaleDateString(
-                  Astro.currentLocale === "en" ? "en-US" : "vi-VN",
-                  { year: "numeric", month: "long", day: "numeric" },
-                )}
-              </time>
-            )
-          }
-          {
-            frontmatter.author && (
-              <span
-                itemprop="author"
-                itemscope
-                itemtype="http://schema.org/Person"
-              >
-                <span itemprop="name"> • {frontmatter.author}</span>
-              </span>
-            )
-          }
-        </p>
-        {
-          alt && (
-            <p class="post-translation">
-              <a
-                href={altPath}
-                hreflang={alt.lang}
-                lang={alt.lang}
-                class="post-translation-link"
-              >
-                {
-                  alt.lang === "en"
-                    ? "English version"
-                    : "Bản tiếng Việt"
-                }
-              </a>
+              {
+                frontmatter.author && (
+                  <span
+                    itemprop="author"
+                    itemscope
+                    itemtype="http://schema.org/Person"
+                  >
+                    <span itemprop="name"> • {frontmatter.author}</span>
+                  </span>
+                )
+              }
             </p>
-          )
-        }
-      </header>
-      <article class="post-content" id="post-content" itemprop="articleBody">
-        <slot />
-      </article>
+            {
+              alt && (
+                <p class="post-translation">
+                  <a
+                    href={altPath}
+                    hreflang={alt.lang}
+                    lang={alt.lang}
+                    class="post-translation-link"
+                  >
+                    {
+                      alt.lang === "en"
+                        ? "English version"
+                        : "Bản tiếng Việt"
+                    }
+                  </a>
+                </p>
+              )
+            }
+          </header>
+          <article class="post-content" id="post-content" itemprop="articleBody">
+            <slot />
+          </article>
+        </div>
+      </div>
     </div>
 
     <aside class="toc-sidebar" id="toc-sidebar">

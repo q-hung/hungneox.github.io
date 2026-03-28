@@ -1,4 +1,9 @@
 // ── Post page grid: content + sticky TOC ──
+// Outer frame matches home category cards (.home--categorized .category-card)
+$post-retro-ink: #1a100c;
+$post-retro-cream: #fff4e8;
+$post-retro-cream-muted: #ffe8d4;
+
 .post-layout {
   display: grid;
   grid-template-columns: 1fr 280px;
@@ -10,27 +15,75 @@
   }
 }
 
-// ── TOC sidebar ──
+.post-card {
+  min-width: 0;
+  border: 3px solid $post-retro-ink;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 6px 6px 0 $post-retro-ink;
+  background: transparent;
+}
+
+.post-card__window {
+  background: $post-retro-cream;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  padding: 1rem 1.25rem 1.35rem;
+}
+
+html[data-theme="dark"] .post-card {
+  border-color: var(--color-border);
+  box-shadow: 6px 6px 0 var(--color-card-shadow);
+}
+
+html[data-theme="dark"] .post-card__window {
+  background: var(--color-bg-card);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+html[data-theme="dark"] .post .post-header {
+  border-bottom-color: var(--color-border);
+
+  .post-translation {
+    border-top-color: rgba(255, 255, 255, 0.08);
+  }
+}
+
+// ── TOC sidebar (same shell as .post-card / home category cards) ──
 .toc-sidebar {
   position: sticky;
   top: 1.5rem;
   max-height: calc(100vh - 3rem);
   overflow-y: auto;
-  background: var(--color-bg-card);
-  border: 2px solid var(--color-text);
+  background: $post-retro-cream;
+  border: 3px solid $post-retro-ink;
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-block);
-  padding: 1.25rem;
+  box-shadow:
+    6px 6px 0 $post-retro-ink,
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  padding: 1rem 1.25rem 1.25rem;
 
   scrollbar-width: thin;
-  scrollbar-color: var(--color-border) transparent;
+  scrollbar-color: rgba(26, 16, 12, 0.35) transparent;
 
   &::-webkit-scrollbar {
     width: 3px;
   }
   &::-webkit-scrollbar-thumb {
-    background: var(--color-border);
+    background: rgba(26, 16, 12, 0.35);
     border-radius: var(--radius-sm);
+  }
+}
+
+html[data-theme="dark"] .toc-sidebar {
+  background: var(--color-bg-card);
+  border-color: var(--color-border);
+  box-shadow:
+    6px 6px 0 var(--color-card-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  scrollbar-color: var(--color-border) transparent;
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-border);
   }
 }
 
@@ -43,7 +96,7 @@
     color: var(--color-text);
     margin: 0 0 0.75rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--color-text);
+    border-bottom: 3px solid $post-retro-ink;
   }
 
   .toc-list {
@@ -91,40 +144,62 @@
   }
 }
 
-// ── Back to top button ──
+html[data-theme="dark"] .toc .toc-title {
+  border-bottom-color: var(--color-border);
+}
+
+// ── Back to top (category-card__view-all style) ──
 .toc-back-top {
   display: flex;
   align-items: center;
   gap: 0.35rem;
   width: 100%;
   margin-top: 1.25rem;
-  padding: 0.5rem 0.75rem;
-  background: var(--color-bg-secondary);
-  border: 2px solid var(--color-text);
-  border-radius: var(--radius-sm);
-  color: var(--color-text);
+  padding: 0.45rem 0.65rem;
+  background: $post-retro-cream;
+  border: 2px solid $post-retro-ink;
+  border-radius: 2px;
+  color: $post-retro-ink;
   font-family: inherit;
-  font-size: 0.78rem;
-  font-weight: 700;
+  font-size: 0.72rem;
+  font-weight: 800;
   cursor: pointer;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  box-shadow: var(--shadow-block-sm);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  letter-spacing: 0.05em;
+  box-shadow: 2px 2px 0 $post-retro-ink;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.15s ease;
 
   .material-symbols-rounded {
     font-size: 1.1em;
   }
 
   &:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: var(--shadow-block-hover);
-    background: var(--color-bg);
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 $post-retro-ink;
+    background: $post-retro-cream-muted;
   }
 
   &:active {
-    transform: translate(2px, 2px);
-    box-shadow: none;
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 $post-retro-ink;
+  }
+}
+
+html[data-theme="dark"] .toc-back-top {
+  color: var(--color-heading);
+  border-color: var(--color-border);
+  background: var(--color-bg-secondary);
+  box-shadow: 2px 2px 0 var(--color-card-shadow);
+
+  &:hover {
+    color: var(--color-link-hover);
+    border-color: var(--color-border-hover);
+    box-shadow: 3px 3px 0 var(--color-card-shadow);
+    background: var(--color-bg-secondary);
+  }
+
+  &:active {
+    box-shadow: 1px 1px 0 var(--color-card-shadow);
   }
 }
 
@@ -132,7 +207,7 @@
 .toc-author {
   margin-top: 1.25rem;
   padding-top: 1.25rem;
-  border-top: 2px solid var(--color-text);
+  border-top: 2px dashed rgba(20, 20, 20, 0.22);
   display: flex;
   gap: 0.7rem;
   align-items: flex-start;
@@ -141,7 +216,7 @@
     width: 38px;
     height: 38px;
     border-radius: var(--radius-sm);
-    border: 2px solid var(--color-text);
+    border: 2px solid $post-retro-ink;
     flex-shrink: 0;
   }
 
@@ -183,6 +258,14 @@
         text-decoration-thickness: 2px;
       }
     }
+  }
+}
+
+html[data-theme="dark"] .toc-author {
+  border-top-color: rgba(255, 255, 255, 0.08);
+
+  .toc-avatar {
+    border-color: var(--color-border);
   }
 }
 
@@ -246,12 +329,13 @@
   max-width: 100%;
 
   .post-header {
-    margin: 0 0 2.5rem;
-    padding: 1.5rem;
-    border: 2px solid var(--color-text);
-    border-radius: var(--radius-md);
-    background: var(--color-bg-card);
-    box-shadow: var(--shadow-block);
+    margin: 0 0 1.75rem;
+    padding: 0 0 1.15rem;
+    border: none;
+    border-bottom: 3px solid $post-retro-ink;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
 
     .post-title {
       font-size: 2.25rem;
@@ -295,7 +379,7 @@
     .post-translation {
       margin: 1rem 0 0;
       padding-top: 0.85rem;
-      border-top: 1px solid var(--color-border, rgba(0, 0, 0, 0.12));
+      border-top: 1px solid rgba(26, 16, 12, 0.12);
       font-size: $small-font-size;
       font-weight: 600;
     }

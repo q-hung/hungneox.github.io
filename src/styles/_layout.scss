@@ -131,6 +131,29 @@
         border-color: var(--color-link);
         background: var(--color-header-nav-link-hover-bg);
       }
+
+      &[aria-current="page"] {
+        color: var(--nav-current-ribbon-text);
+        background-color: var(--nav-current-ribbon-bg);
+        background-image: repeating-linear-gradient(
+          -14deg,
+          transparent,
+          transparent 9px,
+          var(--nav-current-ribbon-stripe) 9px,
+          var(--nav-current-ribbon-stripe) 18px
+        );
+        border-color: var(--nav-current-ribbon-border);
+        box-shadow: var(--nav-current-ribbon-inset);
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        text-shadow: var(--nav-current-text-shadow);
+
+        &:hover {
+          color: var(--nav-current-ribbon-text);
+          border-color: var(--nav-current-ribbon-border);
+          filter: brightness(1.06);
+        }
+      }
     }
   }
 

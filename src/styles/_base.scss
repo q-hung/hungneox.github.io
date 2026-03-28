@@ -36,6 +36,13 @@
   --color-header-nav-border: #9aafaa;
   --color-header-nav-link-hover-bg: #dde5e2;
   --color-header-nav-toggle-bg: #dde5e2;
+  /* Current nav item — same palette as home “Featured content” ribbon */
+  --nav-current-ribbon-bg: #f89254;
+  --nav-current-ribbon-stripe: rgba(0, 0, 0, 0.045);
+  --nav-current-ribbon-text: #fff4e8;
+  --nav-current-ribbon-border: #1a100c;
+  --nav-current-ribbon-inset: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  --nav-current-text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
 }
 
 html[data-theme="dark"] {
@@ -71,6 +78,12 @@ html[data-theme="dark"] {
   --color-header-nav-border: #4f6563;
   --color-header-nav-link-hover-bg: #2c3a38;
   --color-header-nav-toggle-bg: #2b3a39;
+  --nav-current-ribbon-bg: #b84e24;
+  --nav-current-ribbon-stripe: rgba(0, 0, 0, 0.08);
+  --nav-current-ribbon-text: #fff4e8;
+  --nav-current-ribbon-border: #d4c4b8;
+  --nav-current-ribbon-inset: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  --nav-current-text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
 }
 
 // ── Base reset ──

@@ -31,6 +31,11 @@
   --shadow-block: 4px 4px 0 #1f2e2c;
   --shadow-block-sm: 3px 3px 0 #1f2e2c;
   --shadow-block-hover: 6px 6px 0 #1f2e2c;
+  /* Header nav strip (same palette: lifted “card” vs page bg) */
+  --color-header-nav-bg: #eef3f1;
+  --color-header-nav-border: #9aafaa;
+  --color-header-nav-link-hover-bg: #dde5e2;
+  --color-header-nav-toggle-bg: #dde5e2;
 }
 
 html[data-theme="dark"] {
@@ -62,6 +67,10 @@ html[data-theme="dark"] {
   --shadow-block: 4px 4px 0 #1a2625;
   --shadow-block-sm: 3px 3px 0 #1a2625;
   --shadow-block-hover: 6px 6px 0 #1a2625;
+  --color-header-nav-bg: #364846;
+  --color-header-nav-border: #4f6563;
+  --color-header-nav-link-hover-bg: #2c3a38;
+  --color-header-nav-toggle-bg: #2b3a39;
 }
 
 // ── Base reset ──

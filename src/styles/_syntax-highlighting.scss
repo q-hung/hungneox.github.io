@@ -1,4 +1,44 @@
-// ── Light theme: GitHub-style ──
+// ── Shiki dual-theme support ──
+// Astro's Shiki generates inline --shiki-light-* and --shiki-dark-* CSS vars.
+// By default, the light theme is active. When data-theme="dark", swap to dark.
+
+// Light mode (default): use light theme colors
+pre.astro-code,
+pre.shiki {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg) !important;
+  border-radius: 8px;
+  padding: 1.25rem;
+  overflow-x: auto;
+  font-family: $code-font-family;
+  font-size: $code-font-size;
+  line-height: 1.65;
+
+  code {
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  .line span {
+    color: var(--shiki-light);
+  }
+}
+
+// Dark mode: swap to dark theme colors
+// !important is needed to override Shiki's inline style="color:..." on each span
+html[data-theme="dark"] {
+  pre.astro-code,
+  pre.shiki {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+
+    .line span {
+      color: var(--shiki-dark) !important;
+    }
+  }
+}
+
+// ── Legacy Jekyll .highlight classes (for any old markup) ──
 .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
 .highlight, .highlight .w { color: #24292f; background-color: var(--color-code-bg); }
@@ -29,7 +69,6 @@
 .highlight .nf, .highlight .nv { color: #8250df; }
 .highlight .nb { color: #953800; }
 
-// ── Dark theme overrides ──
 html[data-theme="dark"] {
   .highlight, .highlight .w { color: #e2e8f0; background-color: var(--color-code-bg); }
   .highlight .err { color: #f87171; }

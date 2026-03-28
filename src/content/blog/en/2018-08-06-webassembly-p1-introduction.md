@@ -5,11 +5,11 @@ date: 2018-08-06 1:00
 categories: [systems]
 author: hungneox
 description: "An introduction to WebAssembly: what WebAssembly is"
-image: /assets/posts/webassembly/game-changer.jpg
+image: /assets/images/wasm.jpg
 comments: true
 ---
 
-!["Web Platform"](/assets/posts/webassembly/game-changer.jpg)
+!["Web Platform"](/assets/images/wasm.jpg)
 
 # Introducing WebAssembly
 

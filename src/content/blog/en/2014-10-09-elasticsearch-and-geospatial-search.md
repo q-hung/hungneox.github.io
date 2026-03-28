@@ -4,6 +4,7 @@ title: "Elasticsearch and geospatial search"
 date: 2014-10-09 8:00 PM
 categories: [search-data]
 author: hungneox
+image: /assets/posts/elasticsearch-va-geospatial-search/elasticsearch-logo.jpg
 comments: true
 ---
 

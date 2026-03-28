@@ -71,15 +71,15 @@ const emptyLabel = lang === "en" ? "No posts yet — stay tuned!" : "Chưa có b
     </div>
 
     <div class="category-card__footer">
-      <a class="category-card__view-all" href={viewAllHref}>
-        {viewAllLabel}
-        <span class="category-card__view-all-arrow" aria-hidden="true">→</span>
-      </a>
       {totalCount > 0 && (
         <span class="category-card__count">
           {totalCount} {lang === "en" ? (totalCount === 1 ? "post" : "posts") : "bài"}
         </span>
       )}
+      <a class="category-card__view-all" href={viewAllHref}>
+        {viewAllLabel}
+        <span class="category-card__view-all-arrow" aria-hidden="true">→</span>
+      </a>
     </div>
   </div>
 </div>

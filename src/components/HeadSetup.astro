@@ -5,9 +5,11 @@ export interface Props {
   image?: string;
   tags?: string[];
   url?: string;
+  /** Same page in other locales for `<link rel="alternate" hreflang="…">` */
+  alternateLocales?: { lang: string; href: string }[];
 }
 
-const { title, description, image, tags, url } = Astro.props;
+const { title, description, image, tags, url, alternateLocales } = Astro.props;
 const siteTitle = "Q-Hung";
 const siteDescription = "Software Engineer | Coffee lover";
 
@@ -42,6 +44,11 @@ const canonicalUrl = new URL(
 <meta property="og:image" content={finalImage} />
 
 <link rel="canonical" href={canonicalUrl} />
+{
+  alternateLocales?.map(({ lang, href }) => (
+    <link rel="alternate" hreflang={lang} href={href} />
+  ))
+}
 <link
   href="/feed.xml"
   type="application/atom+xml"

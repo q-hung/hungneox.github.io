@@ -1,4 +1,11 @@
 ---
+export interface Props {
+  /** When set (e.g. paired translation), used instead of swapping the path segment */
+  langSwitcherHref?: string;
+}
+
+const { langSwitcherHref: langSwitcherHrefProp } = Astro.props;
+
 const { currentLocale } = Astro;
 /** Default locale (`en`) home is `/` — matches `prefixDefaultLocale: false` in astro.config */
 const basePath = currentLocale === "en" ? "/" : `/${currentLocale}/`;
@@ -8,17 +15,19 @@ const categoryPath = `/${currentLocale}/category/`;
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 const segments = path.split("/").filter(Boolean);
 const otherLocale = currentLocale === "en" ? "vi" : "en";
-let otherLangHref: string;
+let defaultOtherLangHref: string;
 if (segments[0] === "vi" || segments[0] === "en") {
   segments[0] = otherLocale;
-  otherLangHref = "/" + segments.join("/");
-  if (!otherLangHref.endsWith("/")) otherLangHref += "/";
+  defaultOtherLangHref = "/" + segments.join("/");
+  if (!defaultOtherLangHref.endsWith("/")) defaultOtherLangHref += "/";
   if (otherLocale === "en" && segments.length === 1) {
-    otherLangHref = "/";
+    defaultOtherLangHref = "/";
   }
 } else {
-  otherLangHref = otherLocale === "vi" ? "/vi/" : "/";
+  defaultOtherLangHref = otherLocale === "vi" ? "/vi/" : "/";
 }
+
+const otherLangHref = langSwitcherHrefProp ?? defaultOtherLangHref;
 ---
 <header class="header">
   <div class="wrapper">

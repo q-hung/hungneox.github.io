@@ -5,6 +5,23 @@ const { frontmatter } = Astro.props;
 const d = new Date(frontmatter.date);
 const isDateValid = !isNaN(d.getTime());
 
+const site = Astro.site ?? new URL("https://butchiso.com");
+const currentLang = Astro.currentLocale ?? "en";
+const alt = frontmatter.alternate;
+
+let alternateLocales: { lang: string; href: string }[] | undefined;
+const altPath = alt ? `/${alt.lang}/blog/${alt.slug}/` : "";
+if (alt) {
+  const currentHref = new URL(Astro.url.pathname, site).href;
+  const altHref = new URL(altPath, site).href;
+  const viHref = currentLang === "vi" ? currentHref : altHref;
+  const enHref = currentLang === "en" ? currentHref : altHref;
+  alternateLocales = [
+    { lang: "vi", href: viHref },
+    { lang: "en", href: enHref },
+  ];
+}
+
 const rawTags = frontmatter.tags;
 const tagList: string[] = Array.isArray(rawTags)
   ? rawTags.map(String)
@@ -18,6 +35,8 @@ const tagList: string[] = Array.isArray(rawTags)
   description={frontmatter.description}
   image={frontmatter.image}
   tags={frontmatter.tags}
+  alternateLocales={alternateLocales}
+  langSwitcherHref={alt ? altPath : undefined}
 >
   <div class="post-layout">
     <div class="post">
@@ -63,6 +82,24 @@ const tagList: string[] = Array.isArray(rawTags)
             )
           }
         </p>
+        {
+          alt && (
+            <p class="post-translation">
+              <a
+                href={altPath}
+                hreflang={alt.lang}
+                lang={alt.lang}
+                class="post-translation-link"
+              >
+                {
+                  alt.lang === "en"
+                    ? "English version"
+                    : "Bản tiếng Việt"
+                }
+              </a>
+            </p>
+          )
+        }
       </header>
       <article class="post-content" id="post-content" itemprop="articleBody">
         <slot />

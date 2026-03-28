@@ -6,6 +6,9 @@ categories: [information-retrieval]
 author: hungneox
 image: /assets/images/vector-space-model.png
 comments: true
+alternate:
+  lang: vi
+  slug: 2013-10-27-tim-hieu-ve-mo-hinh-khong-gian-vector
 ---
 
 ### Introduction

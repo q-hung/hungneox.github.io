@@ -13,6 +13,13 @@ const blog = defineCollection({
     tags: z.array(z.string()).or(z.string().transform(s => [s])).optional(),
     categories: z.array(z.string()).or(z.string().transform(s => [s])).optional(),
     permalink: z.string().optional(),
+    /** Same article in the other locale (paths are `/[lang]/blog/[slug]/`) */
+    alternate: z
+      .object({
+        lang: z.enum(['vi', 'en']),
+        slug: z.string(),
+      })
+      .optional(),
     published: z.boolean().default(true),
     comments: z.boolean().default(true),
   }),

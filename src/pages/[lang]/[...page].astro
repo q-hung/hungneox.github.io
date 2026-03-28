@@ -101,12 +101,12 @@ const title = lang === 'en' ? 'Home' : 'Trang chủ';
         <div class="pagination">
           {page.url.prev ? (
             <a href={page.url.prev} class="page-btn prev">
-              <span class="material-symbols-rounded">chevron_left</span> 
+              <span class="page-btn-arrow" aria-hidden="true">«</span>
               {lang === 'en' ? 'Previous' : 'Trang trước'}
             </a>
           ) : (
             <span class="page-btn prev disabled">
-              <span class="material-symbols-rounded">chevron_left</span> 
+              <span class="page-btn-arrow" aria-hidden="true">«</span>
               {lang === 'en' ? 'Previous' : 'Trang trước'}
             </span>
           )}
@@ -118,12 +118,12 @@ const title = lang === 'en' ? 'Home' : 'Trang chủ';
           {page.url.next ? (
             <a href={page.url.next} class="page-btn next">
               {lang === 'en' ? 'Next' : 'Trang sau'}
-              <span class="material-symbols-rounded">chevron_right</span> 
+              <span class="page-btn-arrow" aria-hidden="true">»</span>
             </a>
           ) : (
             <span class="page-btn next disabled">
-               {lang === 'en' ? 'Next' : 'Trang sau'}
-               <span class="material-symbols-rounded">chevron_right</span> 
+              {lang === 'en' ? 'Next' : 'Trang sau'}
+              <span class="page-btn-arrow" aria-hidden="true">»</span>
             </span>
           )}
         </div>

@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="vi"> <head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Generator in ES6 and solving callback hell - Q-Hung</title><meta name="description" content="What is Generator in ES6, its basic usage and how to use it to solve callback hell?"><meta name="keywords" content="javascript, es6, generator, asynchronous, callback"><!-- Open Graph --><meta property="og:locale" content="vi_VN"><meta property="og:type" content="article"><meta property="og:title" content="Generator in ES6 and solving callback hell - Q-Hung"><meta property="og:description" content="What is Generator in ES6, its basic usage and how to use it to solve callback hell?"><meta property="og:url" content="https://butchiso.com/vi/blog/2015-07-28-generator-in-es6-and-solving-callback-hell/"><meta property="og:site_name" content="Q-Hung"><meta property="og:image" content="https://butchiso.com/assets/posts/generator-in-es6-and-solving-callback-hell/ecmascript6.png"><link rel="canonical" href="https://butchiso.com/vi/blog/2015-07-28-generator-in-es6-and-solving-callback-hell/"><link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Q-Hung Feed"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><!-- Webfonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Mono:wght@400;500&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_upward,article,category,dark_mode,home,light_mode,mail,rss_feed&display=block" rel="stylesheet"><!-- Favicon --><link rel="icon" href="/favicon.svg" type="image/svg+xml"><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>
+  (function(){
+    var t=localStorage.getItem('theme');
+    if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){
+      document.documentElement.setAttribute('data-theme','dark');
+    }
+  })();
+</script><link rel="stylesheet" href="/_astro/BaseLayout.bWL4HU_f.css"></head> <body> <header class="header"> <div class="wrapper"> <div class="site-brand"> <a class="site-avatar" href="/"> <img src="//avatars.githubusercontent.com/u/199614?v=4" alt="Q-Hung"> </a> <div class="site-identity"> <a class="site-title" href="/">Q-Hung</a> <div class="site-social"> <a href="https://github.com/q-hung" title="GitHub"> <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"></path></svg> GitHub
+</a> <a href="https://linkedin.com/in/hungnq1989" title="LinkedIn"> <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg> LinkedIn
+</a> <a href="mailto:hungnq1989@gmail.com" title="Email"> <span class="material-symbols-rounded">mail</span> Email
+</a> </div> </div> </div> <nav class="site-nav"> <a class="page-link" href="/"><span class="material-symbols-rounded">home</span> Trang chủ</a> <a class="page-link" href="/about/"><span class="material-symbols-rounded">article</span> About</a> <a class="page-link" href="/category/"><span class="material-symbols-rounded">category</span> Category</a> <a class="page-link" href="/feed.xml"><span class="material-symbols-rounded">rss_feed</span> RSS</a> <!-- Language Switcher --> <a class="page-link lang-switcher" href="/en/" title="Switch to English"><span class="material-symbols-rounded">language</span> EN</a> <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"> <span class="material-symbols-rounded icon-light">light_mode</span> <span class="material-symbols-rounded icon-dark">dark_mode</span> </button> </nav> </div> </header> <div class="page-content"> <div class="wrapper">  <div class="post"> <header class="post-header"> <h1 class="post-title" itemprop="name headline">Generator in ES6 and solving callback hell</h1> <p class="post-meta"> <time datetime="2015-07-18T00:45:00.000Z" itemprop="datePublished"> 18 tháng 7, 2015 </time> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"> • hungneox</span></span> </p> </header> <article class="post-content" itemprop="articleBody">  <p><img src="/assets/posts/generator-in-es6-and-solving-callback-hell/ecmascript6.png" alt="ECMAScript6"></p>
+<h1 id="1-what-is-generator">1. What is <code>Generator</code>?</h1>
+<p>Generally, <code>Generator</code> is a object returned by a generator function that behaves like an <code>Iterator</code>. In Javascript, according to Mozilla:</p>
+<blockquote>
+<p>The Generator object is returned by a generator function and it conforms to both the iterator and the Iterable protocol.</p>
+</blockquote>
+<p>While a normal function will return a value using <code>return</code> keyword, <code>Generator</code> uses <code>yield</code> keyword to generate a <em>rule to create values</em> rather than the actual values. In other words, it is the lazily way to generate values.</p>
+<p>The obvious benefit of <code>Generator</code> is improving the performance and help us to organize source code better. This is a new feature in ES6, but it has been implemented in other languages (e.g.Python, C# etc) for a long time.</p>
+<h1 id="2-syntax">2. Syntax</h1>
+<p>To define a generator function we can use <code>GeneratorFunction</code> constructor and <code>function* expression</code></p>
+<p>{% highlight javascript %}
+function* name([param[, param[, … param]]]) {
+statements
+}
+{% endhighlight %}</p>
+<ul>
+<li><code>name</code>
+The function name.</li>
+<li><code>param</code>
+The name of an argument to be passed to the function. A function can have up to 255 arguments.</li>
+<li><code>statements</code>
+The statements comprising the body of the function.</li>
+</ul>
+<p>Futhermore, we can also using [<code>yield*](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield*)</code> to yield another generator, and note that:</p>
+<blockquote>
+<p>The next() method also accepts a value which can be used to modify the internal state of the generator. A value passed to next() will be treated as the result of the last yield expression that paused the generator.</p>
+</blockquote>
+<h1 id="3-generator-usage">3. <code>Generator</code> usage</h1>
+<h2 id="31-simple-example">3.1 Simple example</h2>
+<p>In this simple example, instead of creating an array to store all odd numbers, we just simply create <code>a rule</code> for generating them.</p>
+<p>{% highlight javascript %}
+function* oddNumberGenerator(){
+var i = 0;
+while(true){
+yield (i!==0) ? i+=2 : i+=1;
+}
+}</p>
+<p>var gen = oddNumberGenerator();
+console.log(gen.next().value); // 1
+console.log(gen.next().value); // 3
+console.log(gen.next().value); // 5
+console.log(gen.next().value); // 7
+{% endhighlight %}</p>
+<h2 id="32-what-is-callback-hell-and-how-to-solve-it">3.2 What is <code>callback hell</code> and how to solve it?</h2>
+<p>First, let’s take a look at this <strong>callback hell</strong> or <strong>pyramid of doom</strong></p>
+<p>{% highlight javascript %}
+var $status = $(‘#status’);</p>
+<p>$.ajax({
+type: ‘GET’,
+url: ‘categories.json’, //GETting a JSON file acts just like hitting an API
+success: function(categories) {
+$status.append(‘</p><li>Got categories</li>’);
+$(‘#categories-pre’).html(JSON.stringify(categories));
+$.ajax({
+type: ‘GET’,
+url: ‘authors.json’
+success: function(authors) {
+$status.append(‘<li>Got authors</li>’);
+$(‘#authors-pre’).html(JSON.stringify(authors));
+$.ajax({
+type: ‘GET’,
+url: ‘books’,
+success: function(books) {
+$status.append(‘<li>Got books</li>’);
+$(‘#books-pre’).html(JSON.stringify(books));
+},
+error: function(xhr, status, error) {
+$status.append(‘<li>error:‘+error.toString()+'</li>');
+}
+});
+},
+error: function(xhr, status, error) {
+$status.append(‘<li>error:‘+error.toString()+'</li>');
+}
+});<p></p>
+<p>},
+error: function(xhr, status, error) {
+$status.append(‘</p><li>error:‘+error.toString()+'</li>');
+}
+});
+{% endhighlight %}
+How can we make it better? Using <code>Promise</code> is an answer. Obviously, the code looks more tidy and easy to read.<p></p>
+<p>{% highlight javascript %}
+var $status = $(‘#status’);
+$.get(‘categories.json’).then(function(categories){
+$(‘#categories-pre’).html(JSON.Stringify(categories));
+return $.get(‘authors.json’);
+}).then(function(authors){
+$(‘#authors-pre’).html(JSON.Stringify(authors));
+return $.get(‘books.json’);
+}).then(function(books){
+$(‘#books-pre’).html(JSON.Stringify(books));
+}, errorHandler);</p>
+<p>function errorHandler(xhr, status, error){
+$status.append(‘</p><li>error:‘+error.toString()+'</li>');
+}
+{% endhighlight %}<p></p>
+<p><code>Promise</code> (technically in this case: <code>jQuery Promise</code>) is a good way to prevent callback hell. But you know what? <code>Generator</code> is more awesome. This example below uses <a href="https://github.com/petkaantonov/bluebird">bluebird</a> <code>Promise.coroutine</code> to return a function that can use <code>yield</code> to yield promise.</p>
+<p>{% highlight javascript %}
+var $status = $(‘#status’);</p>
+<p>Promise.coroutine(function* () {</p>
+<p>var categories = yield $.get(‘categories.json’);
+$status.append(‘</p><li>Got categories</li>’);
+$(‘#categories-pre’).html(JSON.stringify(categories));<p></p>
+<p>var authors = yield $.get(‘authors.json’);
+$status.append(‘</p><li>Got authors</li>’);
+$(‘#authors-pre’).html(JSON.stringify(authors));<p></p>
+<p>var books = yield $.get(‘books.json’);
+$status.append(‘</p><li>Got books</li>’);
+$(‘#books-pre’).html(JSON.stringify(books));<p></p>
+<p>})().catch(function(errs) {
+//handle errors on any events
+})
+{% endhighlight %}</p>
+<h1 id="4-conlusion">4. Conlusion</h1>
+<p><code>Generator</code> is a new feature in ECMAScript 6 and it is a convenient way to control iteration behavior of a loop. Moreover, it also help to solve the callback hell in your existing code. Combine <code>Promise</code> and <code>Generator</code> effectively can help you control the asynchronous flow better and preventing callback hell in your code. It is more powerful and useful than just only make your code more concise and tidy. Using it wisely can aslo help you to improve your code performance compare to tradditional <code>loop</code>.</p>
+<p>Full code is here: <a href="http://plnkr.co/edit/DFowxQiDYCmxzhm3RvVB?p=info">http://plnkr.co/edit/DFowxQiDYCmxzhm3RvVB?p=info</a></p>
+<h1 id="references">References</h1>
+<ol>
+<li>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators">Mozilla Developer Network: Iterators and generators</a></p>
+</li>
+<li>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*">Mozilla Developer Network: function*</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/watch?v=obaSQBBWZLk">Are you bad, good, better or best with Async JS? JS Tutorial: Callbacks, Promises, Generators</a></p>
+</li>
+</ol>  </article> </div>  </div> </div> <footer class="footer"> <div class="wrapper">
+&copy; 2016&ndash;2026 Q-Hung. Built with <a href="https://astro.build">Astro</a>.
+</div> </footer> <script type="module">(function(e,c,o,s,t,n,a){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=c.createElement(o),a=c.getElementsByTagName(o)[0],n.async=1,n.src=s,a.parentNode.insertBefore(n,a)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create","UA-39549683-1","auto");ga("send","pageview",location.pathname);</script> </body></html>

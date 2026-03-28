@@ -1,0 +1,316 @@
+<!DOCTYPE html><html lang="vi"> <head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Laravel : Dependency Injection và IoC container - Q-Hung</title><meta name="description" content="Laravel : Dependency Injection và IoC container"><meta name="keywords" content="dependency-injection, ioc-container, php, laravel"><!-- Open Graph --><meta property="og:locale" content="vi_VN"><meta property="og:type" content="article"><meta property="og:title" content="Laravel : Dependency Injection và IoC container - Q-Hung"><meta property="og:description" content="Laravel : Dependency Injection và IoC container"><meta property="og:url" content="https://butchiso.com/vi/blog/2016-06-25-laravel-dependency-injection-va-ioc-container/"><meta property="og:site_name" content="Q-Hung"><meta property="og:image" content="https://butchiso.com/assets/images/laravel.jpg"><link rel="canonical" href="https://butchiso.com/vi/blog/2016-06-25-laravel-dependency-injection-va-ioc-container/"><link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Q-Hung Feed"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><!-- Webfonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Mono:wght@400;500&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_upward,article,category,dark_mode,home,light_mode,mail,rss_feed&display=block" rel="stylesheet"><!-- Favicon --><link rel="icon" href="/favicon.svg" type="image/svg+xml"><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>
+  (function(){
+    var t=localStorage.getItem('theme');
+    if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){
+      document.documentElement.setAttribute('data-theme','dark');
+    }
+  })();
+</script><link rel="stylesheet" href="/_astro/BaseLayout.bWL4HU_f.css"></head> <body> <header class="header"> <div class="wrapper"> <div class="site-brand"> <a class="site-avatar" href="/"> <img src="//avatars.githubusercontent.com/u/199614?v=4" alt="Q-Hung"> </a> <div class="site-identity"> <a class="site-title" href="/">Q-Hung</a> <div class="site-social"> <a href="https://github.com/q-hung" title="GitHub"> <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"></path></svg> GitHub
+</a> <a href="https://linkedin.com/in/hungnq1989" title="LinkedIn"> <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg> LinkedIn
+</a> <a href="mailto:hungnq1989@gmail.com" title="Email"> <span class="material-symbols-rounded">mail</span> Email
+</a> </div> </div> </div> <nav class="site-nav"> <a class="page-link" href="/"><span class="material-symbols-rounded">home</span> Trang chủ</a> <a class="page-link" href="/about/"><span class="material-symbols-rounded">article</span> About</a> <a class="page-link" href="/category/"><span class="material-symbols-rounded">category</span> Category</a> <a class="page-link" href="/feed.xml"><span class="material-symbols-rounded">rss_feed</span> RSS</a> <!-- Language Switcher --> <a class="page-link lang-switcher" href="/en/" title="Switch to English"><span class="material-symbols-rounded">language</span> EN</a> <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"> <span class="material-symbols-rounded icon-light">light_mode</span> <span class="material-symbols-rounded icon-dark">dark_mode</span> </button> </nav> </div> </header> <div class="page-content"> <div class="wrapper">  <div class="post"> <header class="post-header"> <h1 class="post-title" itemprop="name headline">Laravel : Dependency Injection và IoC container</h1> <p class="post-meta">  <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"> • hungneox</span></span> </p> </header> <article class="post-content" itemprop="articleBody">  <p><img src="/assets/images/laravel.jpg" alt="&#x22;Laravel&#x22;" title="Laravel">{: .center-image }</p>
+<h1 id="0-mục-lục">0. Mục lục</h1>
+<ol>
+<li><a href="#dependency-injection-la-gi">Dependency Injection là gì?</a></li>
+<li><a href="#ioc-container-la-gi">IoC conainter là gì?</a></li>
+<li><a href="#su-dung-ioc-container-trong-laravel-nhu-the-nao">Sử dụng IoC container trong Laravel như thế nào?</a></li>
+<li><a href="#ket-luan">Kết luận</a></li>
+</ol>
+<h1 id="1-dependency-injection-là-gì">1. Dependency Injection là gì?</h1>
+<p>Nói ngắn gọn, thì dependency injection (DI) chỉ đơn giản là cung cấp cho một object những object nó phụ thuộc (dependencies) từ bên ngoài truyền vào mà không phải khởi tạo từ trong hàm dựng. Điều này giúp ứng dụng linh động hơn và dễ test hơn, vì ta có thể dễ dàng dùng Mock class để test.</p>
+<p>Thử lấy một ví dụ tổng quát không sử dụng kỹ thuật DI như sau:</p>
+<p>{% highlight php %}</p>
+<!--?php
+class StandardLogger {
+
+    public function info($message)
+    {
+      printf("[INFO] %s \n", $message);
+    }
+}
+
+class MyLog {
+    public $logger;
+
+    public function __construct() {
+        $this--->logger = new StandardLogger();
+    }
+
+    public function info($string)
+    {
+        return $this->logger->info($string);
+    }
+}
+
+//Main application, somewhere else
+$myLog = new MyLog();
+$myLog->info('This object depend on another object');
+{% endhighlight %}
+
+Ví vụ trên là một ví dụ mang tính tượng trưng, nhưng vấn đề chính được nêu ra là class MyLog bị phụ thuộc vào class StandardLogger. Nói cách khác là class MyLog bị dính chặt vào class StandardLogger. Hiện tại thì khi chúng ta muốn chuyển sang một loại logger khác (ví dụ như FileLogger hay MongoDBLogger) chúng ta phải sửa lại hàm dựng của class MyLog.
+
+
+Để giải quyết vấn đề phụ thuộc này, chúng ta chỉ cần sửa lại hàm dựng của class MyLog nhận một tham số là logger là được. Hay còn gọi là **decouple** hàm dựng của class MyLog với những class khác mà nó phụ thuộc. Việc này đơn giản được gọi là **Dependency Injection**. Tah-dah, đơn giản quá phải không? Cho nên có người nói DI là một cái tên 25 dollars cho một khái niệm trị giá 5 cents. Nguyên văn của [James Shore](http://www.jamesshore.com/Blog/Dependency-Injection-Demystified.html):
+
+> "Dependency Injection" is a 25-dollar term for a 5-cent concept. [...] Dependency injection means giving an object its instance variables. [...].
+
+{% highlight php %}
+<!--?php
+interface LoggerInterface 
+{
+    function info($message);
+}
+
+class StandardLogger implements LoggerInterface
+{
+
+    public function info($message)
+    {
+        printf("[INFO] %s \n", $message);
+    }
+}
+
+class FileLogger implements LoggerInterface 
+{
+
+    public function info($message) 
+    {
+        file_put_contents('app.log', sprintf("[INFO] %s \n", $message), FILE_APPEND);
+    }
+}
+
+class MyLog 
+{
+    public $logger;
+
+    public function __construct(LoggerInterface $logger) 
+    {
+        $this--->logger = $logger;
+    }
+
+    public function info($string)
+    {
+        return $this->logger->info($string);
+    }
+}
+// Print to standard input/output device
+$myLog = new MyLog(new StandardLogger);
+$myLog->info('This object depend on another object');
+// Write to file
+$myFileLog = new MyLog(new FileLogger);
+$myFileLog->info('This object depend on another object'); 
+{% endhighlight %}
+
+# 2. IoC Conainter là gì?
+
+Khi áp dụng kỹ thuật DI này, thì một vấn đề khác lại nảy sinh, làm thế nào chúng ta biết được lớp MyLog này phụ thuộc vào những lớp nào để khởi tạo nó? Việc tạo ra một instance của class MyLog rất đơn giản nếu như nó chỉ phụ thuộc trực tiếp vào một class khác. Tuy nhiên có khả năng xảy ra trường hợp phụ thuộc lồng nhau, ví dụ như `MyLog --> DBLogger --> DatabaseAccess`. Và nó gây rất nhiều khó khăn cho việc khởi tạo một object mà chúng ta cần, bởi vì danh sách các lớp phụ thuộc lồng nhau rất sâu (deeply nested class dependencies).
+
+Để giải quyết điều này, người ta nghĩ ra Dependency Injection Container hay còn gọi là Inversion of Control Container (IoC container). Thuật ngữ Inversion of Control mang tính tổng quát hơn Dependency Injection, từ đây về sau mình sẽ dù IoC container thay cho Dependecy Injection Container. Về bản chất thì IoC Conainter là một tấm bản đồ, hay một dịch vụ tổng đài cuộc gọi. Nó cho ta biết một lớp phụ thuộc vào những lớp class nào khác và phân giải được những class đó bằng kỹ thuật [Reflection](http://php.net/manual/en/book.reflection.php), hoặc từ danh sách đã được developer đăng ký trước.
+
+Thật ra mà nói DI là một khái niệm không mới mẻ gì, nhất là trong thế giới Java. Martin Folwer đã viết về [Dependency Pattern và IoC container từ năm 2004](http://martinfowler.com/articles/injection.html). Thậm chí xa hơn thuật ngữ *inversion of control* đã xuất hiện từ năm 1988 trong [paper Designing Reusable Classes](http://www.laputan.org/drc/drc.html) của Johnson và Foote.Tuy nhiên cho đến gần đầy thì mới có một vài frameworks PHP sử dụng DI và IoC container như [Laravel](https://laravel.com/docs/4.2/ioc) hay [Pimple](http://pimple.sensiolabs.org/). Từ Laravel 5.0 trở đi Laravel gọi nó là Service container thay vì IoC container như trước.
+
+Khởi nguyên của Laravel là một dự án IoC Container cho CodeIgniter do Taylor Otwell viết có tên là CInject. Theo như Taylor thì thậm chí nó còn được tái sử dụng cho đến tận Laravel 5.x như bây giờ. Và bản chất thì Laravel chính là một IoC container mà cụ thể là class `Illuminate\Container\Container`. 
+
+!["Ảnh chụp màn hình của dự án CInject trên Google Code"](/assets/posts/laravel-dependency-injection-va-ioc-container/cinject.png "Ảnh chụp màn hình của dự án CInject trên Google Code"){: .center-image }
+
+
+# 3. Sử dụng IoC container trong Laravel như thế nào?
+
+## - Cơ bản
+Thử lấy một ví dụ đơn giản về 2 tầng phụ thuộc của một class.
+
+{% highlight php %}
+<!--?php
+class Car {
+    public $enigne;
+    public function __construct(Engine $enigne) {
+        $this--->enigne = $enigne;
+    }
+}
+class Engine {
+    public $piston;
+    public function __construct(Piston $piston) {
+        $this->piston = $piston;
+    }
+}
+class Piston {}
+{% endhighlight %}
+
+Khi ta muốn khởi tạo một đối tượng `$car = new Car();` thì php sẽ báo lỗi như sau:
+```
+Argument 1 passed to Car::__construct() must be an instance of Engine, none given,...
+```
+
+Cũng dễ hiểu vì class Car phụ thuộc vào class Engine mà class này lại phụ thuộc vào class Piston. Trong Laravel, nếu chúng ta dùng `App::make` thì IoC container trong Laravel sẽ tự động phân giải dependencies của class Car và giúp chúng ta khởi tạo đối tượng `$car` một cách đúng đắn.
+
+{% highlight php %}
+<!--?php
+$car = App::make('Car');
+
+dd($car);
+
+//Ouput
+Car {#212 ▼
+  +enigne: Engine {#216 ▼
+    +piston: Piston {#218}
+  }
+}
+{% endhighlight %}
+
+Trở lại với ví dụ về MyLog ở trên. Nếu như ta khởi tạo object MyLog bằng `App::make('MyLog')` Laravel sẽ báo lỗi như sau:
+
+```
+Target [LoggerInterface] is not instantiable.
+```
+
+Hiển nhiên vì class MyLog của chúng ta nhận tham số từ hàm dựng là một interface chứ không phải một concrete class nên Laravel không thể khởi tạo interface đó và inject vào class MyLog được. IoC container không đủ *thông minh* để đoán developer muốn gì trong trường hợp này. Cho nên chúng ta phải bind LoggerInterface với thực thi cụ thể của interface đó.
+
+Ví dụ:
+{% highlight php %}
+<?php
+App::bind('LoggerInterface', 'StandardLogger');
+
+$myLog = App::make('MyLog');
+
+dd($myLog);
+//Ouput
+MyLog {#212 ▼
+  +logger: StandardLogger {#214}
+}
+{% endhighlight %}
+
+## - Contextual binding
+
+Đôi khi 2 class khác nhau sử dụng chung 1 interface, nhưng chúng cần 2 implementations khác nhau thì phải làm sao? Giả sử ta có thêm một class ExceptionLog, và chúng ta muốn nó ghi xuống file thay vì in ra standard ouput như class MyLog.
+
+{% highlight php %}
+<?php
+class ExceptionLog 
+{
+    public $logger;
+
+    public function __construct(LoggerInterface $logger) 
+    {
+        $this--->logger = $logger;
+    }
+
+    public function info(\Exception $ex)
+    {
+        return $this->logger->info($ex->getMessage());
+    }
+}
+{% endhighlight %}
+
+Thật may là IoC Container của Larvel  có cung cấp **Contextual Binding**. Nó giúp chúng ta bind interface mà một lớp cần với implement cụ thể tuỳ theo ngữ cảnh.
+
+{% highlight php %}
+<!--?php
+App::when('MyLog')
+    --->needs('LoggerInterface')
+    ->give('StandardLogger');
+
+App::when('ExceptionLog')
+    ->needs('LoggerInterface')
+    ->give('FileLogger');
+
+$mylog = App::make('MyLog');
+$exceptionLog = App::make('ExceptionLog');
+
+dump($mylog);
+dump($exceptionLog);
+// Ouput
+
+MyLog {#211 ▼
+  +logger: StandardLogger {#213}
+}
+
+ExceptionLog {#212 ▼
+  +logger: FileLogger {#215}
+}
+{% endhighlight %}
+
+## - Repository pattern
+
+Một trong những ứng dụng thực tế và quan trọng của IoC container trong Laravel là dùng để khử FAT controller hay decouple controller và business logic code. Controller chỉ làm nhiệm vụ điều phối dữ liệu giữa view và model.
+
+Hãy xem thử ví dụ sau:
+
+{% highlight php %}
+<!--?php
+class MovieController extends Controller {
+    
+    use FormBuilderTrait;
+
+    public function doUpsert(Request $request, $id = null)
+    {
+        $form = $this--->form(\App\Forms\MovieForm::class);
+
+        if (!$form->isValid()) {
+           return redirect()->back()->withErrors($form->getErrors())->withInput();
+         }
+        //Tighly coupled to eloquent model
+        $movie = (empty($id)) ? new Movie : Movie::find($id);
+        $movie->fill($request->all());
+        $movie->user()->associate(Auth::user());
+        $movie->save();
+
+        return redirect()->route('admin.movies');
+    }
+}
+{% endhighlight %}
+
+Mới nhìn thì ví dụ trên có vẻ ổn và không có vấn đề gì. Nhưng nó bị phụ thuộc chặt chẽ vào Eloquent model, và mọi thứ diễn ra trong controller. Điều này làm ứng dụng khó test và giả sử chúng ta muốn chuyển sang sử dụng MongoDB thì phải đập hết toàn bộ xây lại từ đầu.
+
+ Khi sử dụng Repository pattern với IoC container, chúng ta có một giải pháp linh hoạt hơn. Có thể dễ dàng thay thế implementation của `MovieRepositoryInterface`. Có thể thay thế Eloquent bằng Doctrine hay sử dụng NoSQL database thay cho cơ sở dữ liệu quan hệ mà không phải thay đổi quá nhiều. Chỉ cần chuyển mapping cho  `MovieRepositoryInterface` trong `AppServiceProvider` mà không cần quan tâm implementation này làm gì cụ thể miễn là nó tuân theo contract cho trước.
+
+{% highlight php %}
+<!--?php
+// AppServiceProvider
+$this--->app->bind(
+    'App\Contracts\MovieRepositoryInterface',
+    'App\Repositories\MovieRepository'
+);
+
+class MovieController extends Controller {
+    
+    use FormBuilderTrait;
+
+    public function __construct(\App\Contracts\MovieRepositoryInterface $movie) 
+    {   
+        // Decoupled controller from eloquent model
+        $this->movie = $movie;
+    }
+
+    public function doUpsert(Request $request, $id = null)
+    {
+        $form = $this->form(\App\Forms\MovieForm::class);
+
+        if (!$form->isValid()) {
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
+
+        if (empty($id)) {
+            $this->movie->create(Auth::user()->id, $request->all(), $request);
+        } else {
+            $this->movie->update($id, Auth::user()->id, $request->all(), $request);
+        }
+
+        return redirect()->route('admin.movies');
+    }
+}
+{% endhighlight %}
+
+# 4. Kết luận
+
+Dependency Injection và IoC container là những khái niệm rất đơn giản. Tuy nhiên chúng ta cần tìm hiểu để biết rõ DI và IoC được ứng dụng trong trường hợp nào. Nếu áp dụng hợp lý code của chúng ta sẽ ít kết dính hơn (loosely coupled) cũng như dễ bảo trì và test hơn. Ngoài ra, theo quan điểm cá nhân thì IoC container chính là trái tim của Laravel và cũng là điểm khác biệt lớn những giữa Laravel và các PHP frameworks khác. Hơn nữa, hiểu rõ về IoC container cũng giúp chúng ta tận dụng và tổ chức ứng dụng Laravel hợp lý và gọn gàng hơn.
+
+
+# Tham khảo 
+
+1. Inversion of Control Containers and the Dependency Injection pattern [http://martinfowler.com/articles/injection.html](http://martinfowler.com/articles/injection.html)
+2. Trở lại với cơ bản: OOP, Dependency Injection và Cake Pattern [http://kipalog.com/posts/Tro-lai-voi-co-ban--OOP--Dependency-Injection-va-Cake-Pattern](http://kipalog.com/posts/Tro-lai-voi-co-ban--OOP--Dependency-Injection-va-Cake-Pattern)
+3. Dependency Injection Demystified [http://www.jamesshore.com/Blog/Dependency-Injection-Demystified.html](http://www.jamesshore.com/Blog/Dependency-Injection-Demystified.html)
+4. Laravel - Lessons Learned— php[world] 2015 — Taylor Otwell [https://www.youtube.com/watch?v=xKefsl_UiM0](https://www.youtube.com/watch?v=xKefsl_UiM0)
+5. Service Container - Laravel Official Website [https://laravel.com/docs/5.2/container#contextual-binding](https://laravel.com/docs/5.2/container#contextual-binding)  </article> </div>  </div> </div> <footer class="footer"> <div class="wrapper">
+&copy; 2016&ndash;2026 Q-Hung. Built with <a href="https://astro.build">Astro</a>.
+</div> </footer> <script type="module">(function(e,c,o,s,t,n,a){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=c.createElement(o),a=c.getElementsByTagName(o)[0],n.async=1,n.src=s,a.parentNode.insertBefore(n,a)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create","UA-39549683-1","auto");ga("send","pageview",location.pathname);</script> </body></html>

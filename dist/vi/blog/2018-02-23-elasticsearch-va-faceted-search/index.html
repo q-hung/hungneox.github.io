@@ -1,0 +1,309 @@
+<!DOCTYPE html><html lang="vi"> <head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ElasticSearch và Faceted search - Q-Hung</title><meta name="description" content="ElasticSearch và Faceted search"><meta name="keywords" content="faceted-search, elasticsearch"><!-- Open Graph --><meta property="og:locale" content="vi_VN"><meta property="og:type" content="article"><meta property="og:title" content="ElasticSearch và Faceted search - Q-Hung"><meta property="og:description" content="ElasticSearch và Faceted search"><meta property="og:url" content="https://butchiso.com/vi/blog/2018-02-23-elasticsearch-va-faceted-search/"><meta property="og:site_name" content="Q-Hung"><meta property="og:image" content="https://butchiso.com/assets/images/laravel.jpg"><link rel="canonical" href="https://butchiso.com/vi/blog/2018-02-23-elasticsearch-va-faceted-search/"><link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Q-Hung Feed"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><!-- Webfonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Mono:wght@400;500&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_upward,article,category,dark_mode,home,light_mode,mail,rss_feed&display=block" rel="stylesheet"><!-- Favicon --><link rel="icon" href="/favicon.svg" type="image/svg+xml"><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>
+  (function(){
+    var t=localStorage.getItem('theme');
+    if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){
+      document.documentElement.setAttribute('data-theme','dark');
+    }
+  })();
+</script><link rel="stylesheet" href="/_astro/BaseLayout.bWL4HU_f.css"></head> <body> <header class="header"> <div class="wrapper"> <div class="site-brand"> <a class="site-avatar" href="/"> <img src="//avatars.githubusercontent.com/u/199614?v=4" alt="Q-Hung"> </a> <div class="site-identity"> <a class="site-title" href="/">Q-Hung</a> <div class="site-social"> <a href="https://github.com/q-hung" title="GitHub"> <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"></path></svg> GitHub
+</a> <a href="https://linkedin.com/in/hungnq1989" title="LinkedIn"> <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg> LinkedIn
+</a> <a href="mailto:hungnq1989@gmail.com" title="Email"> <span class="material-symbols-rounded">mail</span> Email
+</a> </div> </div> </div> <nav class="site-nav"> <a class="page-link" href="/"><span class="material-symbols-rounded">home</span> Trang chủ</a> <a class="page-link" href="/about/"><span class="material-symbols-rounded">article</span> About</a> <a class="page-link" href="/category/"><span class="material-symbols-rounded">category</span> Category</a> <a class="page-link" href="/feed.xml"><span class="material-symbols-rounded">rss_feed</span> RSS</a> <!-- Language Switcher --> <a class="page-link lang-switcher" href="/en/" title="Switch to English"><span class="material-symbols-rounded">language</span> EN</a> <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"> <span class="material-symbols-rounded icon-light">light_mode</span> <span class="material-symbols-rounded icon-dark">dark_mode</span> </button> </nav> </div> </header> <div class="page-content"> <div class="wrapper">  <div class="post"> <header class="post-header"> <h1 class="post-title" itemprop="name headline">ElasticSearch và Faceted search</h1> <p class="post-meta"> <time datetime="2018-02-23T12:00:00.000Z" itemprop="datePublished"> 23 tháng 2, 2018 </time> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"> • hungneox</span></span> </p> </header> <article class="post-content" itemprop="articleBody">  <h1 id="faceted-search">Faceted search</h1>
+<p>Faceted search hay còn gọi là faceted navigation, tạm dịch là tìm kiếm đa diện hay điều hướng đa diện. Nó là một kỹ thuật dùng để tra cứu thông tin dựa trên hệ thống phân loại đa diện (faceted classification system), cho phép người dùng có thể tìm kiếm và truy vấn thông tin một cách có hiệu quả bằng cách sàng lọc ra những kết quả mong muốn bằng nhiều bộ lọc cùng một lúc.</p>
+<p>Các bộ lọc facets tương ứng với các thuộc tính của phần tử tìm kiếm. Ví dụ điện thoại thì có hãng sản xuất, màu sắc, hệ điều hành, kích thước màn hình, cân nặng v.v. Mỗi một thuộc tính như vậy có thể được xem là một mặt của thành phần thông tin trong hệ thống, trong trường hợp này nó là một mặt của sản phẩm điện thoại di động.</p>
+<p>Điểm khác biệt của tìm kiếm đa diện và các bộ lọc thông thường là nó cung cấp thông tin tổng hợp về các facets có trong tập hợp dữ liệu. Cụ thể hơn với kiểu lọc thông thường thì khi chúng ta lọc ra những điện thoại có màu đỏ, thì chúng ta chỉ nhận về kết quả bao gồm các điện thoại có màu đỏ, mà không có bất kỳ thông tin nào về các màu khác. Ví dụ như có câu truy vấn SQL giả như sau:</p>
+<p><code>SELECT * from phones where color = 'RED'</code></p>
+<p>Còn với tìm kiếm đa diện, mà cụ thể ở đây là ElasticSearch, ngoài kết quả tìm kiếm tương ứng được trả về chúng ta còn có thêm thông tin về các buckets chứa các thuộc tính khác. Ví dụ ngoài danh sách điện thoại màu đỏ, chúng ta còn biết được trong toàn bộ tập dữ liệu có bao nhiêu điện thoại màu xanh, màu đen, màu trắng v.v. Nhờ đó, giao diện người dùng có thể hiển thị các bộ lọc kèm theo số lượng kết quả tương ứng, giúp người dùng dễ dàng thu hẹp phạm vi tìm kiếm.</p>
+<p>Nếu bạn hay mua sắm trực tuyến thì chắc hẳn bạn đã thấy kiểu tìm kiếm này rất quen thuộc. Các trang thương mại điện tử như Amazon, Lazada hay Tiki đều sử dụng faceted search để người dùng có thể lọc sản phẩm theo thương hiệu, khoảng giá, đánh giá vân vân và mây mây.</p>
+<h1 id="aggregations-trong-elasticsearch">Aggregations trong ElasticSearch</h1>
+<p>Trong ElasticSearch, faceted search được triển khai thông qua cơ chế <strong>Aggregations</strong> (trước đây gọi là Facets API, nhưng đã bị deprecated từ phiên bản 1.x). Aggregations cho phép chúng ta nhóm và tính toán thống kê trên dữ liệu, đồng thời trả về cùng lúc với kết quả tìm kiếm.</p>
+<p>Có ba loại aggregations chính:</p>
+<ul>
+<li><strong>Bucket Aggregations</strong>: Nhóm các documents vào các “xô” (buckets) dựa trên giá trị của một trường hoặc một điều kiện nào đó. Ví dụ nhóm điện thoại theo hãng sản xuất.</li>
+<li><strong>Metric Aggregations</strong>: Tính toán các giá trị thống kê trên một tập documents, ví dụ tính giá trung bình, giá thấp nhất, giá cao nhất.</li>
+<li><strong>Pipeline Aggregations</strong>: Thực hiện tính toán dựa trên kết quả của các aggregations khác, thay vì dựa trực tiếp trên documents.</li>
+</ul>
+<p>Nói chung, đa số các trường hợp faceted search trên thực tế đều sử dụng Bucket Aggregations kết hợp với Metric Aggregations.</p>
+<h1 id="ví-dụ-thực-tế">Ví dụ thực tế</h1>
+<p>Giả sử chúng ta đang xây dựng một trang thương mại điện tử bán điện thoại. Trước hết, chúng ta tạo một index với mapping như sau:</p>
+<p>{% highlight javascript %}
+curl -XPUT ‘<a href="http://localhost:9200/phones">http://localhost:9200/phones</a>’ -H ‘Content-Type: application/json’ -d ’
+{
+“mappings”: {
+“product”: {
+“properties”: {
+“name”:         { “type”: “text” },
+“brand”:        { “type”: “keyword” },
+“color”:        { “type”: “keyword” },
+“os”:           { “type”: “keyword” },
+“price”:        { “type”: “float” },
+“screen_size”:  { “type”: “float” },
+“rating”:       { “type”: “float” }
+}
+}
+}
+}’
+{% endhighlight %}</p>
+<p>Có một điểm cần lưu ý là các trường dùng cho faceted search nên được khai báo kiểu <code>keyword</code> thay vì <code>text</code>. Lý do là vì kiểu <code>text</code> sẽ được phân tích (analyze) và tách thành các token, trong khi chúng ta cần giá trị nguyên vẹn để nhóm lại. Ví dụ “Samsung Galaxy” nếu để kiểu <code>text</code> sẽ bị tách thành hai token “samsung” và “galaxy”, dẫn đến kết quả aggregation sai lệch.</p>
+<p>Tiếp theo chúng ta index một vài documents mẫu:</p>
+<p>{% highlight javascript %}
+curl -XPOST ‘<a href="http://localhost:9200/phones/product/_bulk">http://localhost:9200/phones/product/_bulk</a>’ -H ‘Content-Type: application/json’ -d ’
+{“index”:{}}
+{“name”:“iPhone X”,“brand”:“Apple”,“color”:“Bạc”,“os”:“iOS”,“price”:999,“screen_size”:5.8,“rating”:4.5}
+{“index”:{}}
+{“name”:“iPhone 8”,“brand”:“Apple”,“color”:“Đen”,“os”:“iOS”,“price”:699,“screen_size”:4.7,“rating”:4.3}
+{“index”:{}}
+{“name”:“Galaxy S9”,“brand”:“Samsung”,“color”:“Đen”,“os”:“Android”,“price”:720,“screen_size”:5.8,“rating”:4.4}
+{“index”:{}}
+{“name”:“Galaxy Note 8”,“brand”:“Samsung”,“color”:“Vàng”,“os”:“Android”,“price”:950,“screen_size”:6.3,“rating”:4.6}
+{“index”:{}}
+{“name”:“Pixel 2”,“brand”:“Google”,“color”:“Trắng”,“os”:“Android”,“price”:649,“screen_size”:5.0,“rating”:4.2}
+{“index”:{}}
+{“name”:“Pixel 2 XL”,“brand”:“Google”,“color”:“Đen”,“os”:“Android”,“price”:849,“screen_size”:6.0,“rating”:4.3}
+{“index”:{}}
+{“name”:“Xperia XZ2”,“brand”:“Sony”,“color”:“Bạc”,“os”:“Android”,“price”:799,“screen_size”:5.7,“rating”:4.0}
+{“index”:{}}
+{“name”:“Nokia 8”,“brand”:“Nokia”,“color”:“Đỏ”,“os”:“Android”,“price”:499,“screen_size”:5.3,“rating”:3.9}
+’
+{% endhighlight %}</p>
+<h2 id="terms-aggregation">Terms Aggregation</h2>
+<p>Terms aggregation là loại phổ biến nhất trong faceted search. Nó nhóm các documents theo giá trị của một trường và đếm số lượng documents trong mỗi nhóm. Ví dụ chúng ta muốn biết có bao nhiêu điện thoại theo từng hãng sản xuất:</p>
+<p>{% highlight javascript %}
+curl -XGET ‘<a href="http://localhost:9200/phones/product/_search?pretty">http://localhost:9200/phones/product/_search?pretty</a>’ -H ‘Content-Type: application/json’ -d ’
+{
+“size”: 0,
+“aggs”: {
+“brands”: {
+“terms”: {
+“field”: “brand”
+}
+}
+}
+}’
+{% endhighlight %}</p>
+<p>Ở đây chúng ta đặt <code>"size": 0</code> vì chúng ta chỉ quan tâm đến kết quả aggregation mà không cần lấy danh sách documents. Kết quả trả về sẽ có dạng:</p>
+<p>{% highlight javascript %}
+{
+“hits”: {
+“total”: 8,
+“hits”: []
+},
+“aggregations”: {
+“brands”: {
+“buckets”: [
+{ “key”: “Samsung”,  “doc_count”: 2 },
+{ “key”: “Apple”,    “doc_count”: 2 },
+{ “key”: “Google”,   “doc_count”: 2 },
+{ “key”: “Sony”,     “doc_count”: 1 },
+{ “key”: “Nokia”,    “doc_count”: 1 }
+]
+}
+}
+}
+{% endhighlight %}</p>
+<p>Như vậy chúng ta biết được có 2 điện thoại Samsung, 2 Apple, 2 Google, 1 Sony và 1 Nokia. Thông tin này chính là những gì chúng ta cần để xây dựng giao diện bộ lọc faceted trên frontend.</p>
+<h2 id="kết-hợp-nhiều-aggregations">Kết hợp nhiều Aggregations</h2>
+<p>Sức mạnh thực sự của faceted search nằm ở chỗ chúng ta có thể kết hợp nhiều aggregations trong cùng một câu truy vấn. Ví dụ chúng ta muốn đồng thời lấy thống kê theo hãng, theo hệ điều hành, theo màu sắc và theo khoảng giá:</p>
+<p>{% highlight javascript %}
+curl -XGET ‘<a href="http://localhost:9200/phones/product/_search?pretty">http://localhost:9200/phones/product/_search?pretty</a>’ -H ‘Content-Type: application/json’ -d ’
+{
+“size”: 5,
+“query”: {
+“match_all”: {}
+},
+“aggs”: {
+“brands”: {
+“terms”: { “field”: “brand” }
+},
+“operating_systems”: {
+“terms”: { “field”: “os” }
+},
+“colors”: {
+“terms”: { “field”: “color” }
+},
+“price_ranges”: {
+“range”: {
+“field”: “price”,
+“ranges”: [
+{ “to”: 500 },
+{ “from”: 500, “to”: 700 },
+{ “from”: 700, “to”: 900 },
+{ “from”: 900 }
+]
+}
+},
+“avg_price”: {
+“avg”: { “field”: “price” }
+}
+}
+}’
+{% endhighlight %}</p>
+<p>Câu truy vấn trên sẽ trả về cho chúng ta cùng một lúc: danh sách 5 sản phẩm, thống kê theo hãng, theo hệ điều hành, theo màu sắc, theo khoảng giá và giá trung bình. Tất cả trong một request duy nhất! Đây chính là điểm mạnh của ElasticSearch so với các câu truy vấn SQL truyền thống, nơi mà chúng ta phải viết nhiều câu query riêng biệt để lấy từng thống kê.</p>
+<p>Kết quả phần aggregations sẽ có dạng như sau:</p>
+<p>{% highlight javascript %}
+{
+“aggregations”: {
+“brands”: {
+“buckets”: [
+{ “key”: “Apple”,   “doc_count”: 2 },
+{ “key”: “Samsung”, “doc_count”: 2 },
+{ “key”: “Google”,  “doc_count”: 2 },
+{ “key”: “Sony”,    “doc_count”: 1 },
+{ “key”: “Nokia”,   “doc_count”: 1 }
+]
+},
+“operating_systems”: {
+“buckets”: [
+{ “key”: “Android”, “doc_count”: 6 },
+{ “key”: “iOS”,     “doc_count”: 2 }
+]
+},
+“colors”: {
+“buckets”: [
+{ “key”: “Đen”,   “doc_count”: 3 },
+{ “key”: “Bạc”,   “doc_count”: 2 },
+{ “key”: “Trắng”, “doc_count”: 1 },
+{ “key”: “Vàng”,  “doc_count”: 1 },
+{ “key”: “Đỏ”,    “doc_count”: 1 }
+]
+},
+“price_ranges”: {
+“buckets”: [
+{ “key”: “<em>-500.0”,       “to”: 500.0,   “doc_count”: 1 },
+{ “key”: “500.0-700.0”,   “from”: 500.0, “to”: 700.0, “doc_count”: 2 },
+{ “key”: “700.0-900.0”,   “from”: 700.0, “to”: 900.0, “doc_count”: 3 },
+{ “key”: “900.0-</em>”,       “from”: 900.0, “doc_count”: 2 }
+]
+},
+“avg_price”: {
+“value”: 770.625
+}
+}
+}
+{% endhighlight %}</p>
+<h2 id="kết-hợp-query-với-aggregation">Kết hợp Query với Aggregation</h2>
+<p>Trong thực tế, người dùng thường tìm kiếm trước rồi mới lọc. Ví dụ khi người dùng chọn lọc theo hãng Samsung, chúng ta muốn kết quả tìm kiếm chỉ trả về điện thoại Samsung, nhưng đồng thời vẫn hiển thị đầy đủ các facets khác. Đây là lúc chúng ta cần dùng <code>post_filter</code> kết hợp với <code>aggs</code>:</p>
+<p>{% highlight javascript %}
+curl -XGET ‘<a href="http://localhost:9200/phones/product/_search?pretty">http://localhost:9200/phones/product/_search?pretty</a>’ -H ‘Content-Type: application/json’ -d ’
+{
+“size”: 10,
+“query”: {
+“match_all”: {}
+},
+“post_filter”: {
+“term”: { “brand”: “Samsung” }
+},
+“aggs”: {
+“brands”: {
+“terms”: { “field”: “brand” }
+},
+“colors”: {
+“terms”: { “field”: “color” }
+},
+“price_ranges”: {
+“range”: {
+“field”: “price”,
+“ranges”: [
+{ “to”: 500 },
+{ “from”: 500, “to”: 700 },
+{ “from”: 700, “to”: 900 },
+{ “from”: 900 }
+]
+}
+}
+}
+}’
+{% endhighlight %}</p>
+<p>Điểm mấu chốt ở đây là <code>post_filter</code> chỉ ảnh hưởng đến kết quả tìm kiếm (hits), nhưng <strong>không</strong> ảnh hưởng đến kết quả aggregation. Như vậy danh sách sản phẩm trả về chỉ có Samsung, nhưng phần aggregations vẫn hiển thị tổng quan toàn bộ dữ liệu bao gồm tất cả các hãng. Điều này giúp người dùng biết được nếu bỏ bộ lọc Samsung đi thì còn có những hãng nào khác và bao nhiêu sản phẩm.</p>
+<p>Tuy nhiên nếu chúng ta đặt điều kiện lọc trong phần <code>query</code> thay vì <code>post_filter</code>, thì aggregations cũng sẽ bị ảnh hưởng bởi điều kiện đó. Đây là một lỗi mà nhiều người mắc phải khi mới triển khai faceted search.</p>
+<h2 id="nested-aggregation">Nested Aggregation</h2>
+<p>Chúng ta cũng có thể lồng các aggregations với nhau. Ví dụ chúng ta muốn biết giá trung bình của điện thoại theo từng hãng:</p>
+<p>{% highlight javascript %}
+curl -XGET ‘<a href="http://localhost:9200/phones/product/_search?pretty">http://localhost:9200/phones/product/_search?pretty</a>’ -H ‘Content-Type: application/json’ -d ’
+{
+“size”: 0,
+“aggs”: {
+“brands”: {
+“terms”: { “field”: “brand” },
+“aggs”: {
+“avg_price”: {
+“avg”: { “field”: “price” }
+},
+“max_rating”: {
+“max”: { “field”: “rating” }
+}
+}
+}
+}
+}’
+{% endhighlight %}</p>
+<p>Kết quả trả về:</p>
+<p>{% highlight javascript %}
+{
+“aggregations”: {
+“brands”: {
+“buckets”: [
+{
+“key”: “Apple”,
+“doc_count”: 2,
+“avg_price”: { “value”: 849.0 },
+“max_rating”: { “value”: 4.5 }
+},
+{
+“key”: “Samsung”,
+“doc_count”: 2,
+“avg_price”: { “value”: 835.0 },
+“max_rating”: { “value”: 4.6 }
+},
+{
+“key”: “Google”,
+“doc_count”: 2,
+“avg_price”: { “value”: 749.0 },
+“max_rating”: { “value”: 4.3 }
+},
+{
+“key”: “Sony”,
+“doc_count”: 1,
+“avg_price”: { “value”: 799.0 },
+“max_rating”: { “value”: 4.0 }
+},
+{
+“key”: “Nokia”,
+“doc_count”: 1,
+“avg_price”: { “value”: 499.0 },
+“max_rating”: { “value”: 3.9 }
+}
+]
+}
+}
+}
+{% endhighlight %}</p>
+<p>Với kiểu nested aggregation này, chúng ta có thể xây dựng những bảng so sánh rất chi tiết giữa các thương hiệu ngay trên giao diện tìm kiếm.</p>
+<h1 id="một-số-lưu-ý-khi-triển-khai">Một số lưu ý khi triển khai</h1>
+<ol>
+<li>
+<p><strong>Sử dụng kiểu <code>keyword</code> cho các trường facet</strong>: Như đã đề cập, nếu dùng <code>text</code> thì giá trị sẽ bị tokenize dẫn đến kết quả aggregation sai. Trong trường hợp cần cả tìm kiếm full-text lẫn aggregation trên cùng một trường, chúng ta có thể dùng <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/multi-fields.html">multi-fields</a> để khai báo cùng lúc cả hai kiểu.</p>
+</li>
+<li>
+<p><strong>Hiệu năng</strong>: Aggregations có thể tốn nhiều bộ nhớ, đặc biệt khi dữ liệu lớn. Nên giới hạn <code>size</code> trong terms aggregation và sử dụng <code>shard_size</code> hợp lý để cân bằng giữa độ chính xác và hiệu năng.</p>
+</li>
+<li>
+<p><strong><code>post_filter</code> vs <code>query</code></strong>: Như ở trên đã nói, dùng <code>post_filter</code> khi muốn aggregation tính trên toàn bộ dữ liệu, dùng <code>query</code> khi muốn aggregation cũng bị giới hạn theo điều kiện lọc. Tuỳ vào UX mà chúng ta chọn cách phù hợp.</p>
+</li>
+<li>
+<p><strong>Filtered Aggregation</strong>: Trong trường hợp phức tạp hơn, khi chúng ta muốn mỗi facet có điều kiện lọc riêng (ví dụ facet hãng thì không bị ảnh hưởng bởi bộ lọc hãng, nhưng bị ảnh hưởng bởi bộ lọc giá), thì phải dùng <code>filter</code> aggregation bên trong từng facet. Đây là cách mà các trang thương mại điện tử lớn thường làm.</p>
+</li>
+</ol>
+<h1 id="kết-luận">Kết luận</h1>
+<p>Nói chung, faceted search là một tính năng rất phổ biến và hữu ích trong các ứng dụng tìm kiếm hiện đại. ElasticSearch cung cấp một bộ công cụ Aggregations mạnh mẽ và linh hoạt để triển khai tính năng này. Từ những terms aggregation đơn giản cho đến nested aggregation phức tạp, chúng ta có thể xây dựng những trải nghiệm tìm kiếm thông minh và trực quan cho người dùng.</p>
+<p>Điểm quan trọng nhất cần nhớ là phân biệt rõ giữa <code>query</code>, <code>post_filter</code> và <code>filter</code> aggregation, vì mỗi cái ảnh hưởng đến kết quả tìm kiếm và aggregation theo cách khác nhau. Nắm vững những khái niệm này thì việc triển khai faceted search trên ElasticSearch không quá khó khăn.</p>
+<h1 id="tham-khảo">Tham khảo</h1>
+<ol>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html">Aggregations</a> - ElasticSearch Official Guide</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket.html">Bucket Aggregations</a></li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-post-filter.html">Post filter</a></li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/multi-fields.html">Multi-fields</a></li>
+<li><a href="http://www.slideshare.net/sourcesense/faceted-search-the-120-million-documents-story">Faceted Search – the 120 Million Documents Story</a></li>
+</ol>  </article> </div>  </div> </div> <footer class="footer"> <div class="wrapper">
+&copy; 2016&ndash;2026 Q-Hung. Built with <a href="https://astro.build">Astro</a>.
+</div> </footer> <script type="module">(function(e,c,o,s,t,n,a){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=c.createElement(o),a=c.getElementsByTagName(o)[0],n.async=1,n.src=s,a.parentNode.insertBefore(n,a)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create","UA-39549683-1","auto");ga("send","pageview",location.pathname);</script> </body></html>

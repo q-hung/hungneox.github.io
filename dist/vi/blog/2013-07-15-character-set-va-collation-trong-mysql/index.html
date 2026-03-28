@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="vi"> <head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Character set và collation trong mysql - Q-Hung</title><meta name="description" content="Professional keyboard masher and screen watcher | Web Developer."><meta name="keywords" content="mysql, full-text-search"><!-- Open Graph --><meta property="og:locale" content="vi_VN"><meta property="og:type" content="article"><meta property="og:title" content="Character set và collation trong mysql - Q-Hung"><meta property="og:description" content="Professional keyboard masher and screen watcher | Web Developer."><meta property="og:url" content="https://butchiso.com/vi/blog/2013-07-15-character-set-va-collation-trong-mysql/"><meta property="og:site_name" content="Q-Hung"><meta property="og:image" content="https://butchiso.com/assets/images/butchiso.jpg"><link rel="canonical" href="https://butchiso.com/vi/blog/2013-07-15-character-set-va-collation-trong-mysql/"><link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Q-Hung Feed"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><!-- Webfonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Mono:wght@400;500&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_upward,article,category,dark_mode,home,light_mode,mail,rss_feed&display=block" rel="stylesheet"><!-- Favicon --><link rel="icon" href="/favicon.svg" type="image/svg+xml"><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>
+  (function(){
+    var t=localStorage.getItem('theme');
+    if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){
+      document.documentElement.setAttribute('data-theme','dark');
+    }
+  })();
+</script><link rel="stylesheet" href="/_astro/BaseLayout.bWL4HU_f.css"></head> <body> <header class="header"> <div class="wrapper"> <div class="site-brand"> <a class="site-avatar" href="/"> <img src="//avatars.githubusercontent.com/u/199614?v=4" alt="Q-Hung"> </a> <div class="site-identity"> <a class="site-title" href="/">Q-Hung</a> <div class="site-social"> <a href="https://github.com/q-hung" title="GitHub"> <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"></path></svg> GitHub
+</a> <a href="https://linkedin.com/in/hungnq1989" title="LinkedIn"> <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg> LinkedIn
+</a> <a href="mailto:hungnq1989@gmail.com" title="Email"> <span class="material-symbols-rounded">mail</span> Email
+</a> </div> </div> </div> <nav class="site-nav"> <a class="page-link" href="/"><span class="material-symbols-rounded">home</span> Trang chủ</a> <a class="page-link" href="/about/"><span class="material-symbols-rounded">article</span> About</a> <a class="page-link" href="/category/"><span class="material-symbols-rounded">category</span> Category</a> <a class="page-link" href="/feed.xml"><span class="material-symbols-rounded">rss_feed</span> RSS</a> <!-- Language Switcher --> <a class="page-link lang-switcher" href="/en/" title="Switch to English"><span class="material-symbols-rounded">language</span> EN</a> <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"> <span class="material-symbols-rounded icon-light">light_mode</span> <span class="material-symbols-rounded icon-dark">dark_mode</span> </button> </nav> </div> </header> <div class="page-content"> <div class="wrapper">  <div class="post"> <header class="post-header"> <h1 class="post-title" itemprop="name headline">Character set và collation trong mysql</h1> <p class="post-meta"> <time datetime="2013-07-15T17:00:00.000Z" itemprop="datePublished"> 15 tháng 7, 2013 </time> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"> • hungneox</span></span> </p> </header> <article class="post-content" itemprop="articleBody">  <h3 id="character-set--characters--encoding-method">Character set = characters + encoding method</h3>
+<p>Một character set là một tập hợp các ký tự và các phương thức chuyển mã ký tự (encoding). Còn một collation là một tập hợp các qui tắc để so sánh hai ký tự trong một tập hợp ký tự. Giả sử ta có 4 chữ cái <code>A</code>,<code>a</code>,<code>B</code>,<code>b</code> được encode là <code>A = 65</code>,<code>B = 66</code>, <code>a = 97</code>, <code>c = 98</code>. Thì trong máy tính, chữ ‘A’ là một ký hiệu và 65 là mã của được chuyển của ‘A’. Thì sự kết hợp của một tập các ký tự và cách chuyển mã của chúng được gọi là <code>character set</code>.</p>
+<!--more-->
+<p>Bạn có thể thấy mỗi ngôn ngữ khác nhau sẽ có những tập hợp các ký tự khác nhau, cùng là bản chữ cái latin nhưng tiếng Việt lại có thêm nhiều ký tự mà các ngôn ngữ dùng chữ latin khác không có chẳng hạn như chữ  <code>Â</code>, <code>Ă</code>, <code>Ê</code>, <code>Ô</code>, <code>Ư</code>, <code>Đ</code>. Và có rất nhiều kiểu chuyển mã (encode) tiếng Việt khác nhau ngoài Unicode ra như <code>TCVN3</code>, <code>VNI</code> hay <code>VISCII</code>. Do vậy không thể dùng font VNI mà gõ theo kiểu gõ Unicode được, vì bộ gõ sẽ ánh xạ sai mã và ký tự tương ứng.</p>
+<p>Trong MySQL thì ta có thể lưu trữ dữ liệu ở nhiều dạng character set khác nhau ở các mức độ khác nhau như server, database, table và column. Mỗi character set có một collation mặc định của nó. Ví dụ trong MySQL, character set latin1 (West European Character Sets) là character set mặc định và collation <code>latin1_swedish_ci</code> là collation mặc định của nó. <code>collation</code> là qui tắc sắp xếp của một character set, ví dụ trong tiến Phần Lan và Thụy Điển thì các chữ Å, Ä, Ö nằm cuối cùng trong bảng chữ cái sau cả Z, ta có thể thấy chữ gần giống chữ A chưa hẳn là nằm ngay sau A.</p>
+<blockquote>
+<p>A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, X, Y, Z, Å, Ä, Ö</p>
+</blockquote>
+<p>Theo qui tắc đặt tên collation của mysql, thì <code>_ci</code> có nghĩa là <code>case insensitive</code> do đó <code>latin1_swedish_ci</code> là một collation không phân biệt hoa thường tương đương với <code>CP1252</code> trong Windows. Và vì trong character set Latin1 chỉ chứa các ký tự của các ngôn ngữ Tây Âu, do vậy không thể sử dụng Latin1 để lưu trữ tiếng Việt được.</p>
+<blockquote>
+<p>MySQL nguyên thuỷ được tạo ra bởi MySQL AB<sup><a href="#user-content-fn-ab" id="user-content-fnref-ab" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup>, một công ty Thụy Điển. Cho nên cũng không khó hiểu khi MySQL có default collation là <code>latin1_swedish_ci</code>.</p>
+</blockquote>
+<p>Trong MySQL, có 2 dạng dữ liệu kiểu string đó là nonbinary string (<code>char</code>, <code>varchar</code>, <code>text</code>) và binary string (<code>binary</code>, <code>varbinary</code>, <code>blob</code>). Thì chỉ có kiểu non-binary string mới dùng collation khi sắp xếp và tìm kiếm. Còn kiểu binary string, sử dụng mã tương ứng để so sánh và tìm kiếm cho nên nó phân biệt hoa thường (<code>case insensitive</code>)</p>
+<h3 id="nên-dùng-utf8_general_ci-hay-utf8_unicode_ci">Nên dùng utf8_general_ci hay utf8_unicode_ci?</h3>
+<p>Theo tài liệu của MySQL thì các thao tác sử dụng <code>_general_ci</code> thì nhanh hơn các thao tác sửa dụng collation <code>_unicode_ci</code>. Vì nó hỗ trợ ánh xạ mở rộng một số ký tự thành một tổ hợp các ký tự khác, ví dụ như chữ <code>ß</code> trong tiếng Đức có thể so sánh tương đương với sự kết hợp của 2 chữ <code>ss</code>.</p>
+<p>Ví dụ: ta có 1 trong bảng dictionary(id, word) có 2 dòng như sau:</p>
+<ol>
+<li>hassen</li>
+<li>heißen</li>
+</ol>
+<p>Khi ta thực hiện câu query sau, thì chỉ có 1 kết quả <code>heißen</code> trả về</p>
+<p>{% highlight sql %}
+SELECT * FROM <code>dictionary</code> WHERE word= ‘heißen’ COLLATE utf8_general_ci;
+{% endhighlight %}</p>
+<p>Tuy nhiên, nếu ta chỉ định <code>COLLATE</code> là <code>utf8_unicode_ci</code></p>
+<p>{% highlight sql %}
+SELECT * FROM <code>dictionary</code> WHERE word= ‘heißen’ COLLATE utf8_unicode_ci;
+{% endhighlight %}</p>
+<p>thì có có cả hai kết quả trên trả về, ta thấy ở <code>utf8_unicode_ci</code> thì chữ ß được xem tương đương với 2 chữ ss. Xem thêm <a href="http://dev.mysql.com/doc/refman/5.0/en/charset-collation-effect.html">Examples of the Effect of Collation</a></p>
+<p>Ngoài ra nó còn hỗ trợ các cách viết rút gọn (contraction) và các ký tự có thể bỏ qua (ignorable character). Theo một số câu trả lời trên stackoverflow thì <code>utf8_general_ci</code> xem <code>A</code>,<code>Ă</code>,<code>Â</code>,<code>a</code>,<code>ă</code>,<code>â</code> đều tương đương với <code>A</code> khi sắp xếp và tìm kiếm, nhưng điều này cũng tương tự với <code>utf8_unicode_ci</code>.</p>
+<p><strong>Ignorable character</strong> là những ký tự không nhìn thấy được nhưng có tác dụng trong định dạng văn bản. Ví dụ như soft hyphen là một ký tự tương tự dấu ”-” nhưng không nhìn thấy được và nó được sử dụng khi một từ quá dài phải xuống dòng.</p>
+<p>Xem thêm <a href="http://www.symantec.com/connect/blogs/soft-hyphen-new-url-obfuscation-technique">Soft Hyphen – A New URL Obfuscation Technique</a></p>
+<h3 id="unicode-dựng-sẵn-hay-tổ-hợp-2">Unicode dựng sẵn hay tổ hợp <sup><a href="#user-content-fn-unicode" id="user-content-fnref-unicode" data-footnote-ref="" aria-describedby="footnote-label">2</a></sup></h3>
+<p>Phần này không liên quan tới MySQL, nhưng cũng là một điểm nên lưu ý với người lập trình. Đối với unicode dựng sẵn, mỗi ký tự ta nhìn thấy chỉ bao gồm một mã duy nhất (ví dụ <code>á</code> là <code>U+00E1</code> hay 255 theo hệ thập phân), Tuy nhiên đối với unicode tổ hợp, thì một ký tự ta nhìn thấy có thể là một “tổ hợp” của một ký tự chính và các dấu ví dụ chữ á bao gồm chữ <code>a</code> và dấu sắc (<code>U+0061</code> theo sau bởi <code>U+0301</code>). Đối với người dùng thì tổ hợp hay dựng sẵn cũng không có ảnh hưởng lắm. Nó ảnh hưởng tới độ dài của chuỗi khi đếm để cắt chuỗi hoặc xử lý. Và unicode tổ hợp có thể gây những lỗi khó hiểu đối với chương trình của bạn. Do đó bạn cần chuyển chuỗi đầu vào qua unicode dựng sẵn hoặc xử lý chuẩn hóa chuỗi đó thêm, ví dụ lược bỏ các dấu.</p>
+<p>Ví dụ
+Đối với unicode dựng sẵn <code>Nguyễn</code> có độ dài là 6 ký tự. Còn Unicode tổ hợp thì <code>Nguyễn</code> có độ dài là 7 do ễ là 2 ký tự e + (dấu mũ và dấu ngã tính là một).</p>
+<h3 id="references">References:</h3>
+<ol>
+<li>
+<p>“Why is MySQL’s default collation latin1_swedish_ci? - Stack Overflow.” 2011. 15 Jul. 2013
+<a href="http://stackoverflow.com/questions/6769901/why-is-mysqls-default-collation-latin1-swedish-ci">http://stackoverflow.com/questions/6769901/why-is-mysqls-default-collation-latin1-swedish-ci</a></p>
+</li>
+<li>
+<p>“mysql - What’s the difference between utf8_general_ci and …” 2010. 15 Jul. 201 <a href="http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci">http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci</a></p>
+</li>
+<li>
+<p>“MySQL Character Set Support | Character Sets and … - InformIT.” 2007. 15 Jul. 2013
+<a href="http://www.informit.com/articles/article.aspx?p=328641">http://www.informit.com/articles/article.aspx?p=328641</a></p>
+</li>
+</ol>
+<h3 id="footnotes">Footnotes:</h3>
+<section data-footnotes="" class="footnotes"><h2 class="sr-only" id="footnote-label">Footnotes</h2>
+<ol>
+<li id="user-content-fn-ab">
+<p>AB tương đương với Ltd trong tiếng Anh <a href="#user-content-fnref-ab" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-unicode">
+<p>Precomposed vs composite unicode <a href="#user-content-fnref-unicode" data-footnote-backref="" aria-label="Back to reference 2" class="data-footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>  </article> </div>  </div> </div> <footer class="footer"> <div class="wrapper">
+&copy; 2016&ndash;2026 Q-Hung. Built with <a href="https://astro.build">Astro</a>.
+</div> </footer> <script type="module">(function(e,c,o,s,t,n,a){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=c.createElement(o),a=c.getElementsByTagName(o)[0],n.async=1,n.src=s,a.parentNode.insertBefore(n,a)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create","UA-39549683-1","auto");ga("send","pageview",location.pathname);</script> </body></html>

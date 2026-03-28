@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="vi"> <head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>MySQL Full-text Search - P2 - Q-Hung</title><meta name="description" content="Professional keyboard masher and screen watcher | Web Developer."><meta name="keywords" content="mysql, full-text-search"><!-- Open Graph --><meta property="og:locale" content="vi_VN"><meta property="og:type" content="article"><meta property="og:title" content="MySQL Full-text Search - P2 - Q-Hung"><meta property="og:description" content="Professional keyboard masher and screen watcher | Web Developer."><meta property="og:url" content="https://butchiso.com/vi/blog/2011-12-28-mysql-full-text-search-p2/"><meta property="og:site_name" content="Q-Hung"><meta property="og:image" content="https://butchiso.com/assets/images/butchiso.jpg"><link rel="canonical" href="https://butchiso.com/vi/blog/2011-12-28-mysql-full-text-search-p2/"><link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Q-Hung Feed"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><!-- Webfonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Mono:wght@400;500&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_upward,article,category,dark_mode,home,light_mode,mail,rss_feed&display=block" rel="stylesheet"><!-- Favicon --><link rel="icon" href="/favicon.svg" type="image/svg+xml"><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>
+  (function(){
+    var t=localStorage.getItem('theme');
+    if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){
+      document.documentElement.setAttribute('data-theme','dark');
+    }
+  })();
+</script><link rel="stylesheet" href="/_astro/BaseLayout.bWL4HU_f.css"></head> <body> <header class="header"> <div class="wrapper"> <div class="site-brand"> <a class="site-avatar" href="/"> <img src="//avatars.githubusercontent.com/u/199614?v=4" alt="Q-Hung"> </a> <div class="site-identity"> <a class="site-title" href="/">Q-Hung</a> <div class="site-social"> <a href="https://github.com/q-hung" title="GitHub"> <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"></path></svg> GitHub
+</a> <a href="https://linkedin.com/in/hungnq1989" title="LinkedIn"> <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg> LinkedIn
+</a> <a href="mailto:hungnq1989@gmail.com" title="Email"> <span class="material-symbols-rounded">mail</span> Email
+</a> </div> </div> </div> <nav class="site-nav"> <a class="page-link" href="/"><span class="material-symbols-rounded">home</span> Trang chủ</a> <a class="page-link" href="/about/"><span class="material-symbols-rounded">article</span> About</a> <a class="page-link" href="/category/"><span class="material-symbols-rounded">category</span> Category</a> <a class="page-link" href="/feed.xml"><span class="material-symbols-rounded">rss_feed</span> RSS</a> <!-- Language Switcher --> <a class="page-link lang-switcher" href="/en/" title="Switch to English"><span class="material-symbols-rounded">language</span> EN</a> <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"> <span class="material-symbols-rounded icon-light">light_mode</span> <span class="material-symbols-rounded icon-dark">dark_mode</span> </button> </nav> </div> </header> <div class="page-content"> <div class="wrapper">  <div class="post"> <header class="post-header"> <h1 class="post-title" itemprop="name headline">MySQL Full-text Search - P2</h1> <p class="post-meta"> <time datetime="2011-12-28T18:00:00.000Z" itemprop="datePublished"> 28 tháng 12, 2011 </time> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"> • hungneox</span></span> </p> </header> <article class="post-content" itemprop="articleBody">  <h3 id="giới-thiệu">Giới thiệu</h3>
+<p>Trong entry trước ta đã tìm hiểu sơ lược về full text search là gì và tại sao chúng ta phải dùng full text search. Trong entry này chúng ta sẽ tìm hiểu kỹ hơn về cú pháp của và cách dùng full text search trong MySQL.</p>
+<!--more-->
+<p>Chúng ta sẽ sử dụng database mẫu này để thực hiện các ví dụ trong entry này và các entry sau:</p>
+<p>{% highlight sql %}
+CREATE TABLE articles (
+id INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+title VARCHAR(200),
+body TEXT,
+FULLTEXT (title,body)
+);</p>
+<p>INSERT INTO articles (title,body)
+VALUES(‘MySQL Tutorial’,‘DBMS stands for DataBase …’),
+(‘How To Use MySQL Well’,‘After you went through a …’),
+(‘Optimizing MySQL’,‘In this tutorial we will show …’),
+(‘1001 MySQL Tricks’,‘1. Never run mysqld as root. 2. …’),
+(‘MySQL vs. YourSQL’,‘In the following database comparison …’),
+(‘MySQL Security’,‘When configured properly, MySQL …’);
+{% endhighlight %}</p>
+<h3 id="natural-language-mode-và-boolean-mode">NATURAL LANGUAGE MODE và BOOLEAN MODE</h3>
+<p>{% highlight sql %}
+MATCH (col1,col2,…) AGAINST (expr [search_modifier])</p>
+<p>search_modifier:
+{
+IN NATURAL LANGUAGE MODE
+| IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION<br>
+| IN BOOLEAN MODE
+| WITH QUERY EXPANSION
+}
+{% endhighlight %}</p>
+<p>Trong Natural Language Mode <a href="http://dev.mysql.com/doc/refman/5.5/en/fulltext-natural-language.html">1</a>, chế độ này search theo khái niệm (concepts, thay vì chính xác các từ như Boolean mode) theo ‘free-text queries’ mà chúng ta đưa vào, <code>MATCH…AGAINST</code> trả về điểm ranking dạng số thực dựa trên mức độ phù hợp của kết tài liệu tìm thấy, tài liệu trả về càng phù hợp thì có số rank càng cao (như thế nào là phù hợp thì chúng ta sẽ tìm hiểu sau). Muốn biết tài liệu đó có rank bao nhiêu so với từ khóa thì ta có thể sử dụng một câu query như sau:</p>
+<p>{% highlight sql %}
+SELECT id, ROUND(MATCH(title, body) AGAINST(‘database’), 7) FROM <code>articles</code>
+{% endhighlight %}</p>
+<p>Còn trong Boolean Mode[2], chế độ này search theo những từ mà chúng ta đưa vào, và kết quả trả về không được sắp xếp theo thứ tự nào. Khác với Natural language mode, chúng ta thậm chí có thể thực hiện search mà không cần full text index. Ngoài ra, chúng ta có thể dùng các toán tử như <code>+</code> và <code>–</code> để quyết định từ nào có trong kết quả trả về, từ nào không có.</p>
+<p>Ví dụ như câu query sau:
+{% highlight sql %}
+SELECT * FROM articles WHERE MATCH (title,body) AGAINST (‘+MySQL -YourSQL’ IN BOOLEAN MODE);
+{% endhighlight %}</p>
+<p>Thì kết quả trả về chỉ bao gồm những tài liệu nào chứ chữ MySQL mà không được phép chứa chữ YourSQL.</p>
+<p>Ngoài ra chúng ta có thể dùng các wildcard sau để MySQL xếp hạng các kết quả dựa theo yêu cầu của chúng ta.</p>
+<p>Ví dụ:</p>
+<p>1.<code>‘apple banana’</code>
+Tìm những dòng mà có chứa ít nhất 1 trong 2 chữ.</p>
+<p>2.<code>‘+apple +juice’</code>
+Tìm những dòng phải chứa cả hai chữ trên</p>
+<p>3.<code>‘+apple macintosh’</code>
+Tìm những dòng mà bắt buộc phải chứa apple, chứa hoặc không chứ macintosh</p>
+<p>4.<code>‘+apple –macintosh’</code>
+Tìm những dòng bắt buộc chứa apple mà không được chứ macintosh</p>
+<p>5.<code>‘+apple ~macintosh’</code>
+Tìm những dòng bắt buộc chứa apple, có thể chứa macintosh, nhưng dòng nào không chứa macintosh thì được xếp hạng cao hơn</p>
+<p>6.<code>‘+apple +(>turnover &#x3C;studel)</code>
+Tìm những dòng có chứa apple và turnover, hoặc apple và strudel, nhưng xếp hạng “apple turnover” cao hơn “apple strudel”</p>
+<p>7.<code>‘apple*’</code>
+Tìm những dòng có chứa các chữ như “apple”, “apples”, “applesauce “, “applet”</p>
+<p>8.<code>‘”some words“’</code>
+Tìm những dòng có chứa chính xác cụm “some words”</p>
+<p>Với  Query expansion (<code>WITH QUERY EXPANSION</code> hoặc <code>IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION</code>), MySQL sẽ thực hiện thao tách search 2 lần, trong lần search thứ 2 MySQL sẽ tìm kết hợp cụm từ tìm kiếm gốc với những từ thích hợp nổi bật so với từ khóa gốc</p>
+<p>Ví dụ:
+Ta search từ “database” thì kết quả trả về sẽ là (theo như dữ liệu ở trên):</p>
+<p>{% highlight sql %}
+SELECT * FROM articles WHERE MATCH(title,body) AGAINST(‘database’);
+{% endhighlight %}</p>
+<p>Với Query expansion, thì MySQL nhận thấy rằng trong 2 kết quả trả về có chứa từ khóa “database” thì còn chứa từ chung là ‘MySQL’. Nên đồng thời MySQL cũng trả về kết quả có chứa từ MySQL mặc dù không có chứa từ database.</p>
+<p>Theo như tài liệu của MySQL, thì search với Query expansion có thể làm tăng độ nhiễu (noise) và các tài liệu không phù hợp, cho nên ta chỉ  thực hiện search với Query expansion với những từ khóa ngắn.</p>
+<p>Chúng ta nên sửa dụng BM trong trường hợp dữ liệu quá ít (ít rows trong tables) hoặc dữ liệu testing lặp đi lặp lại nội dung. Vì khi cơ chế của Natural Language Mode sẽ ranking trọng số (weight) của các từ khó dựa trên số lần xuất hiện của từ đó trong một row và trong toàn bảng. Càng xuất hiện nhiều lần trong cả bảng dữ liệu thì điểm càng thấp. Cho nên khả năng MySQL trả về empty set là rất cao.</p>
+<p>Có một vấn đề nhỏ khi dùng Boolean Mode để search các keyword có chứa các ký tự như <code>(+-~>* v.v)</code> là các ký tự đó trùng với toán tử wild card trong boolean mode. Ví dụ keyword SBD-1107 sẽ có ký tự <code>-</code> (hyphen hay dash) trùng với toán tử <code>-</code> của boolean mode. Trong trường hợp này có có thể dùng thêm cụm <code>HAVING field LIKE 'SBD-1107%'</code> để tìm, như đã nói ở bài trước tuy là toán tử <code>LIKE</code> nhưng dùng dấu <code>%</code> ở cuối nên nó vẫn được tìm kiếm trên index và đảm bảo tốc độ.</p>
+<p>Trong entry tới, ta sẽ tìm hiểu thêm về cơ chế ranking của MySQL full text search và full text search index.</p>  </article> </div>  </div> </div> <footer class="footer"> <div class="wrapper">
+&copy; 2016&ndash;2026 Q-Hung. Built with <a href="https://astro.build">Astro</a>.
+</div> </footer> <script type="module">(function(e,c,o,s,t,n,a){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=c.createElement(o),a=c.getElementsByTagName(o)[0],n.async=1,n.src=s,a.parentNode.insertBefore(n,a)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create","UA-39549683-1","auto");ga("send","pageview",location.pathname);</script> </body></html>

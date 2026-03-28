@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="vi"> <head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>So sánh chuỗi trong PHP - Q-Hung</title><meta name="description" content="Professional keyboard masher and screen watcher | Web Developer."><meta name="keywords" content="php"><!-- Open Graph --><meta property="og:locale" content="vi_VN"><meta property="og:type" content="article"><meta property="og:title" content="So sánh chuỗi trong PHP - Q-Hung"><meta property="og:description" content="Professional keyboard masher and screen watcher | Web Developer."><meta property="og:url" content="https://butchiso.com/vi/blog/2013-07-11-so-sanh-chuoi-trong-php/"><meta property="og:site_name" content="Q-Hung"><meta property="og:image" content="https://butchiso.com/assets/images/placeholder.jpg"><link rel="canonical" href="https://butchiso.com/vi/blog/2013-07-11-so-sanh-chuoi-trong-php/"><link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Q-Hung Feed"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><!-- Webfonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Mono:wght@400;500&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_upward,article,category,dark_mode,home,light_mode,mail,rss_feed&display=block" rel="stylesheet"><!-- Favicon --><link rel="icon" href="/favicon.svg" type="image/svg+xml"><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>
+  (function(){
+    var t=localStorage.getItem('theme');
+    if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){
+      document.documentElement.setAttribute('data-theme','dark');
+    }
+  })();
+</script><link rel="stylesheet" href="/_astro/BaseLayout.bWL4HU_f.css"></head> <body> <header class="header"> <div class="wrapper"> <div class="site-brand"> <a class="site-avatar" href="/"> <img src="//avatars.githubusercontent.com/u/199614?v=4" alt="Q-Hung"> </a> <div class="site-identity"> <a class="site-title" href="/">Q-Hung</a> <div class="site-social"> <a href="https://github.com/q-hung" title="GitHub"> <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"></path></svg> GitHub
+</a> <a href="https://linkedin.com/in/hungnq1989" title="LinkedIn"> <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg> LinkedIn
+</a> <a href="mailto:hungnq1989@gmail.com" title="Email"> <span class="material-symbols-rounded">mail</span> Email
+</a> </div> </div> </div> <nav class="site-nav"> <a class="page-link" href="/"><span class="material-symbols-rounded">home</span> Trang chủ</a> <a class="page-link" href="/about/"><span class="material-symbols-rounded">article</span> About</a> <a class="page-link" href="/category/"><span class="material-symbols-rounded">category</span> Category</a> <a class="page-link" href="/feed.xml"><span class="material-symbols-rounded">rss_feed</span> RSS</a> <!-- Language Switcher --> <a class="page-link lang-switcher" href="/en/" title="Switch to English"><span class="material-symbols-rounded">language</span> EN</a> <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"> <span class="material-symbols-rounded icon-light">light_mode</span> <span class="material-symbols-rounded icon-dark">dark_mode</span> </button> </nav> </div> </header> <div class="page-content"> <div class="wrapper">  <div class="post"> <header class="post-header"> <h1 class="post-title" itemprop="name headline">So sánh chuỗi trong PHP</h1> <p class="post-meta"> <time datetime="2013-07-11T17:00:00.000Z" itemprop="datePublished"> 11 tháng 7, 2013 </time> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"> • hungneox</span></span> </p> </header> <article class="post-content" itemprop="articleBody">  <h3 id="sử-dụng-toán-tử-so-sánh">Sử dụng toán tử so sánh</h3>
+<p>Cách đơn giản và thô sơ nhất là dùng toán tử so sánh của PHP (comparison operators). Tuy nhiên không nên dùng toán tử Equal (<code>==</code>) mà nên dùng toán tử Identical (<code>===</code>). Bởi vì <code>==</code> không so sánh kiểu dữ liệu và có thể dẫn đến sai lệch trong việc so sánh. Ta hãy xem thử ví dụ sau:</p>
+<p>{% highlight php %}</p>
+<!--?php
+  $input = 0;
+  if('defaultpassword' == $input){
+   echo 'true';
+  } else {
+   echo 'false';
+  }
+?-->
+<p>{% endhighlight %}</p>
+<p>Viết ngắn sử dụng toán tử 3 ngôi (ternary operator):
+{% highlight php %}</p>
+<!--?php
+$input = 0;
+echo ('defaultpassword' == $input) ? ‘true’ : ‘false’;
+?-->
+<p>{% endhighlight %}</p>
+<p>Mặc dùng <code>0</code> và <code>defaultpassword</code> hoàn toàn khác nhau nhưng kết quả trả về là <code>true</code> thay vì <code>false</code>. Bởi vì khi PHP sẽ ngầm định ép kiểu về <code>float</code> để so sánh, và ép kiểu chuỗi ‘defaultpassword’ về kiểu float thì nó sẽ ra kết quả như sau: <code>int(0);</code> <a href="http://php.net/manual/en/language.types.type-juggling.php">Xem thêm</a></p>
+<p>Do đó khi so sánh 2 chuỗi <code>1e3</code> và <code>1000</code> bằng phép toán <code>==</code> ta được kết quả là true.</p>
+<p>{% highlight php %}</p>
+<!--?php
+echo ('1e3' == '1000') ? 'true' : 'false';
+?-->
+<p>{% endhighlight %}</p>
+<p>Nhưng nếu dùng toán tử === ta sẽ được kết quả là false:
+{% highlight php %}</p>
+<!--?php
+echo ('1e3' === '1000') ? 'true' : 'false';
+?-->
+<p>{% endhighlight %}</p>
+<p>Do <code>1e3</code> tương đương <code>1000</code> nếu như convert sang kiểu <code>float</code>. Vì vậy tốt hơn hết là ta dùng toán tử Identical (<code>===</code>) để so sánh hai chuỗi.</p>
+<h3 id="sử-dụng-hàm-strcmp">Sử dụng hàm strcmp()</h3>
+<p><code>int strcmp ( string $str1 , string $str2 )</code>
+Nhận hai tham số <code>$str1</code> và <code>$str2</code> và trả về kết quả:</p>
+<ol>
+<li><code>&#x3C; 0</code> nếu như <code>$str1 &#x3C; $str2</code></li>
+<li><code>> 0</code> nếu như <code>$str1 > $str2</code></li>
+<li><code>0</code> nếu như <code>$str1 = $str2</code></li>
+</ol>
+<p>Đây là một hàm binary-safe, tức là nhận dữ liệu đầu vào như dữ liệu thô mà không ngầm định kiểu dữ liệu. Và hàm strcmp chỉ so sánh nội dung của hai chuỗi mà không phải so sánh địa chỉ bộ nhớ và bỏ qua các ký tự đặc biệt. Lưu ý thêm là hàm này có phân biệt hoa thường, nhưng hàm <code>strcasecmp</code> thì không.</p>
+<p>Ví dụ: Hai chuỗi “string1” và “string1\0\n”, hiển nhiên là không giống nhau. Nếu dùng toán tử so sánh ở trên để kiếm tra thì tất nhiên kết quả trả về sẽ là ‘false’. Tuy nhiên nếu dùng hàm strcmp ta sẽ nhận được kết quả là true vì nội dung hai chuỗi này hoàn toàn giống nhau nếu bỏ đi ký tự đặc biệt trong PHP là \0 và\n.
+echo (strcmp(‘string1’, ‘string1\0\n’)) ? ‘true’ : ‘false’;</p>
+<p>Nhưng lưu ý là PHP có một bug  như sau:  Nếu dùng strcmp để so sánh một array() và một chuỗi thì kết quả trả về vẫn là 0 (tức là hai “chuỗi” bằng nhau).</p>
+<p>{% highlight php %}</p>
+<!--?php
+$pwd = isset($_GET[‘pwd’]) ? $_GET[‘pwd’] : '';
+//tương đương $pwd = array();
+ if ( strcasecmp( $pwd, 'password' ) == 0 ){
+      echo 'You successfully logged in.';
+}
+?-->
+<p>Warning: strcasecmp() expects parameter 1 to be string, array given in cmpstr.php on line 12
+{% endhighlight %}</p>
+<p>Mặc dù nó vẫn bung ra Warning như nó vẫn vượt qua vào được bên trong và in ra câu thông báo:”You successfully logged in”</p>
+<h3 id="sử-dụng-hàm-similar_text">Sử dụng hàm similar_text</h3>
+<p><code>int similar_text ( string $first , string $second [, float &#x26;$percent ] )</code></p>
+<p>Hàm similar_text nhận 3 tham số, 2 chuỗi đầu vào và một biến chứa kết quả trả về. Kết quả là số phần trăm giống nhau giữa hai chuỗi. Ví dụ:</p>
+<p>{% highlight php %}</p>
+<!--?php
+similar_text("Hello World","Hello Hello",$percent);
+echo $percent;
+?-->
+<p>{% endhighlight %}</p>
+<p>Kết quả trả về là <code>63.636363636364</code> Theo document của PHP, hàm này tính toán sự giống nhau giữa hai chuỗi được được mô tả trong sách <a href="http://www.amazon.com/Programming-Classics-Implementing-Worlds-Algorithms/dp/0131004131">Programming Classics: Implementing the World’s Best Algorithms by Oliver (ISBN 0-131-00413-1)</a>.</p>
+<p>Tuy nhiên thứ tự của các tham số cũng khiến thay đổi kết quả trả về, và ví dụ dưới đây được báo cáo là một bug nhưng chưa được xác nhận</p>
+<p>{% highlight php %}</p>
+<!--?php
+echo similar_text('test','wert'); // 1
+echo similar_text('wert','test'); // 2 hay
+$var_1 = 'PHP IS GREAT'; 
+$var_2 = 'WITH MYSQL'; 
+
+echo similar_text($var_1, $var_2); // 3
+echo similar_text($var_2, $var_1); // 2
+?-->
+<p>{% endhighlight %}</p>
+<h3 id="sử-dụng-hàm-levenshtein">Sử dụng hàm levenshtein</h3>
+<p>Hàm này ngược lại với hàm <code>similar_text()</code>, nó sẽ trả về 0 nếu như hai chuỗi so sánh giống hệt nhau:
+{% highlight php %}</p>
+<!--?php 
+int levenshtein ( string $str1 , string $str2 )
+int levenshtein ( string $str1 , string $str2 , int $cost_ins , int $cost_rep , int $cost_del ) 
+?-->
+<p>{% endhighlight %}</p>
+<p>Hàm này tính khoảng cách levenshtein (hay còn gọi là Edit distance) giữa 2 dãy (sequence) và được đặt tên theo một nhà khoa học người Nga Vladimir Levenshtein người đã nghĩ ra ý tưởng này vào năm 1965. Khoảng cách levenshtein được tính bằng cách tính số lần xóa (deletions), thêm (insertions) và thay thế (substitutions) để chuyển chuỗi gốc (source) thành chuỗi đích (target).</p>
+<p>Ví dụ: Khoảng cách Levenshtein giữa 2 chuỗi “kitten” và “sitting” là 3, vì phải dùng ít nhất 3 lần biến đổi.</p>
+<ul>
+<li>kitten -> sitten (thay “k” bằng “s”)</li>
+<li>sitten -> sittin (thay “e” bằng “i”)</li>
+<li>sittin -> sitting (thêm kí tự “g”)</li>
+</ul>
+<p>{% highlight php %}</p>
+<!--?php 
+  echo levenshtein("kitten","sitting");//3
+?-->
+<p>{% endhighlight %}</p>
+<h3 id="sử-dụng-hàm-soundex">Sử dụng hàm soundex</h3>
+<p><code>string soundex ( string $str )</code></p>
+<p>Hàm này sử dụng thuật toán ngữ âm (phonetic algorithm) để tính toán chỉ mục của các tự dựa trên cách phát âm của nó (theo tiếng Anh). Hàm này trả về một chuỗi 4 ký tự bắt đầu với một chữ cái. Thuật toán này được mô tả trong cuốn nổi tiếng The Art Of Computer Programming, vol. 3: Sorting And Searching”, Addison-Wesley (1973), pp. 391-392 của Donald Knuth.</p>
+<p>Ví dụ: Trong MySQL có một hàm tương tự <a href="http://dev.mysql.com/doc/refman/5.0/en/string-functions.html#function_soundex">soundex</a>. Ta có thể dùng hàm này để đưa ra tìm không gần đúng một keyword. Ta lưu trong database 1 trường soundex, để so sánh với keyword người dùng đưa vào:</p>
+<p><code>SELECT p.name FROM products p WHERE p.soundex = SOUNDEX(‘test’);</code></p>
+<h3 id="sử-dụng-hàm-metaphone">Sử dụng hàm metaphone</h3>
+<p><code>string metaphone ( string $str [, int $phonemes = 0 ] )</code></p>
+<p>Theo PHP document thì hàm này tương tự như soundex nhưng chính xác hơn vì dựa vào nguyên tắc phát âm cơ bản trong tiếng Anh. Và hàm này trả về một khóa có chiều dài thay đổi theo chiều dài của chuỗi đầu vào. Thuật toán này được phát triển bởi Lawrence Philips và được mô tả trong cuốn “Practical Algorithms for Programmers”, Binstock &#x26; Rex, Addison Wesley, 1995.</p>
+<p>{% highlight php %}</p>
+<!--?php 
+var_dump(metaphone('Catherine'));
+var_dump(metaphone('Katherine'));
+//string(5) "K0RN"
+//string(5) "K0RN"
+?-->
+<p>{% endhighlight %}</p>
+<p>Trong khi dùng hàm soundex sẽ trả về 2 kết quả khác nhau <code>C365</code> (Catherine) và <code>K365</code> (Katherine). Ở đây ta có thể thấy tại sao hàm <code>metaphone</code> được mô tả là chính xác hơn hàm <code>soundex</code>, theo nghĩa nó có ích hơn vì trên thực tế hai Katherine và Catherine đọc hoàn toàn giống nhau. Cũng tương tự như <code>soundex</code>, ta có thể sử dụng hàm <code>metaphone</code> để tăng khả năng tìm kiếm trong database.</p>
+<p>Tham khảo một bài viết áp dụng với <a href="http://www.informit.com/articles/article.aspx?p=1848528">Python</a></p>
+<h3 id="references">References:</h3>
+<ul>
+<li>PHP String Comparison == vs strcmp, Stackoverflow</li>
+<li>what is the difference between “some” == “some\0” and strcmp(“some”,“some\0”) in c++?, Stackoverrflow</li>
+<li>PHP Manual, metaphone</li>
+<li>PHP Manual, similar_text</li>
+<li>PHP Manual, levenshtein</li>
+</ul>  </article> </div>  </div> </div> <footer class="footer"> <div class="wrapper">
+&copy; 2016&ndash;2026 Q-Hung. Built with <a href="https://astro.build">Astro</a>.
+</div> </footer> <script type="module">(function(e,c,o,s,t,n,a){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=c.createElement(o),a=c.getElementsByTagName(o)[0],n.async=1,n.src=s,a.parentNode.insertBefore(n,a)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create","UA-39549683-1","auto");ga("send","pageview",location.pathname);</script> </body></html>

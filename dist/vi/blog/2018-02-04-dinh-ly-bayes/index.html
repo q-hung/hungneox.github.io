@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="vi"> <head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Định lý Bayes - Q-Hung</title><meta name="description" content="Định lý Bayes (Bayes’s Theorem)"><meta name="keywords" content="bayes, statistics, ml"><!-- Open Graph --><meta property="og:locale" content="vi_VN"><meta property="og:type" content="article"><meta property="og:title" content="Định lý Bayes - Q-Hung"><meta property="og:description" content="Định lý Bayes (Bayes’s Theorem)"><meta property="og:url" content="https://butchiso.com/vi/blog/2018-02-04-dinh-ly-bayes/"><meta property="og:site_name" content="Q-Hung"><meta property="og:image" content="https://butchiso.com/assets/images/placeholder.jpg"><link rel="canonical" href="https://butchiso.com/vi/blog/2018-02-04-dinh-ly-bayes/"><link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Q-Hung Feed"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><!-- Webfonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Mono:wght@400;500&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_upward,article,category,dark_mode,home,light_mode,mail,rss_feed&display=block" rel="stylesheet"><!-- Favicon --><link rel="icon" href="/favicon.svg" type="image/svg+xml"><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>
+  (function(){
+    var t=localStorage.getItem('theme');
+    if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){
+      document.documentElement.setAttribute('data-theme','dark');
+    }
+  })();
+</script><link rel="stylesheet" href="/_astro/BaseLayout.bWL4HU_f.css"></head> <body> <header class="header"> <div class="wrapper"> <div class="site-brand"> <a class="site-avatar" href="/"> <img src="//avatars.githubusercontent.com/u/199614?v=4" alt="Q-Hung"> </a> <div class="site-identity"> <a class="site-title" href="/">Q-Hung</a> <div class="site-social"> <a href="https://github.com/q-hung" title="GitHub"> <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"></path></svg> GitHub
+</a> <a href="https://linkedin.com/in/hungnq1989" title="LinkedIn"> <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg> LinkedIn
+</a> <a href="mailto:hungnq1989@gmail.com" title="Email"> <span class="material-symbols-rounded">mail</span> Email
+</a> </div> </div> </div> <nav class="site-nav"> <a class="page-link" href="/"><span class="material-symbols-rounded">home</span> Trang chủ</a> <a class="page-link" href="/about/"><span class="material-symbols-rounded">article</span> About</a> <a class="page-link" href="/category/"><span class="material-symbols-rounded">category</span> Category</a> <a class="page-link" href="/feed.xml"><span class="material-symbols-rounded">rss_feed</span> RSS</a> <!-- Language Switcher --> <a class="page-link lang-switcher" href="/en/" title="Switch to English"><span class="material-symbols-rounded">language</span> EN</a> <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"> <span class="material-symbols-rounded icon-light">light_mode</span> <span class="material-symbols-rounded icon-dark">dark_mode</span> </button> </nav> </div> </header> <div class="page-content"> <div class="wrapper">  <div class="post"> <header class="post-header"> <h1 class="post-title" itemprop="name headline">Định lý Bayes</h1> <p class="post-meta"> <time datetime="2018-02-04T18:10:00.000Z" itemprop="datePublished"> 4 tháng 2, 2018 </time> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"> • hungneox</span></span> </p> </header> <article class="post-content" itemprop="articleBody">  <h1 id="định-lý-bayes-bayess-theorem">Định lý Bayes (Bayes’s Theorem)</h1>
+<p>TLDR; Diễn dịch theo cách thông thường thì định lý Bayes dùng để trả lời câu hỏi: Phỏng đoán của của ta chính xác bao nhiêu phần trăm nếu như có dữ kiện mới được thu thập.</p>
+<h2 id="giới-thiệu">Giới thiệu</h2>
+<p>Định lý Bayes mang tên một nhà triết học và toán học nghiệp dư người Anh Thomas Bayes (1701-1761). Định lý này được viết trong một bài luận được đọc trước Hội khoa học hoàng gia năm 1763 sau khi ông chết. Cùng năm sau đó, một người bạn của ông là Richard Price trình bày và công bố định lý này trong ấn bản “Philosophical Transactions of the Royal Society of London”.</p>
+<p>Nói chung, nó có nhiều ứng dụng thực tế như <a href="https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering">lọc thư rác</a>, <a href="http://www.lrc.tnu.edu.vn/upload/collection/brief/827_17.pdf">nhận dạng chữ viết</a>, hệ thống khuyến nghị vân vân và mây mây.</p>
+<h2 id="xác-xuất-có-điều-kiện-conditional-probability">Xác xuất có điều kiện (conditional probability)</h2>
+<p>Nói đơn giản thì xác xuất có điều kiện là khả năng đúng của một dự đoán dựa trên một điều kiện nào đó.</p>
+<p>Giả sử Phèo học trong một lớp học có 20 học sinh (5 nam và 15 nữ). Đồng thời ta biết trong lớp đó có một học sinh bị cúm. Như vậy dự đoán ban đầu của chúng ta về khả năng mắc bệnh cúm của Phèo là 1/20 hay 5%.</p>
+<p>Ta viết: <code>P(Phèo bị cúm) = 0.05</code></p>
+<p>Trong điều kiện mà bạn trẻ bị nhiễm cúm là nữ thì tỉ lệ mà Phèo mắc cúm giảm còn 0%. Nhưng trong trường hợp người bị cúm là nam thì tỉ lệ này sẽ là 1/5 hay 20%. Hãy nhớ rằng ta vẫn chưa biết người bị cúm là nam hay nữ.</p>
+<p>Ta gọi nó là xác xuất có điều kiện và nó được viết như sau:</p>
+<p><code>P(Phèo bị cúm | bệnh nhân là nam) = 0.20</code></p>
+<p><code>P(Phèo bị cúm | bệnh nhân là nữ) = 0</code></p>
+<p>Ví dụ trên chỉ để minh hoạ cho xác xuất có điều kiện. Sau đây nói tiếp với định lý Bayes.</p>
+<h2 id="định-lý-bayes">Định lý Bayes</h2>
+<p>Định lý Bayes:</p>
+<p>$$P(H | E) = \dfrac{P(E | H) . P(H)}{P(E)}$$</p>
+<p>| H       | The probability of a hypothesis                               |
+| E       | Conditional on a new piece of evidence                        |
+| P(H|E) | The probability of a hypothesis conditional on a new evidence |
+| P(E|H) | The probability of the evidence given the hypothesis          |
+| P(H)    | The prior probability of the hypothesis                       |
+| P(E)    | The prior probability of the evidence                         |</p>
+<p>Ví dụ một ngày đẹp trời sau khi ngủ dậy bạn bị nhức đầu một cách kỳ lạ. Sau khi google thì bạn phát hiện ra là triệu chứng của bệnh ung thư não (hay một bệnh X nào đó).</p>
+<p>Ban đầu bạn tự nói với bản thân, định mệnh là 95% bị ung thư não rồi. Nhưng sau khi tìm hiểu thì bạn phát hiện ra rằng tỉ lệ bị ung thư não rất thấp, chỉ 1/10000 người bị, như vậy P(H) chỉ = 0.0001, và bệnh nhức đầu cũng khá phổ biến cứ 100 người thì có 1 người bị.</p>
+<p>Như vậy:</p>
+<p>| P(H)   | khả năng bạn bị bệnh ung thư não       | = 0.0001 |
+| P(E)   | khả năng bạn bị nhức đầu               |= 0.01    |
+| P(E|H)| khả năng bạn bị nhức đầu là do ung thư | = 0.95   |</p>
+<p>Cuối cùng sau khi có tất cả các yếu tố cần thiết bạn có thể áp dụng định lý Bayes để tính <code>P(H | E)</code> hay khả năng bị ung thư do nhức đầu.</p>
+<p>$$P(H | E) = \dfrac{P(E | H) . P(H)}{P(E)} = \dfrac{0.95 * 0.0001}{00.1} = 0,0095$$</p>
+<p>Nói chung là khi bị nhức đầu thì khả năng bạn bị ung thư não là chưa tới 1%.</p>
+<h1 id="kết-luận">Kết luận</h1>
+<p>Tóm lại, xác xuất có điều kiện của một giả thuyết được tính dựa trên ba yếu tố</p>
+<ul>
+<li>Xác xuất xảy ra của giả thuyết (khả năng một người bị ung thư não)</li>
+<li>Xác xuất xảy ra của chứng cứ (khả năng một người bị nhức đầu)</li>
+<li>Xác xuất triệu chứng/chứng cứ xảy ra là do giả thuyết (khả năng nhức đầu là do ung thư não).</li>
+</ul>
+<p>Nói chung là sau mỗi lần bạn có thêm một triệu chứng mới thì phải cập nhật lại xác xuất của giả thuyết ban đầu. Trong thực tế đôi khi bạn không biết các điều kiện cần để tính toán là gì, có thể bạn biết là có những chứng cứ, thông tin có thể ảnh hưởng đến kết quả nhưng tại thời điểm đó ta không biết chứng cứ đó là gì. Hoặc là bạn phải đi tìm hoặc là phải dựa trên phán đoán ban đầu. Tuy không hoàn hảo, nhưng có thể nói định lý Bayes là một công cụ quan trọng để chúng ta tư duy dựa trên lý trí và mang tính phản biện (critical thinking).</p>
+<h1 id="tham-khảo">Tham khảo</h1>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=OqmJhPQYRc8">CRITICAL THINKING - Fundamentals: Bayes</a></li>
+<li><a href="https://www.youtube.com/watch?v=R13BD8qKeTg">The Bayesian Trap</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Thomas_Bayes">Thomas Bayes</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering">Naive Bayes spam filtering</a></li>
+</ul>  </article> </div>  </div> </div> <footer class="footer"> <div class="wrapper">
+&copy; 2016&ndash;2026 Q-Hung. Built with <a href="https://astro.build">Astro</a>.
+</div> </footer> <script type="module">(function(e,c,o,s,t,n,a){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=c.createElement(o),a=c.getElementsByTagName(o)[0],n.async=1,n.src=s,a.parentNode.insertBefore(n,a)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create","UA-39549683-1","auto");ga("send","pageview",location.pathname);</script> </body></html>

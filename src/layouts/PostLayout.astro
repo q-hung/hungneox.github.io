@@ -1,0 +1,30 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+const { frontmatter } = Astro.props;
+const d = new Date(frontmatter.date);
+const isDateValid = !isNaN(d.getTime());
+---
+<BaseLayout 
+  title={frontmatter.title} 
+  description={frontmatter.description} 
+  image={frontmatter.image} 
+  tags={frontmatter.tags}
+>
+  <div class="post">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">{frontmatter.title}</h1>
+      <p class="post-meta">
+        {isDateValid && (
+          <time datetime={d.toISOString()} itemprop="datePublished">
+            {d.toLocaleDateString(Astro.currentLocale === 'en' ? 'en-US' : 'vi-VN', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </time>
+        )}
+        {frontmatter.author && <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"> • {frontmatter.author}</span></span>}
+      </p>
+    </header>
+    <article class="post-content" itemprop="articleBody">
+      <slot />
+    </article>
+  </div>
+</BaseLayout>

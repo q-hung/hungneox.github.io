@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "layout": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "date": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "author": {
+      "default": "Q-Hung",
+      "type": "string"
+    },
+    "image": {
+      "type": "string"
+    },
+    "tags": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "categories": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "permalink": {
+      "type": "string"
+    },
+    "published": {
+      "default": true,
+      "type": "boolean"
+    },
+    "comments": {
+      "default": true,
+      "type": "boolean"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "date"
+  ]
+}

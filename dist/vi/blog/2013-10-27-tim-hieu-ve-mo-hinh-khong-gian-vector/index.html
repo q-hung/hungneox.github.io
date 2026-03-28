@@ -1,0 +1,307 @@
+<!DOCTYPE html><html lang="vi"> <head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Tìm hiểu về mô hình không gian vector - Q-Hung</title><meta name="description" content="Professional keyboard masher and screen watcher | Web Developer."><meta name="keywords" content="natural-language-processing, information-retrieval"><!-- Open Graph --><meta property="og:locale" content="vi_VN"><meta property="og:type" content="article"><meta property="og:title" content="Tìm hiểu về mô hình không gian vector - Q-Hung"><meta property="og:description" content="Professional keyboard masher and screen watcher | Web Developer."><meta property="og:url" content="https://butchiso.com/vi/blog/2013-10-27-tim-hieu-ve-mo-hinh-khong-gian-vector/"><meta property="og:site_name" content="Q-Hung"><meta property="og:image" content="https://butchiso.com/assets/images/butchiso.jpg"><link rel="canonical" href="https://butchiso.com/vi/blog/2013-10-27-tim-hieu-ve-mo-hinh-khong-gian-vector/"><link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Q-Hung Feed"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><!-- Webfonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Mono:wght@400;500&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_upward,article,category,dark_mode,home,light_mode,mail,rss_feed&display=block" rel="stylesheet"><!-- Favicon --><link rel="icon" href="/favicon.svg" type="image/svg+xml"><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>
+  (function(){
+    var t=localStorage.getItem('theme');
+    if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){
+      document.documentElement.setAttribute('data-theme','dark');
+    }
+  })();
+</script><link rel="stylesheet" href="/_astro/BaseLayout.bWL4HU_f.css"></head> <body> <header class="header"> <div class="wrapper"> <div class="site-brand"> <a class="site-avatar" href="/"> <img src="//avatars.githubusercontent.com/u/199614?v=4" alt="Q-Hung"> </a> <div class="site-identity"> <a class="site-title" href="/">Q-Hung</a> <div class="site-social"> <a href="https://github.com/q-hung" title="GitHub"> <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"></path></svg> GitHub
+</a> <a href="https://linkedin.com/in/hungnq1989" title="LinkedIn"> <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg> LinkedIn
+</a> <a href="mailto:hungnq1989@gmail.com" title="Email"> <span class="material-symbols-rounded">mail</span> Email
+</a> </div> </div> </div> <nav class="site-nav"> <a class="page-link" href="/"><span class="material-symbols-rounded">home</span> Trang chủ</a> <a class="page-link" href="/about/"><span class="material-symbols-rounded">article</span> About</a> <a class="page-link" href="/category/"><span class="material-symbols-rounded">category</span> Category</a> <a class="page-link" href="/feed.xml"><span class="material-symbols-rounded">rss_feed</span> RSS</a> <!-- Language Switcher --> <a class="page-link lang-switcher" href="/en/" title="Switch to English"><span class="material-symbols-rounded">language</span> EN</a> <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"> <span class="material-symbols-rounded icon-light">light_mode</span> <span class="material-symbols-rounded icon-dark">dark_mode</span> </button> </nav> </div> </header> <div class="page-content"> <div class="wrapper">  <div class="post"> <header class="post-header"> <h1 class="post-title" itemprop="name headline">Tìm hiểu về mô hình không gian vector</h1> <p class="post-meta"> <time datetime="2013-10-27T18:00:00.000Z" itemprop="datePublished"> 27 tháng 10, 2013 </time> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"> • hungneox</span></span> </p> </header> <article class="post-content" itemprop="articleBody">  <h3 id="giới-thiệu">Giới thiệu</h3>
+<p>Nói một cách ngắn gọn, Vector space model (Mô hình không gian vector) là một mô hình đại số (algebraic model) thể hiện thông tin văn bản như một vector, các phần tử của vector này thể hiện mức độ quan trọng của một từ và cả sự xuất hiện hay không xuất hiện (Bag of words) của nó trong một tài liệu.</p>
+<!--more-->
+<p>Mô hình này biểu diễn văn bản như những điểm trong không gian Euclid n-chiều, mỗi chiều tương ứng với một từ trong tập hợp các từ. Phần tử thứ i, là di của vector văn bản cho biết số lần mà từ thứ i xuất hiện trong văn bản. Sự tương đồng của hai văn bản được định nghĩa là khoảng cách giữa các điểm, hoặc là góc giữa những vector trong không gian.</p>
+<p>Mỗi từ trong không gian vector sẽ có một trọng số, có nhiều phương pháp xếp hạng khác nhau, nhưng tf-idf (term frequency–inverse document frequency) là một phương pháp phổ biến để đánh giá và xếp hạng một từ trong một tài liệu. MySQL fulltext search cũng sử dụng phương pháp này. Về cơ bản thì tf-idf là một kỹ thuật (cụ thể là ranking function) giúp chuyển đổi thông tin dưới dạng văn bản thành một Vector space model thông qua các trọng số. Vector space model và tf-idf được phát triển bởi Gerard Salton vào đầu thập niên 1960s.</p>
+<p>Mặc dù đơn giản, nhưng mô hình không gian vector và những biến thể của nó hiện nay vẫn là cách phổ biến để biểu diễn văn bản trong Data mining và Information retrieval. Tuy nhiên, một trong những điểm yếu của vector space model số chiều lớn (high-dimensonal), có khoảng cỡ chục triệu chiều trong không gian vector nếu như chúng ta áp dụng nó vào web search engine.</p>
+<p><img src="/assets/posts/tim-hieu-ve-mo-hinh-khong-gian-vector/vector_space.png" alt="Hình minh họa của Christian S. Perone">
+Hình minh họa của <a href="https://plus.google.com/118258566074039785562/posts">Christian S. Perone</a></p>
+<h3 id="thể-hiện-văn-bản-như-vector-và-term-frequency">Thể hiện văn bản như vector và term frequency</h3>
+<p><strong>Ví dụ:</strong>
+Hàng đầu tiên là danh sách các vở kịch của Shakespeare. Cột đầu tiên là các từ, và các ô thể hiện sự xuất hiện hay không xuất hiện của các từ đó trong các tác phẩm.</p>
+<p>{:.table.table-bordered}</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th align="right">Anthony and Cleopatra</th><th align="right">Julius Caesar</th><th align="right">The Tempest</th><th align="right">Hamlet</th><th align="right">Othello</th><th align="right">Macbeth</th></tr></thead><tbody><tr><td>Anthony</td><td align="right">1</td><td align="right">1</td><td align="right">0</td><td align="right">0</td><td align="right">0</td><td align="right">1</td></tr><tr><td>Brutus</td><td align="right">1</td><td align="right">1</td><td align="right">0</td><td align="right">1</td><td align="right">0</td><td align="right">0</td></tr><tr><td>Caesar</td><td align="right">1</td><td align="right">1</td><td align="right">0</td><td align="right">1</td><td align="right">0</td><td align="right">1</td></tr><tr><td>Calpurnia</td><td align="right">0</td><td align="right">1</td><td align="right">0</td><td align="right">0</td><td align="right">1</td><td align="right">0</td></tr><tr><td>Cleopatra</td><td align="right">1</td><td align="right">0</td><td align="right">0</td><td align="right">0</td><td align="right">0</td><td align="right">0</td></tr><tr><td>Mercy</td><td align="right">1</td><td align="right">0</td><td align="right">1</td><td align="right">1</td><td align="right">1</td><td align="right">1</td></tr><tr><td>Worser</td><td align="right">1</td><td align="right">0</td><td align="right">1</td><td align="right">1</td><td align="right">1</td><td align="right">0</td></tr></tbody></table>
+<p>Binary incidence matrix (Introduction to Information Retrieval)</p>
+<p>Và mỗi tài liệu được biễu diễn dưới dạng một vector, ví dụ Julius Caesar  $$\left[\begin{matrix} 1 \ 1 \ 1 \1 \0 \0 \0 \end{matrix}\right]$$</p>
+<p>Các ô thể hiện sự số lần xuất hiện của các từ trong các tác phẩm. Nó được gọi là <strong>term frequency</strong>.</p>
+<p>{:.table.table-bordered}</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th align="right">Anthony and Cleopatra</th><th align="right">Julius Caesar</th><th align="right">The Tempest</th><th align="right">Hamlet</th><th align="right">Othello</th><th align="right">Macbeth</th></tr></thead><tbody><tr><td>Anthony</td><td align="right">157</td><td align="right">73</td><td align="right">0</td><td align="right">0</td><td align="right">0</td><td align="right">1</td></tr><tr><td>Brutus</td><td align="right">4</td><td align="right">157</td><td align="right">0</td><td align="right">2</td><td align="right">0</td><td align="right">0</td></tr><tr><td>Caesar</td><td align="right">232</td><td align="right">227</td><td align="right">0</td><td align="right">2</td><td align="right">0</td><td align="right">1</td></tr><tr><td>Calpurnia</td><td align="right">0</td><td align="right">19</td><td align="right">0</td><td align="right">0</td><td align="right">1</td><td align="right">0</td></tr><tr><td>Cleopatra</td><td align="right">57</td><td align="right">0</td><td align="right">0</td><td align="right">0</td><td align="right">0</td><td align="right">0</td></tr><tr><td>Mercy</td><td align="right">2</td><td align="right">0</td><td align="right">3</td><td align="right">8</td><td align="right">5</td><td align="right">8</td></tr><tr><td>Worser</td><td align="right">2</td><td align="right">0</td><td align="right">1</td><td align="right">1</td><td align="right">1</td><td align="right">0</td></tr></tbody></table>
+<p>Và mỗi tài liệu được biễu diễn dưới dạng một vector, ví dụ Julius Caesar $$\left[\begin{matrix} 73 \ 157 \ 227 \19 \0 \0 \0 \end{matrix}\right]$$</p>
+<p>Bây giờ mỗi tài liệu (trong trường hợp này là tác phẩm) được thể hiện dưới dạng một vector đếm.</p>
+<p>Term frequency tft,d xác định số lần từ t xuất hiện trong tài liệu d. Nhưng chỉ tần suất xuất hiện của một từ thôi thì chưa đủ.</p>
+<p>Ví dụ trong một tài liệu, sự xuất hiện của một từ 10 lần thì tài liệu đó được coi là phù hợp hơn tài liệu mà từ đó chỉ xuất hiện 1 lần. Nhưng không phải là phù hợp hơn tài liệu kia 10 lần. Sự phù hợp <strong>không</strong> tỷ lệ thuận với số lần xuất hiện của từ đó trong một tài liệu.</p>
+<h2 id="phương-pháp-tính-trọng-số-tần-suất-logarit-log-frequency">Phương pháp tính trọng số tần suất logarit (log-frequency)</h2>
+<p>Log-frequency của một term t trong document d được tính như sau: $$w_{t,d} = 1 + \log(tf_{t,d})$$</p>
+<p>Nếu  $$tf_{t,d}  > 0$$, nếu không thì $$w_{t,d} = 0$$</p>
+<p>Nếu từ đó không xuất hiện trong một tài liệu, thì tft,d bằng 0. Và bởi vì log(0) là một số âm vô cùng, cho nên chúng ta phải cộng 1.</p>
+<p>Một từ xuất hiện trong tài liệu:
+1 lần có w=1
+2 lần w=1.3
+10 lần w=2
+1000 lần w=4</p>
+<p>Điểm cho một cặp document-query được tính bằng tổng của các trọng số của term $$t$$ trong cả document $$d$$ và query $$q$$ = $$\sum_{t\in q \cap d }({1 + \log(tf_{t,d})})$$
+Điểm sẽ bằng 0 nếu như query terms không xuất hiện trong document</p>
+<h3 id="phương-pháp-tính-trọng-số-nghịch-đảo-văn-bản-inverse-document-weighting">Phương pháp tính trọng số nghịch đảo văn bản (Inverse document weighting)</h3>
+<p>Từ hiếm thì quan trọng hơn những từ có tần suất xuất hiện cao. Trong mỗi ngôn ngữ có những từ lặp đi lặp lại nhiều lần nhưng vô nghĩa (ví dụ trong tiếng Anh là a, the, to, of v.v), trong full-text search nó được gọi là stopwords.</p>
+<p>Đối với term frequency, thì những từ càng xuất hiện nhiều thì có điểm càng cao, còn những từ hiếm thì điểm xếp hạng lại thấp hơn. Do đó chúng ta cần một cách đánh giá khác với các từ hiếm, vì nó sẽ mang nhiều thông tin hơn là những từ phổ biến trong văn bản.</p>
+<p>Ví dụ trong một tập hợp các tài liệu về nghành công nghiệp ô-tô, thì từ khóa “ô-tô” sẽ có khả năng có mặt hầu hết trong tất cả các tài liệu. Để hạn chế nhược điểm này, người ta giới thiệu cơ chế để giảm thiểu sự ảnh hưởng của việc này và tăng tính chính xác khi quyết định sự phù hợp của tài document và query. Ý tưởng là giảm trọng số của từ nào có document frequency cao, bằng cách lấy tổng số tài liệu (N) chia cho số tài liệu mà một từ xuất hiện.</p>
+<p>Nếu gọi dft  là số văn bản chứa một term t thì dft là cách đánh giá ngược sự hữu ích của t. ( dft bé hơn N → số tài liệu trong tập hợp mà chúng ta có).</p>
+<p>Chúng ta định nghĩa trọng số idf của một từ t bởi: $$idf_t = \log_{10} (N/df_t)$$</p>
+<p>Chúng ta sử dụng log10(N/dft) thay vì N/dft  để giảm tác dụng ảnh hưởng của idf, như đã nói ở trên do số lần một từ xuất hiện nhiều lần thì không có nghĩa là nó quan trọng về ngữ nghĩa.</p>
+<p>Trong MySQL người ta thay thế bằng $$\log_{10} ((N-nf/nf)$$</p>
+<p><a href="http://dev.mysql.com/doc/internals/en/full-text-search.html">(Xem thêm về MySQL)</a></p>
+<h3 id="ảnh-hưởng-của-idf-trên-việc-xếp-hạng">Ảnh hưởng của idf trên việc xếp hạng</h3>
+<p>idf không có ảnh hưởng trên việc xếp hạng tài liệu (so với 1 từ khóa), nó chỉ giúp phân loại tài liệu. idf chỉ có ảnh hưởng lên sự xếp hạng các tài liệu nếu như query có ít nhất 2 terms. Ví dụ người dùng search từ khóa “capricious person”, idf làm cho sự xuất hiện của từ capricious được tính nhiều hơn trong kết quả xếp hạng tài liệu cuối cùng, so với từ “person” vì từ này phổ biến hơn.</p>
+<h3 id="collection-và--document-frequency">Collection và  Document frequency</h3>
+<p>{:.table.table-bordered}</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th align="left">term</th><th align="right">dtf</th><th align="right">idft</th></tr></thead><tbody><tr><td align="left">calpurnia</td><td align="right">1</td><td align="right">log(1000000/1)=6</td></tr><tr><td align="left">animal</td><td align="right">100</td><td align="right">log(1000000/100)=4</td></tr><tr><td align="left">sunday</td><td align="right">1,000</td><td align="right">3</td></tr><tr><td align="left">fly</td><td align="right">10,000</td><td align="right">2</td></tr><tr><td align="left">under</td><td align="right">100,000</td><td align="right">1</td></tr><tr><td align="left">the</td><td align="right">1,000,000</td><td align="right">0</td></tr></tbody></table>
+<p>Collection frequency của từ t là số lần xuất hiện của t trong tập hợp các tài liệu. Một ví dụ về idf, giả sử N=1,000,000. Mỗi một từ trong tập hợp sẽ có một giá trị idf tương ứng. Còn document frequency biểu diễn số document trong collection chứa một term t nào đó.</p>
+<h3 id="câu-truy-vấn-cũng-được-xem-như-một-vector">Câu truy vấn cũng được xem như một vector</h3>
+<p>Để tìm một cụm từ trong tập hợp các tài liệu sẵn có (giống khi thực hiện một câu truy vấn full-text), thì chúng ta cần so sánh cụm từ đó (query) với các tài liệu sẵn có. Ý tưởng là chúng ta cũng xem các câu truy vấn như là một vector (xem ở trên), và chúng ta sẽ xếp hạng (rank) các tài liệu mà chúng ta có dựa vào sự tương đồng (proximity) với câu truy vấn (query).</p>
+<p>Để xếp hạng các tài liệu mà chúng ta có (và trả về các tài liệu có hạng cao), thì chúng ta so sánh câu truy vấn với tập hợp tài liệu. Tài liệu nào càng gần với câu truy vấn thì có điểm cao hơn.</p>
+<p>Để so sánh hai vector chúng ta có thể tính khoảng cách giữa hai vector, hoặc tính góc tạo ra bởi hai vector. Tuy nhiên cách tính khoảng cách có nhược điểm không chính xác, bởi vì khoảng cách lớn với các vector có chiều dài khác nhau (ví dụ: tài liệu d′ là nhân đôi nội dung tài liệu d).</p>
+<p>Khoảng cách Euclid giữa $$\vec q$$  và $$\vec d$$ 2 là rất lớn ngay cả khi sự phân phối  của các từ trong query q và trong tài liệu d2 là rất giống nhau.</p>
+<p><img src="/assets/posts/tim-hieu-ve-mo-hinh-khong-gian-vector/distance.png" alt="Khoảng cách Euclid"></p>
+<p>Nhìn hình trên ta có thể thấy khoảng cách giữa $$\vec q$$  và $$\vec d$$ 2 là khá lớn mặc dù sự phân bố các terms trong query q và document d2 khá tương đồng.</p>
+<p>Do vậy chúng ta sẽ dựa vào GÓC trong không gian vector hơn là khoảng cách giữa cách điểm.</p>
+<h3 id="sử-dụng-góc-thay-vì-khoảng-cách">Sử dụng góc thay vì khoảng cách</h3>
+<p><img src="/assets/posts/tim-hieu-ve-mo-hinh-khong-gian-vector/angle.png" alt="Sử dụng góc"></p>
+<p>Qua thực nghiệm, lấy một tài liệu d và gắn vào chính nó, ta có tài liệu d’ . Về mặt ngữ nghĩa thì hai tài liệu này hoàn toàn giống nhau về nội dung. Khi đó vector d’ sẽ có độ lớn gấp đôi vector d và có cùng chiều với d.</p>
+<p>Nhưng khoảng cách Euclid giữa hai tài liệu này khá lớn, mặc dù giống nhau về nội dung.</p>
+<p><img src="/assets/posts/tim-hieu-ve-mo-hinh-khong-gian-vector/euclidean_distance.png" alt="Khoảng cách euclid"></p>
+<p>Cho nên, thay vì xếp hạng tài liệu dựa trên khoảng cách Euclid, thì chúng ta nên xếp hạng dựa trên góc giữa tài liệu và câu truy vấn.</p>
+<p>Ta có thể thấy góc giữa hai vector càng lớn thì cosin hay điểm xếp hạng sẽ càng thấp. Khi góc giữa vector bằng 0 thì điểm sẽ lớn nhất (=1).</p>
+<p>Có hai cách ghi tương đương nhau:</p>
+<ul>
+<li>Xếp hạng tài liệu theo thứ tự giảm dần dựa trên góc giữa query và document</li>
+<li>Xếp hạng tài liệu theo thứ tự tăng dần dựa trên cosin của query và document</li>
+</ul>
+<p><img src="/assets/posts/tim-hieu-ve-mo-hinh-khong-gian-vector/cos_curve.jpg" alt="Cos curve"></p>
+<p>Tài liệu được xếp hạng bởi giá trị cosine giảm dần:</p>
+<ul>
+<li>cos(d,q) = 1 khi d = q</li>
+<li>cos(d,q) = 0 khi tài liệu d và query q không có bất kỳ từ chung nào.</li>
+</ul>
+<h3 id="tại-sao-phải-chuẩn-hóa-độ-dài-của-tài-liệu">Tại sao phải chuẩn hóa độ dài của tài liệu?</h3>
+<p>Với cái tài liệu dài (hơn):
+Tài liệu dài có tần suất các từ xuất hiện cao hơn (higher term frequencies). Một từ giống nhau sẽ có khả năng xuất hiện thường xuyên hơn.
+Có nhiều từ hơn, tăng khả năng xuất hiện của các từ trùng với câu truy vấn.</p>
+<p>Sự  “chuẩn hóa cosine” giảm sự ảnh hưởng của tài liệu dài (so với tài liệu ngắn). Một vector có thể được chuẩn hóa (về độ dài) bằng cách chia từng phần tử của nó cho độ dài của nó. Để tính độ dài của vector chúng ta làm như sau (định mức L2 hay L2 norm):</p>
+<p>$$\mid\mid\vec x\mid\mid=\sqrt{\sum_i{x^2_i}}$$</p>
+<p>Giả sử chúng ta có vector d $$\left[\begin{matrix} 3 \ 4 \end{matrix}\right] → \sqrt{\sum{x^2}} = \sqrt{3^2 + 4^2}=5$$</p>
+<p>Giả sử chúng ta có vector d’ $$\left[\begin{matrix} 6 \ 8 \end{matrix}\right] → \sqrt{\sum{x^2}} = \sqrt{6^2 + 8^2}=10$$</p>
+<p>Chia một vector cho định mức L2 của nó sẽ tạo ra một vector đơn vị chiều dài <a href="http://en.wikipedia.org/wiki/Unit_vector">(unit length vector)</a></p>
+<p><img src="/assets/posts/tim-hieu-ve-mo-hinh-khong-gian-vector/euclidean_distance.png" alt="Khoảng cách euclid"></p>
+<p>Khoảng cách Euclid giữa hai vector là khá lớn (trong khi góc bằng nhau). Sau khi chuẩn hóa hai tài liệu d và d’chúng ta có hai vector hoàn toàn giống nhau  $$\left[\begin{matrix} 0.6 \ 0.8 \end{matrix}\right]$$. Những tài liệu dài và ngắn bây giờ (sau khi chuẩn hóa) sẽ có trọng số so sánh được.</p>
+<p>Mặc dù vậy cách chuẩn hóa này vẫn chưa đúng hoàn toàn, cho nên người ta còn giới thiệu thêm phương pháp “pivoted document length normalization”.</p>
+<h3 id="tương-đồng-cosine-cosine-similarity">Tương đồng Cosine (cosine similarity)</h3>
+<p>$$cos(\vec q, \vec d)= \dfrac{\vec q, \vec d}{\mid\vec q\mid \mid\vec d\mid} = \dfrac{\vec q}{\mid\vec q\mid} . \dfrac{\vec d}{\mid\vec d\mid} = \dfrac{\sum_{i=1}^{\mid v \mid} q_i d_i}{\sqrt{\sum_{i=1}^{\mid v \mid} q^2_i}  \sqrt{\sum_{i=1}^{\mid v \mid} d^2_i}}$$</p>
+<p>$$q_i$$ là trọng số tf-idf của từ i trong câu truy vấn.
+$$d_i$$ là là trọng số tf-idf của từ i trong tài liệu
+$$cos(\vec q, \vec d)$$ là sự tương đồng cosine giữa $$\vec q$$ và $$\vec d$$ hay là cosine của góc giữa $$\vec q$$ và $$\vec d$$</p>
+<p>Đối với những vector đã được chuẩn hóa về độ dài, sự tương đồng cosine chỉ đơn giản là tích vô hướng của hai vector (scalar product).</p>
+<p>$$cos(\vec q, \vec d) = \vec q . \vec d = \sum_{i=1}^{\mid v \mid} q_i d_i$$
+$$\quad\quad \text{for q,d length-normalized}$$</p>
+<p>Còn về vấn đề hiện thực hóa những kỹ thuật và lý thuyết ở trên thành code như thế nào thì chúng ta có thể tham khảo thêm bài viết sau: <a href="http://pyevolve.sourceforge.net/wordpress/?p=1589">Short Introduction to Vecto Space Model</a></p>
+<h3 id="references">References:</h3>
+<ul>
+<li>Christopher D. Manning, Prabhakar Raghavan &#x26; Hinrich Schütze, 2008, ‘Introduction to Information Retrieval’, 27 Oct 2013, &#x3C;<a href="http://nlp.stanford.edu/IR-book/html/htmledition/irbook.html">http://nlp.stanford.edu/IR-book/html/htmledition/irbook.html</a>></li>
+<li>Christian S. Perone, 2011, ‘Machine Learning Text feature extraction (tf-idf) – Part I’, 27 Oct 2013, &#x3C;<a href="http://pyevolve.sourceforge.net/wordpress/?p=1589">http://pyevolve.sourceforge.net/wordpress/?p=1589</a>></li>
+<li>Nguyễn Tuấn Đăng, 2002, ‘Khai mỏ văn bản tiếng Việt với bản độ tự tổ chức’, 27 Oct 2013, &#x3C;<a href="http://www.nsl.hcmus.edu.vn/greenstone/collect/thesiskh/index/assoc/HASH740b.dir/0.pdf">http://www.nsl.hcmus.edu.vn/greenstone/collect/thesiskh/index/assoc/HASH740b.dir/0.pdf</a>></li>
+</ul>  </article> </div>  </div> </div> <footer class="footer"> <div class="wrapper">
+&copy; 2016&ndash;2026 Q-Hung. Built with <a href="https://astro.build">Astro</a>.
+</div> </footer> <script type="module">(function(e,c,o,s,t,n,a){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=c.createElement(o),a=c.getElementsByTagName(o)[0],n.async=1,n.src=s,a.parentNode.insertBefore(n,a)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create","UA-39549683-1","auto");ga("send","pageview",location.pathname);</script> </body></html>

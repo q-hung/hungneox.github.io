@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="vi"> <head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>WebAssembly - Phần 2: LLVM - Q-Hung</title><meta name="description" content="LLVM và WebAssembly"><meta name="keywords" content="webassembly, rust, guide"><!-- Open Graph --><meta property="og:locale" content="vi_VN"><meta property="og:type" content="article"><meta property="og:title" content="WebAssembly - Phần 2: LLVM - Q-Hung"><meta property="og:description" content="LLVM và WebAssembly"><meta property="og:url" content="https://butchiso.com/vi/blog/2019-01-01-webassembly-p2-llvm/"><meta property="og:site_name" content="Q-Hung"><meta property="og:image" content="https://butchiso.com/assets/posts/webassembly/webassembly-illustration.png"><link rel="canonical" href="https://butchiso.com/vi/blog/2019-01-01-webassembly-p2-llvm/"><link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Q-Hung Feed"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><!-- Webfonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Mono:wght@400;500&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_upward,article,category,dark_mode,home,light_mode,mail,rss_feed&display=block" rel="stylesheet"><!-- Favicon --><link rel="icon" href="/favicon.svg" type="image/svg+xml"><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>
+  (function(){
+    var t=localStorage.getItem('theme');
+    if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){
+      document.documentElement.setAttribute('data-theme','dark');
+    }
+  })();
+</script><link rel="stylesheet" href="/_astro/BaseLayout.bWL4HU_f.css"></head> <body> <header class="header"> <div class="wrapper"> <div class="site-brand"> <a class="site-avatar" href="/"> <img src="//avatars.githubusercontent.com/u/199614?v=4" alt="Q-Hung"> </a> <div class="site-identity"> <a class="site-title" href="/">Q-Hung</a> <div class="site-social"> <a href="https://github.com/q-hung" title="GitHub"> <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"></path></svg> GitHub
+</a> <a href="https://linkedin.com/in/hungnq1989" title="LinkedIn"> <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg> LinkedIn
+</a> <a href="mailto:hungnq1989@gmail.com" title="Email"> <span class="material-symbols-rounded">mail</span> Email
+</a> </div> </div> </div> <nav class="site-nav"> <a class="page-link" href="/"><span class="material-symbols-rounded">home</span> Trang chủ</a> <a class="page-link" href="/about/"><span class="material-symbols-rounded">article</span> About</a> <a class="page-link" href="/category/"><span class="material-symbols-rounded">category</span> Category</a> <a class="page-link" href="/feed.xml"><span class="material-symbols-rounded">rss_feed</span> RSS</a> <!-- Language Switcher --> <a class="page-link lang-switcher" href="/en/" title="Switch to English"><span class="material-symbols-rounded">language</span> EN</a> <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"> <span class="material-symbols-rounded icon-light">light_mode</span> <span class="material-symbols-rounded icon-dark">dark_mode</span> </button> </nav> </div> </header> <div class="page-content"> <div class="wrapper">  <div class="post"> <header class="post-header"> <h1 class="post-title" itemprop="name headline">WebAssembly - Phần 2: LLVM</h1> <p class="post-meta"> <time datetime="2019-01-01T05:10:00.000Z" itemprop="datePublished"> 1 tháng 1, 2019 </time> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"> • hungneox</span></span> </p> </header> <article class="post-content" itemprop="articleBody">  <h1 id="giới-thiệu-sơ-lược">Giới thiệu sơ lược</h1>
+<p>Tiếp theo phần trước [WebAssembly]({% post_url 2018-08-06-webassembly-p1-gioi-thieu %}), bài viết này sẽ giới thiệu về mối quan hệ giữa LLVM và WebAssembly, cũng như làm một số thử nghiệm để dịch <a href="https://blog.rust-lang.org/2016/12/22/Rust-1.14.html">Rust</a> và C sang WebAssembly sử dụng Emscripten.</p>
+<h1 id="webassembly---llvm---emscripten">WebAssembly - LLVM - Emscripten</h1>
+<h2 id="llvm">LLVM</h2>
+<p>LLVM là một <code>compiler framework</code>, nói ngắn gọn là một framework để xây dựng nên trình biên dịch của một ngôn ngữ lập trình. Nó cung cấp những công cụ mạnh mẽ để xây dựng phần front-end (parser, lexer) cũng như phần backend (phần chuyển phần code trung gian LLVM sang mã máy), cho các ngôn ngữ lập trình mới.</p>
+<p>Khá nhiều ngôn ngữ lập trình phổ biến được xây dựng dựa trên nền tảng của LLVM. Nó là <code>engine</code> đằng sau của <a href="https://clang.llvm.org/get_started.html">Clang compiler</a> (trình biên dịch C/C++/Objective-C của Apple), cũng như các trình biên dịch cho các ngôn ngữ mới ra đời gần đây như Rust và Swift. Có thể nói có một danh sách các ngôn ngữ từ A->X được build dựa trên LLVM, chỉ có một trường hợp biệt lệ là Go không dùng LLVM, tuy nhiên Google cũng đang làm việc để tạo ra một phiên bản LLVM-based Go compiler.</p>
+<p>Trên trang chủ của LLVM cũng cung cấp một tutorial để tạo ra một ngôn ngữ lập trình mới có tên là <a href="https://llvm.org/docs/tutorial/index.html">Kaleidoscope</a> (Kính vạn hoa). Hoặc nếu thích bạn có thể tham khảo thêm bài viết này: <a href="https://gnuu.org/2009/09/18/writing-your-own-toy-compiler/">Writing Your Own Toy Compiler Using Flex, Bison and LLVM</a>. Biết đâu được sau này chúng ta ngoài Go lang ra còn có một ngôn ngữ “made in Vietnam” như <code>Khoai lang</code> hay <code>Rau lang</code> :))).</p>
+<h2 id="llvm-webassembly-và-emscripten">LLVM, WebAssembly và Emscripten</h2>
+<p>Cho đến đây thì chúng ta vẫn chưa thấy rõ mối liên hệ giữa LLVM và WebAssembly, chúng ta vẫn chưa biết hai thằng này ăn nhậu với nhau thế nào. Để làm rõ mối liên kết này chúng ta cần phải nói lại về compiler front-end và back-end đã đề cập ở trên.</p>
+<ul>
+<li>Phần front-end làm chủ yếu 3 khâu: lexical analysis, syntax analysis, semantic analysis. Nói nôm na là <code>lexer</code> sẽ đọc từng ký tự thành các token, sau đó <code>parser</code> sẽ chuyển chúng thành AST (abstract syntax tree), cuối cùng ở phần <code>semantic analysis</code> thì các thông tin khác sẽ được kiểm tra ví dụ như type checking.</li>
+<li>Phần back-end: sẽ chịu trách nhiệm tạo ra mã máy cho từng kiến trúc CPU cụ thể.</li>
+</ul>
+<p><img src="/assets/posts/webassembly/compiler-structure.png" alt="&#x22;Compiler structure&#x22;">{: .center-image }</p>
+<p>Ví dụ chúng ta muốn biên dịch C sang WebAssembly. Chúng ta có thể dùng Clang front-end để chuyển phần mã nguồn C sang LLVM IR (intermediate representation). Một khi phần code đó đã được chuyển thành LLVM IR, LLVM sẽ tiến hành một số bước để tối ưu nó. Tiếp theo để chuyển phần LLVM IR này thành WebAssembly (dạng .wasm), chúng ta cần một back-end. Hiện tại thì chưa có chính thức back-end cho WebAssembly, hiện tại nó đang là một project đang trong quá trình hoàn thành của LLVM.</p>
+<p>Tạm gọi cái official backend chưa dùng được, cho nên hiện tại thì có một số tool dùng được như là <strong>Emscripten</strong> hay <a href="http://gonacl.com/"><strong>PNaCL</strong></a>, nhưng khuôn khổ bài này chỉ nói về Emscripten (nói chung thì bất kể tool nào được dùng thì nó cũng sẽ dịch ra file <code>.wasm</code>).</p>
+<p>Nói một cách đơn giản hoá, Emscripten là một trình biên dịch LLVM-to-JavaScript. Để tạo ra WebAssembly, nó dịch LLVM IR sang <a href="https://www.wikiwand.com/en/Asm.js">asm.js</a> (một subset của JavaScript) rồi mới convert sang định dạng WebAssembly.</p>
+<p><img src="/assets/posts/webassembly/llvm-ir-wasm.png" alt="&#x22;Compiler structure&#x22;">{: .center-image }</p>
+<h1 id="dịch-rust-sang-wasm">Dịch Rust sang WASM</h1>
+<ol>
+<li>Đầu tiên là cài Rust</li>
+</ol>
+<p>Cách tốt nhất để cài Rust là thông qua <a href="https://rustup.rs/">rustup</a>. Nó là một cái project chính thức của Rust luôn.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>curl https://sh.rustup.rs -sSf | sh</span></span></code></pre>
+<p>Sau khi đã cài <em>rustup</em> thì ta cài tiếp phiên bản stable của rust, cũng như <em>wasm32-unknown-emscripten</em></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>rustup install stable</span></span>
+<span class="line"><span>rustup default stable</span></span>
+<span class="line"><span>rustup target add wasm32-unknown-emscripten</span></span></code></pre>
+<ol start="2">
+<li>Tiếp theo là cài phiên bản portable của Emscripten SDK</li>
+</ol>
+<p>Check out <a href="https://github.com/juj/emsdk">emscripten-sdk</a> về. Sau đó chạy lệnh sau để cài đặt và thiết lập biến môi trường. (Xem thêm hướng dẫn cài đặt <a href="http://kripken.github.io/emscripten-site/docs/getting_started/downloads.html#download-and-install">ở đây</a>)</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># Download and install the latest SDK tools.</span></span>
+<span class="line"><span>./emsdk install latest</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># Make the "latest" SDK "active" for the current user. (writes ~/.emscripten file)</span></span>
+<span class="line"><span>./emsdk activate latest</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>source ./emsdk_env.sh</span></span></code></pre>
+<p>Sau đó kiểm tra phiên bản của <code>emcc</code></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>emcc -v</span></span></code></pre>
+<p>Ví dụ ta biên dịch một file Rust đơn giản như sau:</p>
+<p>{% highlight rust %}
+fn main() {
+println!(“Hello World!”);
+}
+{% endhighlight %}</p>
+<p>Sau đó ta chạy lệnh rustc để dịch <code>hello.rs</code> sang một bundle bao gồm 3 file: .wasm, .js để load .wasm và file html</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>rustc --target=wasm32-unknown-emscripten hello.rs -o hello.html</span></span></code></pre>
+<p>Để chạy hello.html ta cần một http server đơn giản, chúng ta có thể dùng <code>SimpleHTTPServer</code> của python.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>python -m SimpleHTTPServer</span></span></code></pre>
+<p>Truy cập vào địa chỉ <a href="http://localhost:8000/hello.html">http://localhost:8000/hello.html</a> ta thấy một giao diện siêu chuối <code>powered by emscripten</code> như sau:</p>
+<p><img src="/assets/posts/webassembly/helloworld.jpg" alt="&#x22;Hello World&#x22;">{: .center-image }</p>
+<p>Để tìm hiểu cách sử dụng lại các hàm được export ra <code>.wasm</code> như thế nào, chúng ta có thể tìm hiểu ở ví dụ tiếp theo.</p>
+<h1 id="dịch-c-sang-wasm">Dịch C sang WASM</h1>
+<p>Giả sử ta có file <code>add.c</code> như sau</p>
+<p>{% highlight c %}
+int add(int a, int b) {
+return a + b;
+}
+{% endhighlight %}</p>
+<p>Chạy lệnh sau để biên dịch C thành wasm</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>emcc -s "EXTRA_EXPORTED_RUNTIME_METHODS=['cwrap']" -s EXPORTED_FUNCTIONS="['_add']" -s WASM=1 -o add.js  add.c</span></span></code></pre>
+<p>Nhìn vào tham số của dòng lệnh trên ta cũng thấy ẩn chứa đằng sau đó là một số “tà thuật”, không có hai cái tham số <code>EXTRA_EXPORTED_RUNTIME_METHODS</code>, <code>EXPORTED_FUNCTIONS</code> thì cũng không dùng lại được hàm <code>add</code>, chưa kể emscripten còn tự thêm underscore <code>_</code> phía trước tên hàm (nên ta phải khai báo <code>_add</code> thay vì <code>add</code>).</p>
+<p>Sau đó ta có thể dùng lại hàm <code>add</code> trong JavaScript thông qua <code>Module.cwrap</code>. Hàm <code>cwrap</code> nhận 3 tham số: tên hàm C đã export, kiểu trả về, và một mảng các kiểu của tham số đầu vào.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>&#x3C;html></span></span>
+<span class="line"><span>&#x3C;head></span></span>
+<span class="line"><span>  &#x3C;script src="add.js">&#x3C;/script></span></span>
+<span class="line"><span>  &#x3C;script></span></span>
+<span class="line"><span>      Module.onRuntimeInitialized = _ => {</span></span>
+<span class="line"><span>        const add = Module.cwrap('add', 'number', ['number', 'number']);</span></span>
+<span class="line"><span>        console.log(add(89, 29))</span></span>
+<span class="line"><span>      }</span></span>
+<span class="line"><span>  &#x3C;/script></span></span>
+<span class="line"><span>&#x3C;/head></span></span>
+<span class="line"><span>&#x3C;body></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>&#x3C;/body></span></span>
+<span class="line"><span>&#x3C;/html></span></span></code></pre>
+<p>Vậy là với <code>Module.cwrap</code>, chúng ta có thể lấy được hàm cộng hai số mà chúng ta đã viết ở trong <code>add.c</code>. Tuy nó chẳng có gì ấn tượng cả nhưng nó mang lại nhiều khả năng để chúng ta có thể chuyển code được viết bằng các ngôn ngữ khác để dùng lại trong JavaScript.</p>
+<ul>
+<li>Còn tiếp -</li>
+</ul>
+<h1 id="tham-khảo">Tham khảo</h1>
+<ol>
+<li>
+<p><a href="https://blog.rust-lang.org/2016/12/22/Rust-1.14.html">Announcing Rust 1.14</a></p>
+</li>
+<li>
+<p><a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts">WebAssembly Concepts</a></p>
+</li>
+<li>
+<p><a href="https://hacks.mozilla.org/2017/02/creating-and-working-with-webassembly-modules/">Creating and working with WebAssembly modules</a></p>
+</li>
+</ol>  </article> </div>  </div> </div> <footer class="footer"> <div class="wrapper">
+&copy; 2016&ndash;2026 Q-Hung. Built with <a href="https://astro.build">Astro</a>.
+</div> </footer> <script type="module">(function(e,c,o,s,t,n,a){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=c.createElement(o),a=c.getElementsByTagName(o)[0],n.async=1,n.src=s,a.parentNode.insertBefore(n,a)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create","UA-39549683-1","auto");ga("send","pageview",location.pathname);</script> </body></html>

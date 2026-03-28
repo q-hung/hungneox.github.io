@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  return [
+    { params: { lang: 'vi' } },
+    { params: { lang: 'en' } },
+  ];
+}
+
+const { lang } = Astro.params;
+const allPosts = await getCollection('blog', ({ id }) => {
+  return id.startsWith(`${lang}/`);
+});
+
+// Sort by date desc
+const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const title = lang === 'en' ? 'Home' : 'Trang chủ';
+---
+<BaseLayout title={title}>
+  <div class="home">
+    <section class="post-list-section">
+      <h2 class="section-title">{lang === 'en' ? 'All Posts' : 'Tất cả bài viết'}</h2>
+      <div class="post-list">
+        {posts.map((post, index) => {
+          const slug = post.id.split('/').pop();
+          return (
+            <a class="post-item" href={`/${lang}/blog/${slug}`}>
+              <div class="post-thumb">
+                {post.data.image ? (
+                  <img src={post.data.image} alt={post.data.title} loading="lazy" />
+                ) : (
+                  <img src={`/assets/images/abstract-${index % 6}.jpg`} alt={post.data.title} loading="lazy" />
+                )}
+              </div>
+              <div class="post-info">
+                {(() => {
+                  const d = new Date(post.data.date);
+                  if (isNaN(d.getTime())) return null;
+                  return (
+                    <time datetime={d.toISOString()}>
+                      {d.toLocaleDateString(lang === 'en' ? 'en-US' : 'vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit' })}
+                    </time>
+                  );
+                })()}
+                <h3>{post.data.title}</h3>
+                {post.data.description && <p>{post.data.description.length > 120 ? post.data.description.substring(0, 120) + '...' : post.data.description}</p>}
+                <div class="post-tags">
+                  {post.data.categories && post.data.categories.filter(cat => !['vi', 'en', 'jekyll'].includes(cat)).map(cat => (
+                    <span class="post-tag">#{cat}</span>
+                  ))}
+                </div>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+  </div>
+</BaseLayout>

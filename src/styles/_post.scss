@@ -3,7 +3,7 @@
 $post-retro-ink: #1a100c;
 $post-retro-cream: #fff4e8;
 $post-retro-cream-muted: #ffe8d4;
-$post-ribbon-orange: #f89254;
+$post-ribbon-accent: rgb(58, 157, 124);
 
 .post-layout {
   display: grid;
@@ -41,7 +41,7 @@ html[data-theme="dark"] .post-card__window {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-// ── Post title block: orange ribbon + cream body (like category-card ribbon + sheet) ──
+// ── Post title block: accent ribbon + cream body (like category-card ribbon + sheet) ──
 .post-header__ribbon {
   display: flex;
   align-items: center;
@@ -49,7 +49,7 @@ html[data-theme="dark"] .post-card__window {
   gap: 0.45rem;
   flex-wrap: wrap;
   padding: 0.52rem 1rem;
-  background-color: $post-ribbon-orange;
+  background-color: $post-ribbon-accent;
   color: $post-retro-cream;
   border-bottom: 3px solid $post-retro-ink;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
@@ -104,15 +104,15 @@ html[data-theme="dark"] .post-card__window {
 
 .post-header__ribbon.post-ribbon--programming,
 .toc-sidebar__ribbon.post-ribbon--programming {
-  background-color: #f89254;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background-color: rgb(58, 157, 124);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
 
   .post-header__ribbon-icon,
   .post-header__ribbon-text,
   .toc-sidebar__ribbon-icon,
   .toc-sidebar__ribbon-title {
-    color: #3a1c0c;
-    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.35);
+    color: $post-retro-cream;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.22);
   }
 }
 
@@ -131,7 +131,7 @@ html[data-theme="dark"] .post-card__window {
 }
 
 html[data-theme="dark"] .post-header__ribbon {
-  background-color: #c45a28;
+  background-color: rgb(42, 115, 90);
   color: #fff4e8;
   border-bottom-color: var(--color-border);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -160,13 +160,13 @@ html[data-theme="dark"] .post-header__ribbon.post-ribbon--systems {
 }
 
 html[data-theme="dark"] .post-header__ribbon.post-ribbon--programming {
-  background-color: #b84e24;
-  color: #3a1c0c;
+  background-color: rgb(42, 115, 90);
+  color: $post-retro-cream;
 
   .post-header__ribbon-icon,
   .post-header__ribbon-text {
-    color: #3a1c0c;
-    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.2);
+    color: $post-retro-cream;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
   }
 }
 
@@ -216,7 +216,7 @@ html[data-theme="dark"] .post-header__ribbon.post-ribbon--lab {
   gap: 0.4rem;
   flex-wrap: wrap;
   padding: 0.48rem 0.75rem;
-  background-color: $post-ribbon-orange;
+  background-color: $post-ribbon-accent;
   border-bottom: 3px solid $post-retro-ink;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
   text-align: center;
@@ -245,7 +245,7 @@ html[data-theme="dark"] .post-header__ribbon.post-ribbon--lab {
 }
 
 html[data-theme="dark"] .toc-sidebar__ribbon {
-  background-color: #c45a28;
+  background-color: rgb(42, 115, 90);
   border-bottom-color: var(--color-border);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
@@ -276,13 +276,13 @@ html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--systems .toc-sidebar__
 }
 
 html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--programming {
-  background-color: #b84e24;
+  background-color: rgb(42, 115, 90);
 }
 
 html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--programming .toc-sidebar__ribbon-icon,
 html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--programming .toc-sidebar__ribbon-title {
-  color: #3a1c0c;
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.2);
+  color: $post-retro-cream;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
 }
 
 html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--lab {

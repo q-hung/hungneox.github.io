@@ -39,18 +39,23 @@
   --color-header-nav-link-hover-bg: #dde5e2;
   --color-header-nav-toggle-bg: #dde5e2;
   /* Current nav item — same palette as home “Featured content” ribbon */
-  --nav-current-ribbon-bg: #f89254;
+  --nav-current-ribbon-bg: rgb(58, 157, 124);
   --nav-current-ribbon-text: #fff4e8;
   --nav-current-ribbon-border: #1a100c;
-  --nav-current-ribbon-inset: inset 0 1px 0 rgba(255, 255, 255, 0.25);
-  --nav-current-text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+  --nav-current-ribbon-inset: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  --nav-current-text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.22);
 }
 
 html[data-theme="dark"] {
   color-scheme: dark;
 
-  .theme-toggle .icon-light { display: none !important; }
-  .theme-toggle .icon-dark { display: inline !important; }
+  .theme-toggle .icon-light {
+    display: none !important;
+  }
+
+  .theme-toggle .icon-dark {
+    display: inline !important;
+  }
 
   --color-text: #dce5e2;
   --color-text-secondary: #8da8a1;
@@ -81,7 +86,7 @@ html[data-theme="dark"] {
   --color-header-nav-border: #2a3835;
   --color-header-nav-link-hover-bg: #1a2422;
   --color-header-nav-toggle-bg: #141c1a;
-  --nav-current-ribbon-bg: #c45a28;
+  --nav-current-ribbon-bg: rgb(42, 115, 90);
   --nav-current-ribbon-text: #fff4e8;
   --nav-current-ribbon-border: #4a5c58;
   --nav-current-ribbon-inset: inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -143,8 +148,13 @@ blockquote {
   border: 2px solid var(--color-border);
   border-left: 4px solid var(--color-accent);
 
-  p:first-child { margin-top: 0; }
-  p:last-child { margin-bottom: 0; }
+  p:first-child {
+    margin-top: 0;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
 
   code {
     font-style: normal;

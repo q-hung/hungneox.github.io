@@ -41,7 +41,7 @@ Nói chung, đa số các trường hợp faceted search trên thực tế đề
 
 Giả sử chúng ta đang xây dựng một trang thương mại điện tử bán điện thoại. Trước hết, chúng ta tạo một index với mapping như sau:
 
-{% highlight javascript %}
+```javascript
 curl -XPUT 'http://localhost:9200/phones' -H 'Content-Type: application/json' -d '
 {
   "mappings": {
@@ -58,13 +58,12 @@ curl -XPUT 'http://localhost:9200/phones' -H 'Content-Type: application/json' -d
     }
   }
 }'
-{% endhighlight %}
-
+```
 Có một điểm cần lưu ý là các trường dùng cho faceted search nên được khai báo kiểu `keyword` thay vì `text`. Lý do là vì kiểu `text` sẽ được phân tích (analyze) và tách thành các token, trong khi chúng ta cần giá trị nguyên vẹn để nhóm lại. Ví dụ "Samsung Galaxy" nếu để kiểu `text` sẽ bị tách thành hai token "samsung" và "galaxy", dẫn đến kết quả aggregation sai lệch.
 
 Tiếp theo chúng ta index một vài documents mẫu:
 
-{% highlight javascript %}
+```javascript
 curl -XPOST 'http://localhost:9200/phones/product/_bulk' -H 'Content-Type: application/json' -d '
 {"index":{}}
 {"name":"iPhone X","brand":"Apple","color":"Bạc","os":"iOS","price":999,"screen_size":5.8,"rating":4.5}
@@ -83,13 +82,12 @@ curl -XPOST 'http://localhost:9200/phones/product/_bulk' -H 'Content-Type: appli
 {"index":{}}
 {"name":"Nokia 8","brand":"Nokia","color":"Đỏ","os":"Android","price":499,"screen_size":5.3,"rating":3.9}
 '
-{% endhighlight %}
-
+```
 ## Terms Aggregation
 
 Terms aggregation là loại phổ biến nhất trong faceted search. Nó nhóm các documents theo giá trị của một trường và đếm số lượng documents trong mỗi nhóm. Ví dụ chúng ta muốn biết có bao nhiêu điện thoại theo từng hãng sản xuất:
 
-{% highlight javascript %}
+```javascript
 curl -XGET 'http://localhost:9200/phones/product/_search?pretty' -H 'Content-Type: application/json' -d '
 {
   "size": 0,
@@ -101,11 +99,10 @@ curl -XGET 'http://localhost:9200/phones/product/_search?pretty' -H 'Content-Typ
     }
   }
 }'
-{% endhighlight %}
-
+```
 Ở đây chúng ta đặt `"size": 0` vì chúng ta chỉ quan tâm đến kết quả aggregation mà không cần lấy danh sách documents. Kết quả trả về sẽ có dạng:
 
-{% highlight javascript %}
+```javascript
 {
   "hits": {
     "total": 8,
@@ -123,15 +120,14 @@ curl -XGET 'http://localhost:9200/phones/product/_search?pretty' -H 'Content-Typ
     }
   }
 }
-{% endhighlight %}
-
+```
 Như vậy chúng ta biết được có 2 điện thoại Samsung, 2 Apple, 2 Google, 1 Sony và 1 Nokia. Thông tin này chính là những gì chúng ta cần để xây dựng giao diện bộ lọc faceted trên frontend.
 
 ## Kết hợp nhiều Aggregations
 
 Sức mạnh thực sự của faceted search nằm ở chỗ chúng ta có thể kết hợp nhiều aggregations trong cùng một câu truy vấn. Ví dụ chúng ta muốn đồng thời lấy thống kê theo hãng, theo hệ điều hành, theo màu sắc và theo khoảng giá:
 
-{% highlight javascript %}
+```javascript
 curl -XGET 'http://localhost:9200/phones/product/_search?pretty' -H 'Content-Type: application/json' -d '
 {
   "size": 5,
@@ -164,13 +160,12 @@ curl -XGET 'http://localhost:9200/phones/product/_search?pretty' -H 'Content-Typ
     }
   }
 }'
-{% endhighlight %}
-
+```
 Câu truy vấn trên sẽ trả về cho chúng ta cùng một lúc: danh sách 5 sản phẩm, thống kê theo hãng, theo hệ điều hành, theo màu sắc, theo khoảng giá và giá trung bình. Tất cả trong một request duy nhất! Đây chính là điểm mạnh của ElasticSearch so với các câu truy vấn SQL truyền thống, nơi mà chúng ta phải viết nhiều câu query riêng biệt để lấy từng thống kê.
 
 Kết quả phần aggregations sẽ có dạng như sau:
 
-{% highlight javascript %}
+```javascript
 {
   "aggregations": {
     "brands": {
@@ -210,13 +205,12 @@ Kết quả phần aggregations sẽ có dạng như sau:
     }
   }
 }
-{% endhighlight %}
-
+```
 ## Kết hợp Query với Aggregation
 
 Trong thực tế, người dùng thường tìm kiếm trước rồi mới lọc. Ví dụ khi người dùng chọn lọc theo hãng Samsung, chúng ta muốn kết quả tìm kiếm chỉ trả về điện thoại Samsung, nhưng đồng thời vẫn hiển thị đầy đủ các facets khác. Đây là lúc chúng ta cần dùng `post_filter` kết hợp với `aggs`:
 
-{% highlight javascript %}
+```javascript
 curl -XGET 'http://localhost:9200/phones/product/_search?pretty' -H 'Content-Type: application/json' -d '
 {
   "size": 10,
@@ -246,8 +240,7 @@ curl -XGET 'http://localhost:9200/phones/product/_search?pretty' -H 'Content-Typ
     }
   }
 }'
-{% endhighlight %}
-
+```
 Điểm mấu chốt ở đây là `post_filter` chỉ ảnh hưởng đến kết quả tìm kiếm (hits), nhưng **không** ảnh hưởng đến kết quả aggregation. Như vậy danh sách sản phẩm trả về chỉ có Samsung, nhưng phần aggregations vẫn hiển thị tổng quan toàn bộ dữ liệu bao gồm tất cả các hãng. Điều này giúp người dùng biết được nếu bỏ bộ lọc Samsung đi thì còn có những hãng nào khác và bao nhiêu sản phẩm.
 
 Tuy nhiên nếu chúng ta đặt điều kiện lọc trong phần `query` thay vì `post_filter`, thì aggregations cũng sẽ bị ảnh hưởng bởi điều kiện đó. Đây là một lỗi mà nhiều người mắc phải khi mới triển khai faceted search.
@@ -256,7 +249,7 @@ Tuy nhiên nếu chúng ta đặt điều kiện lọc trong phần `query` thay
 
 Chúng ta cũng có thể lồng các aggregations với nhau. Ví dụ chúng ta muốn biết giá trung bình của điện thoại theo từng hãng:
 
-{% highlight javascript %}
+```javascript
 curl -XGET 'http://localhost:9200/phones/product/_search?pretty' -H 'Content-Type: application/json' -d '
 {
   "size": 0,
@@ -274,11 +267,10 @@ curl -XGET 'http://localhost:9200/phones/product/_search?pretty' -H 'Content-Typ
     }
   }
 }'
-{% endhighlight %}
-
+```
 Kết quả trả về:
 
-{% highlight javascript %}
+```javascript
 {
   "aggregations": {
     "brands": {
@@ -317,8 +309,7 @@ Kết quả trả về:
     }
   }
 }
-{% endhighlight %}
-
+```
 Với kiểu nested aggregation này, chúng ta có thể xây dựng những bảng so sánh rất chi tiết giữa các thương hiệu ngay trên giao diện tìm kiếm.
 
 # Một số lưu ý khi triển khai

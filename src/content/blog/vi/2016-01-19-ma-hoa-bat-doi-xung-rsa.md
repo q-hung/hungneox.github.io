@@ -87,7 +87,7 @@ Hoặc là dùng cách `brute force` để tính d (có thể được vì chún
 
 Cách brute force thì như sau (chạy chưa tới 15 bước là ra):
 
-{% highlight python %}
+```python
 def compute_d(phi_n, e):
 	for i in range(1, 1000):
 		x = ((i * phi_n) + 1) / e
@@ -97,8 +97,7 @@ def compute_d(phi_n, e):
 			break
 
 compute_d(3120, 17)
-{% endhighlight %}
-
+```
 Như vậy cuối cùng chúng ta tính toán được `public key`: e = 17, n = 3233 và `private key`: d = 2753
 
 # 6. Tính an toàn của RSA

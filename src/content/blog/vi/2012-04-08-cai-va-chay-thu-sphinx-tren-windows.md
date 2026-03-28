@@ -24,7 +24,7 @@ Các bước cài đặt khá đơn giản:
 * Sau đó tạo file config sphinx.conf trong C:\sphinx\bin với nội dung như sau
  (Lưu ý là ta sử dụng lại database ở trong bài giới thiệu về MySQL full text search trước cho cấu hình Sphinx, xem ở đây và thêm một cột `last_modified` kiểu `timestamp`)
 
-{% highlight sql %}
+```sql
 CREATE TABLE IF NOT EXISTS `articles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -33,11 +33,10 @@ CREATE TABLE IF NOT EXISTS `articles` (
   PRIMARY KEY (`id`),
   FULLTEXT KEY `title` (`title`,`body`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-{% endhighlight %}
-
+```
 **File cấu hình: sphinx.conf**
 
-{% highlight c %}
+```c
 source src1
 {
   type   = mysql
@@ -86,8 +85,7 @@ searchd
   unlink_old      = 1
   workers         = threads # for RT to work
 }
-{% endhighlight %}
-
+```
 Sau đó ta chạy một số lệnh để cài đặt Sphinx như là một service trong windows
 
 `C:\sphinx\bin>searchd --install --config C:\sphinx\sphinx.conf --servicename Sphinx`
@@ -108,7 +106,7 @@ Tiếp theo, chúng ta sẽ tìm hiểu cách sử dụng Sphinx để search tr
 
 Trước khi chạy code php này thì chúng ta phải start sercvice Sphinx mà ta install khi nãy. 
 
-{% highlight php %}
+```php
 <?php 
 setServer('127.0.0.1', 9312);
 $s->setMatchMode(SPH_MATCH_ANY);
@@ -139,8 +137,7 @@ if ($result['total'] > 0) {
 }
 
 mysql_close($con);
-{% endhighlight %}
-
+```
 Kết quả trả về: 
 `id: 5 - title: MySQL vs. YourSQL - body: In the following database comparison ... `
 

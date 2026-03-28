@@ -13,7 +13,7 @@ Trong entry trước ta đã tìm hiểu sơ lược về full text search là g
 <!--more-->
 Chúng ta sẽ sử dụng database mẫu này để thực hiện các ví dụ trong entry này và các entry sau:
 
-{% highlight sql %}
+```sql
 CREATE TABLE articles (
        id INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
        title VARCHAR(200),
@@ -28,11 +28,10 @@ INSERT INTO articles (title,body)
       ('1001 MySQL Tricks','1. Never run mysqld as root. 2. ...'),
       ('MySQL vs. YourSQL','In the following database comparison ...'),
       ('MySQL Security','When configured properly, MySQL ...');
-{% endhighlight %}  
-
+```
 ### NATURAL LANGUAGE MODE và BOOLEAN MODE
 
-{% highlight sql %}
+```sql
 MATCH (col1,col2,...) AGAINST (expr [search_modifier])
 
 search_modifier: 
@@ -42,21 +41,18 @@ search_modifier:
    | IN BOOLEAN MODE 
    | WITH QUERY EXPANSION 
 }
-{% endhighlight %}
-
+```
 Trong Natural Language Mode [1](http://dev.mysql.com/doc/refman/5.5/en/fulltext-natural-language.html), chế độ này search theo khái niệm (concepts, thay vì chính xác các từ như Boolean mode) theo ‘free-text queries’ mà chúng ta đưa vào, `MATCH…AGAINST` trả về điểm ranking dạng số thực dựa trên mức độ phù hợp của kết tài liệu tìm thấy, tài liệu trả về càng phù hợp thì có số rank càng cao (như thế nào là phù hợp thì chúng ta sẽ tìm hiểu sau). Muốn biết tài liệu đó có rank bao nhiêu so với từ khóa thì ta có thể sử dụng một câu query như sau:
 
-{% highlight sql %}
+```sql
 SELECT id, ROUND(MATCH(title, body) AGAINST('database'), 7) FROM `articles`
-{% endhighlight %}
-
+```
 Còn trong Boolean Mode[2], chế độ này search theo những từ mà chúng ta đưa vào, và kết quả trả về không được sắp xếp theo thứ tự nào. Khác với Natural language mode, chúng ta thậm chí có thể thực hiện search mà không cần full text index. Ngoài ra, chúng ta có thể dùng các toán tử như `+` và `–` để quyết định từ nào có trong kết quả trả về, từ nào không có.
 
 Ví dụ như câu query sau:
-{% highlight sql %}
+```sql
 SELECT * FROM articles WHERE MATCH (title,body) AGAINST ('+MySQL -YourSQL' IN BOOLEAN MODE);
-{% endhighlight %}
-
+```
 Thì kết quả trả về chỉ bao gồm những tài liệu nào chứ chữ MySQL mà không được phép chứa chữ YourSQL.
 
 Ngoài ra chúng ta có thể dùng các wildcard sau để MySQL xếp hạng các kết quả dựa theo yêu cầu của chúng ta.
@@ -92,10 +88,9 @@ Với  Query expansion (`WITH QUERY EXPANSION` hoặc `IN NATURAL LANGUAGE MODE 
 Ví dụ:
 Ta search từ "database" thì kết quả trả về sẽ là (theo như dữ liệu ở trên):
 
-{% highlight sql %}
+```sql
 SELECT * FROM articles WHERE MATCH(title,body) AGAINST('database'); 
-{% endhighlight %}
-
+```
 Với Query expansion, thì MySQL nhận thấy rằng trong 2 kết quả trả về có chứa từ khóa "database" thì còn chứa từ chung là 'MySQL'. Nên đồng thời MySQL cũng trả về kết quả có chứa từ MySQL mặc dù không có chứa từ database.
 
 Theo như tài liệu của MySQL, thì search với Query expansion có thể làm tăng độ nhiễu (noise) và các tài liệu không phù hợp, cho nên ta chỉ  thực hiện search với Query expansion với những từ khóa ngắn. 

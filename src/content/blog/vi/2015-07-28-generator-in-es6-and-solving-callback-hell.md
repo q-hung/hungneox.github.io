@@ -26,12 +26,11 @@ The obvious benefit of `Generator` is improving the performance and help us to o
 
 To define a generator function we can use `GeneratorFunction` constructor and `function* expression` 
 
-{% highlight javascript %}
+```javascript
 function* name([param[, param[, ... param]]]) {
    statements
 }
-{% endhighlight %}
-
+```
 - `name`
    The function name.
 - `param`
@@ -49,7 +48,7 @@ Futhermore, we can also using [`yield*](https://developer.mozilla.org/en-US/docs
 
 In this simple example, instead of creating an array to store all odd numbers, we just simply create `a rule` for generating them.
 
-{% highlight javascript %}
+```javascript
 function* oddNumberGenerator(){
    var i = 0;
    while(true){
@@ -62,13 +61,12 @@ console.log(gen.next().value); // 1
 console.log(gen.next().value); // 3
 console.log(gen.next().value); // 5
 console.log(gen.next().value); // 7
-{% endhighlight %}
-
+```
 ## 3.2 What is `callback hell` and how to solve it?
 
 First, let's take a look at this **callback hell** or **pyramid of doom**
 
-{% highlight javascript %}
+```javascript
 var $status = $('#status');
 
 $.ajax({
@@ -105,10 +103,10 @@ $.ajax({
     $status.append('<li>error:'+error.toString()+'</li>');
   }
 });
-{% endhighlight %}
+```
 How can we make it better? Using `Promise` is an answer. Obviously, the code looks more tidy and easy to read.
 
-{% highlight javascript %}
+```javascript
 var $status = $('#status');
 $.get('categories.json').then(function(categories){
    $('#categories-pre').html(JSON.Stringify(categories));
@@ -123,11 +121,10 @@ $.get('categories.json').then(function(categories){
 function errorHandler(xhr, status, error){
    $status.append('<li>error:'+error.toString()+'</li>');
 }
-{% endhighlight %}
-
+```
 `Promise` (technically in this case: `jQuery Promise`) is a good way to prevent callback hell. But you know what? `Generator` is more awesome. This example below uses [bluebird](https://github.com/petkaantonov/bluebird) `Promise.coroutine` to return a function that can use `yield` to yield promise.
 
-{% highlight javascript %}
+```javascript
 var $status = $('#status');
 
 Promise.coroutine(function* () {
@@ -147,8 +144,7 @@ Promise.coroutine(function* () {
 })().catch(function(errs) {
   //handle errors on any events
 })
-{% endhighlight %}
-
+```
 # 4. Conlusion
 `Generator` is a new feature in ECMAScript 6 and it is a convenient way to control iteration behavior of a loop. Moreover, it also help to solve the callback hell in your existing code. Combine `Promise` and `Generator` effectively can help you control the asynchronous flow better and preventing callback hell in your code. It is more powerful and useful than just only make your code more concise and tidy. Using it wisely can aslo help you to improve your code performance compare to tradditional `loop`.
 

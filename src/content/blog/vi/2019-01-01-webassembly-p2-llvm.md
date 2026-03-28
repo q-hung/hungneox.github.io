@@ -12,7 +12,7 @@ published: true
 ---
 # Giới thiệu sơ lược
 
-Tiếp theo phần trước [WebAssembly]({% post_url 2018-08-06-webassembly-p1-gioi-thieu %}), bài viết này sẽ giới thiệu về mối quan hệ giữa LLVM và WebAssembly, cũng như làm một số thử nghiệm để dịch [Rust](https://blog.rust-lang.org/2016/12/22/Rust-1.14.html) và C sang WebAssembly sử dụng Emscripten.
+Tiếp theo phần trước [WebAssembly](/vi/blog/2018-08-06-webassembly-p1-gioi-thieu), bài viết này sẽ giới thiệu về mối quan hệ giữa LLVM và WebAssembly, cũng như làm một số thử nghiệm để dịch [Rust](https://blog.rust-lang.org/2016/12/22/Rust-1.14.html) và C sang WebAssembly sử dụng Emscripten.
 
 # WebAssembly - LLVM - Emscripten
 
@@ -82,21 +82,20 @@ emcc -v
 
 Ví dụ ta biên dịch một file Rust đơn giản như sau:
 
-{% highlight rust %}
+```rust
 fn main() {
     println!("Hello World!");
 }
-{% endhighlight %}
-
+```
 Sau đó ta chạy lệnh rustc để dịch `hello.rs` sang một bundle bao gồm 3 file: .wasm, .js để load .wasm và file html
 
-```
+```bash
 rustc --target=wasm32-unknown-emscripten hello.rs -o hello.html
 ```
 
 Để chạy hello.html ta cần một http server đơn giản, chúng ta có thể dùng `SimpleHTTPServer` của python.
 
-```
+```bash
 python -m SimpleHTTPServer
 ```
 
@@ -112,13 +111,11 @@ Truy cập vào địa chỉ [http://localhost:8000/hello.html](http://localhost
 
 Giả sử ta có file `add.c` như sau
 
-{% highlight c %}
+```c
 int add(int a, int b) {
   return a + b;
 }
-{% endhighlight %}
-
-
+```
 Chạy lệnh sau để biên dịch C thành wasm
 
 ```
@@ -128,7 +125,7 @@ Nhìn vào tham số của dòng lệnh trên ta cũng thấy ẩn chứa đằn
 
 Sau đó ta có thể dùng lại hàm `add` trong JavaScript thông qua `Module.cwrap`. Hàm `cwrap` nhận 3 tham số: tên hàm C đã export, kiểu trả về, và một mảng các kiểu của tham số đầu vào.
 
-```
+```html
 <html>
 <head>
   <script src="add.js"></script>

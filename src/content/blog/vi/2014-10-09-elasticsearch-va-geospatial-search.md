@@ -13,7 +13,7 @@ Mục đích của entry này không đi sâu vào tất cả các khía cạnh 
 ![ElasticSearch Logo](/assets/posts/elasticsearch-va-geospatial-search/elasticsearch-logo.jpg)
 
 ### I. Đôi điều ElasticSearch
-[ElasticSearch](http://www.elasticsearch.org/) cũng giống như [Apache Solr](http://lucene.apache.org/solr/) là một **Lucence-based** search engine. Nhưng nó linh hoạt, **hiện đại** và dễ sử dụng hơn [Solr (xem thêm)]({% post_url 2013-08-18-tim-hieu-ve-apache-solr %}). Có thể xem bảng so sánh giữa [Solr và ElasticSearch](http://solr-vs-elasticsearch.com/).
+[ElasticSearch](http://www.elasticsearch.org/) cũng giống như [Apache Solr](http://lucene.apache.org/solr/) là một **Lucence-based** search engine. Nhưng nó linh hoạt, **hiện đại** và dễ sử dụng hơn [Solr (xem thêm)](/vi/blog/2013-08-18-tim-hieu-ve-apache-solr). Có thể xem bảng so sánh giữa [Solr và ElasticSearch](http://solr-vs-elasticsearch.com/).
 
 ElasticSearch có một số ưu điểm như sau:
 
@@ -24,11 +24,9 @@ ElasticSearch có một số ưu điểm như sau:
 * Distributed (mà không cần cài thêm bất cứ ứng dụng nào như [Apache Zookeeper](http://zookeeper.apache.org/)) 
 * Near real-time search.
 
-{% comment %}
-Thật ra thì giữa Solr và ElasticSearch là bên tám lạng, người nửa cân. Từ Solr 4.4 trở đi đã hỗ trợ RESTful API và Schemaless. Nếu cực đoan quá thì cũng giống như việc so sánh `Emacs` và `VIM` vậy, tốt nhất là nên hiểu thật rõ và theo một trong hai cái. Một trong những điểm khác nhau cơ bản của Solr và ElasticSearch là cơ chế phân tán. Trong khi Solr tiến hành `index` và sau đó gửi `segment file` đến các server, còn ElasticSearch gửi các tài liệu cần `index` đến các server khác để tiến hành `indexing` riêng .
-{% endcomment %}
+<!-- Thật ra thì giữa Solr và ElasticSearch là bên tám lạng, người nửa cân. Từ Solr 4.4 trở đi đã hỗ trợ RESTful API và Schemaless. Nếu cực đoan quá thì cũng giống như việc so sánh Emacs và VIM vậy, tốt nhất là nên hiểu thật rõ và theo một trong hai cái. Một trong những điểm khác nhau cơ bản của Solr và ElasticSearch là cơ chế phân tán. Trong khi Solr tiến hành index và sau đó gửi segment file đến các server, còn ElasticSearch gửi các tài liệu cần index đến các server khác để tiến hành indexing riêng. -->
 
-Để hiểu rõ về cơ chế `indexing` của các search engine thì có thể xem lại các bài trước về `inverted index` [ở đây]({% post_url 2012-04-01-mysql-full-text-search-p3 %}) và `vector space model` và [ở đây]({% post_url 2013-10-27-tim-hieu-ve-mo-hinh-khong-gian-vector %}). Xem cách cài đặt ElasticSearch (ES) [ở đây](https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-on-an-ubuntu-vps). Và xem thêm giới thiệu về ES ở đây [Elasticsearch – Awesome seach and index engine](http://trankimhieu.com/technology/chia-se/elasticsearch-awesome-seaching-engine.html)
+Để hiểu rõ về cơ chế `indexing` của các search engine thì có thể xem lại các bài trước về `inverted index` [ở đây](/vi/blog/2012-04-01-mysql-full-text-search-p3) và `vector space model` và [ở đây](/vi/blog/2013-10-27-tim-hieu-ve-mo-hinh-khong-gian-vector). Xem cách cài đặt ElasticSearch (ES) [ở đây](https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-on-an-ubuntu-vps). Và xem thêm giới thiệu về ES ở đây [Elasticsearch – Awesome seach and index engine](http://trankimhieu.com/technology/chia-se/elasticsearch-awesome-seaching-engine.html)
 
 ### II. Tìm kiếm địa điểm trong ElasticSearch
 
@@ -36,7 +34,7 @@ ElasticSearch hỗ trợ mapping một số kiểu dữ liệu như là `geo_poi
 
 Ví dụ ta mapping một cấu trúc index như sau:
 
-{% highlight json %}
+```json
 curl -XPUT http://localhost:9200/business -d '
 {
  "mappings" : {
@@ -57,8 +55,7 @@ curl -XPUT http://localhost:9200/business -d '
     }
   }
 }'
-{% endhighlight %}
-
+```
 Chúng ta có một số địa điểm như sau:
 
 {:.table.table-bordered}
@@ -79,7 +76,7 @@ Chúng ta có một số địa điểm như sau:
 
 Ví dụ ta muốn tìm và sắp xếp cách địa điểm theo khoảng cách từ gần đến xa từ một vị trí đã biết kinh độ và vĩ độ:
 
-{% highlight json %}
+```json
 curl -XPOST "http://localhost:9200/business/restaurant/_search?pretty=1" -d'
 {
    "query" : {
@@ -99,13 +96,12 @@ curl -XPOST "http://localhost:9200/business/restaurant/_search?pretty=1" -d'
         }
     ]
 }'
-{% endhighlight %}
-
+```
 #### - Geo filter
 Ví dụ, chúng ta đang đứng ở dinh Độc lập có toạ độ là (`10.776945451753402`,`106.69494867324829`). Ta muốn lọc ra các địa điểm có xung quanh khu vực này 4km (trong ví dụ này mình muốn lấy bán kính là 4km, vì 5km sẽ chạm tới khu vực Quận 5).
 , thì tiến hành truy vấn như sau:
 
-{% highlight json %} 
+```json
 curl -XGET "http://localhost:9200/business/restaurant/_search?pretty=1 " -d'
 {
     "filter" : {
@@ -119,8 +115,7 @@ curl -XGET "http://localhost:9200/business/restaurant/_search?pretty=1 " -d'
         }
     }
 }'
-{% endhighlight %}
-
+```
 ElasticSearch sẽ trả về các [**kết quả**](https://gist.github.com/hungnq1989/cd25a85e1064e4e21535) trong phạm vi bán kính 4km tính từ điểm có toạ độ được chỉ định.
 
 #### - Geo aggregation
@@ -128,7 +123,7 @@ ElasticSearch sẽ trả về các [**kết quả**](https://gist.github.com/hun
 
 Ví dụ, thống kê tất cả `geohash` giống nhau 5 ký tự đầu tiên (Tức là thống kê những địa điểm trong cùng một khu vực 5 $$km^2$$)
 
-{% highlight json %}
+```json
 curl -XGET "http://localhost:9200/business/restaurant/_search?pretty=1 " -d'
 {
     "size": 0,
@@ -141,10 +136,9 @@ curl -XGET "http://localhost:9200/business/restaurant/_search?pretty=1 " -d'
         }
     }
 }'
-{% endhighlight %}
-
+```
 Kết quả
-{% highlight json %}
+```json
 {
   ...
   "aggregations" : {
@@ -166,13 +160,13 @@ Kết quả
   }
 }
 
-{% endhighlight %}
+```
 #### - Full-text search
 
 Ngoài ra chúng ta có thể thực hiện các câu truy vấn từ đơn giản (match) cho tới cách câu truy vấn phức tạp như:
 
 Tìm chính xác
-{% highlight json %} 
+```json
 curl -XGET 'localhost:9200/business/restaurant/_search?size=50&pretty=1' -d '
 {
   "size": 3,
@@ -180,11 +174,10 @@ curl -XGET 'localhost:9200/business/restaurant/_search?size=50&pretty=1' -d '
         "match": {"name": "Lẩu Dê Bình Điền"}
     }
 }'
-{% endhighlight %}
-
+```
 Tìm gần đúng
 
-{% highlight json %} 
+```json
 curl -XGET 'localhost:9200/business/restaurant/_search?size=50&pretty=1' -d '
 {
     "query": {
@@ -195,8 +188,7 @@ curl -XGET 'localhost:9200/business/restaurant/_search?size=50&pretty=1' -d '
         }
     }
 }'
-{% endhighlight %}
-
+```
 ### III. Giới thiệu về geohash 
 
 ![World GeoHash](/assets/posts/elasticsearch-va-geospatial-search/world1.jpg)

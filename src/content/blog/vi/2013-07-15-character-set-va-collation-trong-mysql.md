@@ -37,16 +37,14 @@ Ví dụ: ta có 1 trong bảng dictionary(id, word) có 2 dòng như sau:
 
 Khi ta thực hiện câu query sau, thì chỉ có 1 kết quả `heißen` trả về
 
-{% highlight sql %}
+```sql
 SELECT * FROM `dictionary` WHERE word= 'heißen' COLLATE utf8_general_ci;
-{% endhighlight %}
-
+```
 Tuy nhiên, nếu ta chỉ định `COLLATE` là `utf8_unicode_ci`
 
-{% highlight sql %}
+```sql
 SELECT * FROM `dictionary` WHERE word= 'heißen' COLLATE utf8_unicode_ci;
-{% endhighlight %}
-
+```
 thì có có cả hai kết quả trên trả về, ta thấy ở `utf8_unicode_ci` thì chữ ß được xem tương đương với 2 chữ ss. Xem thêm [Examples of the Effect of Collation](http://dev.mysql.com/doc/refman/5.0/en/charset-collation-effect.html)
 
 Ngoài ra nó còn hỗ trợ các cách viết rút gọn (contraction) và các ký tự có thể bỏ qua (ignorable character). Theo một số câu trả lời trên stackoverflow thì `utf8_general_ci` xem `A`,`Ă`,`Â`,`a`,`ă`,`â` đều tương đương với `A` khi sắp xếp và tìm kiếm, nhưng điều này cũng tương tự với `utf8_unicode_ci`.

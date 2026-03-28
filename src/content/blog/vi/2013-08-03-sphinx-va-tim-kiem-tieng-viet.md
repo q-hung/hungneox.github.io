@@ -14,7 +14,7 @@ Tham khảo cách cài đặt Sphinx ở [bài trước](/2012/04/cai-va-chay-th
 Về cơ bản, thì chúng ta phải cấu hình charset_table để mapping các ký tự có dấu (accents) trở về các ký tự không dấu (ví dụ như a,á,à,ạ,ã v.v --> a). Điều này rất quan trọng vì trong thực tế không phải lúc nào cũng gõ tiếng Việt có dấu. Và lưu ý, charset_table chỉ cấu hình trên một dòng duy nhất.
 
 Ví dụ chúng ta có bảng images như sau:
-{% highlight sql %}
+```sql
 CREATE TABLE IF NOT EXISTS `images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `text` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -23,10 +23,10 @@ CREATE TABLE IF NOT EXISTS `images` (
   PRIMARY KEY (`id`),
   FULLTEXT KEY `text` (`text`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
-{% endhighlight %}  
+```
 Và file cấu hình sphinx.cnf như sau:
 
-{% highlight c %}
+```c
 source butchiso {
     type     = mysql   
     sql_host = localhost
@@ -64,44 +64,38 @@ searchd {
     pid_file = /home/www/butchiso/sphinx/logs/searchd.pid
     max_matches = 10000
 }
-{% endhighlight %}
-
-
+```
 ### Về cơ bản thì Sphinx có 2 phần chính:
 * indexer: dùng để đánh dấu chỉ mục dữ liệu (indexing) tài liệu (xem thêm ở bài viế MySQL Full-text search)
 * searchd (search deamon): đây là một chương trình chạy ngầm để tìm kiếm trong index. Điểm khác biệt của Sphinx và MySQL là Sphinx không thực sự trả về kết quả, mà chỉ trả về id của dòng cần tìm trong MySQL.
 
 Sau khi cài đặt thì chúng ta cần phải tiến hành index dữ liệu trong database MySQL. Do đây không phải là cấu hình real-time index, nên ta phải thiết lập thêm cronjob để nó index dữ liệu định kỳ và cấu hình để sphinx khởi động cùng server (xem thêm ở đây). Nếu như muốn sử dụng real-time index của Sphinx, thì ta phải sử dụng nó như một storage engine (SphinxSE) của MySQL và phải compile lại source của MySQL (xem thêm ở đây).
 
-{% highlight bash %}
+```bash
 /usr/bin/indexer --config /home/www/butchiso/sphinx/sphinx.conf --all
-{% endhighlight %}
-
+```
 Để re-index lại dữ liệu ta phải thêm tham số `--rotate` vào
 
 > --rotate is used for rotating indexes. Unless you have the situation where you can take the search function offline without troubling users, you will almost certainly need to keep search running whilst indexing new documents. --rotate creates a second index, parallel to the first (in the same place, simply including .new in the filenames). Once complete, indexer notifies searchd via sending the SIGHUP signal, and searchd will attempt to rename the indexes (renaming the existing ones to include .old and renaming the .new to replace them), and then start serving from the newer files. Depending on the setting of seamless_rotate, there may be a slight delay in being able to search the newer indexes.
 
 Tức là dùng option `--rotateotate` để tránh trường hợp chức năng search không dùng được khi server đang tiến hành index lại dữ liệu, thì indexer sẽ tạo ra một file index thứ hai để search deamon tìm kiếm trong lúc tiến hành index lại dữ liệu. Sau khi hoàn tất thì, indexer sẽ báo cho search deamon biết để tìm kiếm trong file index mới.
 
-{% highlight bash %}
+```bash
  /usr/bin/indexer --rotate --config /home/www/butchiso/sphinx/sphinx.conf --all
-{% endhighlight %}
-
+```
 Sau đó chúng ta cần phải khởi động search deamon (`searchd`) và trỏ nó tới file cấu hình `sphinx.cnf` ở trên
 
-{% highlight bash %}
+```bash
 /usr/bin/searchd --config  /home/www/butchiso/sphinx/sphinx.conf
-{% endhighlight %}
-
+```
 Chúng ta có thể test bằng cách thực hiện tìm kiếm từ dòng lệnh
 
-{% highlight bash %}
+```bash
 /usr/bin/search -c /home/www/butchiso/sphinx/sphinx.conf thich
-{% endhighlight %}
-
+```
 Hoặc sử dụng Sphinx Search API . Code này chủ yếu là quick and dirty để test các keywords khác nhau.
 
-{% highlight php %}
+```php
 <?php
 require_once('sphinxapi.php');
 //Sphinx
@@ -136,8 +130,7 @@ if ($result['total'] > 0) {
 }
 
 mysql_close($con);
-{% endhighlight %}
-
+```
 ### References:
 * [Install Sphinx Search on Ubuntu Intrepid Ibex](http://www.hackido.com/2009/01/install-sphinx-search-on-ubuntu.html)
 * [How To Install and Configure Sphinx on Ubuntu 14.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-sphinx-on-ubuntu-14-04)

@@ -42,7 +42,7 @@ Việc này có lợi là những lập trình viên sau này cùng làm việc 
 
 Để minh hoạ cho ví dụ này, hãy xem một ví dụ về **strategy design pattern** sau:
 
-{% highlight php %}
+```php
 <?php
 interface GreetingStrategyInterface
 {
@@ -98,8 +98,7 @@ $vnGreeter->greet("thế giới!");
 $enGreeter->greet("World!");
 //Xin chào, thế giới!
 //Hello, World!
-{% endhighlight %}
-
+```
 # 3. Liskov substitution principle
 Tạm dịch: Nguyên tắc hoán đổi Liskov
 
@@ -109,7 +108,7 @@ Nguyên tắc này nghe có vẻ phức tạp, nhưng thực chất có thể di
 
 Ví dụ này được lấy lại từ bài viết trước. Chúng ta có thể thấy rằng `StandardLogger` và `FileLogger` cùng implement một interface và chúng có thể thay đổi dễ dàng với nhau mà không cần chỉnh sửa mã nguồn của `MyLog`.
  
-{% highlight php %}
+```php
 <?php
 interface LoggerInterface 
 {
@@ -154,8 +153,7 @@ $myLog->info('This object depend on another object');
 // Write to file
 $myFileLog = new MyLog(new FileLogger);
 $myFileLog->info('This object depend on another object'); 
-{% endhighlight %}
-
+```
 # 4. Interface segregation principle
 Tạm dịch: Nguyên tắc tách rời giao diện (lập trình)
 
@@ -166,7 +164,7 @@ Nguyên tắc này phát biểu rằng implementation của một interface khô
 Trong cuốn **Laravel: From Apprentice To Artisan**, Taylor Otwell có đưa ví dụ về `SessionHandlerInterface` như sau:
 
  
-{% highlight php %}
+```php
 <?php
 interface SessionHandlerInterface
 {
@@ -177,18 +175,16 @@ interface SessionHandlerInterface
     public function read($sessionId);
     public function write($sessionId, $sessionData);
 }
-{% endhighlight %}
-
+```
 Nhìn interface SessionHandlerInterface ở trên có vẻ không có vấn đề gì, nhưng thực ra nó ép conrete class sử dụng khá nhiều method thừa ví dụ như `open`, `close`, `gc`. Ví dụ chúng ta sử dụng memcached để lưu session thì nó tự động expire dữ liệu mà chúng ta không cần implement hàm `gc` (garbage collector). Để giải quyết vấn đề này, `SessionHandlerInterface` nên được chia nhỏ ra thành nhiều interface nhỏ hơn và tập trung vào chức năng không thể tách rời. Ví dụ:
 
-{% highlight php %}
+```php
 <?php
 intferface GarbageCollectorInterface
 {
     public function gc($maxLifeTime);
 }
-{% endhighlight %}
-
+```
 # 5. Dependency inversion principle
 Tạm dịch: Nguyên tắc nghịch đảo phụ thuộc
 
@@ -203,7 +199,7 @@ Nghe thì có vẻ lằn nhằn, nhưng chúng ta có thể hiểu nguyên tắc
 
 Giả sử chúng ta có một class `Authenticator`, class này tương tác trực tiếp với MySQL, và sử dụng hàm `md5` để mã hoá password. Dễ thấy class đó vi phạm cả 2 nguyên tắc trên của DIP. Vì theo nguyên tắc trên, `Authenticator` là high-level code, nó không nên phụ thuộc vào code tương tác với MySQL (có thể là Eloquent hay raw SQL) và chi tiết cụ thể là sử dụng hàm `md5` để hash password. 
 
-{% highlight php %}
+```php
 <?php
 class Authenticator
 {
@@ -222,11 +218,10 @@ class Authenticator
         //Authenticate the users
     }
 }
-{% endhighlight %}
-
+```
 Thay vào đó cả hai nên được inject vào `Authenticator`. Điều này có lợi là chúng ta có thể dễ dàng thay thế `MySQL` bằng `NoSQL` (hay làm những việc khác như connect với Facebook, Google), và thay thế `md5` bằng một hàm băm hay mã hoá khác an toàn hơn.
 
-{% highlight php %}
+```php
 <?php
 class Authenticator
 {
@@ -237,9 +232,8 @@ class Authenticator
         $this->hash = $hash;
     }
 }
-{% endhighlight %}
-
-Để hiểu rõ và đi vào chi tiết hơn về Dependency Inversion/Injection. Các bạn có thể tham khảo bài viết trước [Laravel : Dependency Injection và IoC container]({% post_url 2016-06-25-laravel-dependency-injection-va-ioc-container %})
+```
+Để hiểu rõ và đi vào chi tiết hơn về Dependency Inversion/Injection. Các bạn có thể tham khảo bài viết trước [Laravel : Dependency Injection và IoC container](/vi/blog/2016-06-25-laravel-dependency-injection-va-ioc-container)
 
 # Kết luận
 

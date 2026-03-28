@@ -4,6 +4,7 @@ $post-retro-ink: #1a100c;
 $post-retro-cream: #fff4e8;
 $post-retro-cream-muted: #ffe8d4;
 $post-ribbon-accent: rgb(58, 157, 124);
+$post-ribbon-accent-dark: rgb(42, 115, 90);
 
 .post-layout {
   display: grid;
@@ -41,7 +42,7 @@ html[data-theme="dark"] .post-card__window {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-// ── Post title block: accent ribbon + cream body (like category-card ribbon + sheet) ──
+// ── Post title block: ribbon + cream body (like category-card ribbon + sheet) ──
 .post-header__ribbon {
   display: flex;
   align-items: center;
@@ -59,6 +60,7 @@ html[data-theme="dark"] .post-card__window {
 .post-header__ribbon-icon {
   font-size: 1.1rem;
   flex-shrink: 0;
+  color: inherit;
 }
 
 .post-header__ribbon-text {
@@ -67,116 +69,22 @@ html[data-theme="dark"] .post-card__window {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+  color: inherit;
 }
 
 .post-header__body {
   padding: 1rem 1.25rem 1.1rem;
 }
 
-// Ribbon colors by category — same palette as .home--categorized category cards
-.post-header__ribbon.post-ribbon--information-retrieval,
-.toc-sidebar__ribbon.post-ribbon--information-retrieval {
-  background-color: rgb(165, 216, 255);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
-
-  .post-header__ribbon-icon,
-  .post-header__ribbon-text,
-  .toc-sidebar__ribbon-icon,
-  .toc-sidebar__ribbon-title {
-    color: $post-retro-ink;
-    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
-  }
-}
-
-.post-header__ribbon.post-ribbon--systems,
-.toc-sidebar__ribbon.post-ribbon--systems {
-  background-color: #8da249;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
-
-  .post-header__ribbon-icon,
-  .post-header__ribbon-text,
-  .toc-sidebar__ribbon-icon,
-  .toc-sidebar__ribbon-title {
-    color: #1a210c;
-    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.35);
-  }
-}
-
-.post-header__ribbon.post-ribbon--programming,
-.toc-sidebar__ribbon.post-ribbon--programming {
-  background-color: rgb(58, 157, 124);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
-
-  .post-header__ribbon-icon,
-  .post-header__ribbon-text,
-  .toc-sidebar__ribbon-icon,
-  .toc-sidebar__ribbon-title {
-    color: $post-retro-cream;
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.22);
-  }
-}
-
-.post-header__ribbon.post-ribbon--lab,
-.toc-sidebar__ribbon.post-ribbon--lab {
-  background-color: #2e434f;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
-
-  .post-header__ribbon-icon,
-  .post-header__ribbon-text,
-  .toc-sidebar__ribbon-icon,
-  .toc-sidebar__ribbon-title {
-    color: #ece8dc;
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
-  }
-}
-
 html[data-theme="dark"] .post-header__ribbon {
-  background-color: rgb(42, 115, 90);
+  background-color: $post-ribbon-accent-dark;
   color: #fff4e8;
   border-bottom-color: var(--color-border);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-html[data-theme="dark"] .post-header__ribbon.post-ribbon--information-retrieval {
-  background-color: #4a7a9a;
-  color: $post-retro-ink;
 
   .post-header__ribbon-icon,
   .post-header__ribbon-text {
-    color: $post-retro-ink;
-    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.35);
-  }
-}
-
-html[data-theme="dark"] .post-header__ribbon.post-ribbon--systems {
-  background-color: #6d8238;
-  color: #1a210c;
-
-  .post-header__ribbon-icon,
-  .post-header__ribbon-text {
-    color: #1a210c;
-    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.25);
-  }
-}
-
-html[data-theme="dark"] .post-header__ribbon.post-ribbon--programming {
-  background-color: rgb(42, 115, 90);
-  color: $post-retro-cream;
-
-  .post-header__ribbon-icon,
-  .post-header__ribbon-text {
-    color: $post-retro-cream;
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
-  }
-}
-
-html[data-theme="dark"] .post-header__ribbon.post-ribbon--lab {
-  background-color: #2d4550;
-  color: #ece8dc;
-
-  .post-header__ribbon-icon,
-  .post-header__ribbon-text {
-    color: #ece8dc;
+    color: #fff4e8;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
   }
 }
@@ -245,7 +153,7 @@ html[data-theme="dark"] .post-header__ribbon.post-ribbon--lab {
 }
 
 html[data-theme="dark"] .toc-sidebar__ribbon {
-  background-color: rgb(42, 115, 90);
+  background-color: $post-ribbon-accent-dark;
   border-bottom-color: var(--color-border);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
@@ -253,45 +161,6 @@ html[data-theme="dark"] .toc-sidebar__ribbon {
 html[data-theme="dark"] .toc-sidebar__ribbon-icon,
 html[data-theme="dark"] .toc-sidebar__ribbon-title {
   color: #fff4e8;
-}
-
-html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--information-retrieval {
-  background-color: #4a7a9a;
-}
-
-html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--information-retrieval .toc-sidebar__ribbon-icon,
-html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--information-retrieval .toc-sidebar__ribbon-title {
-  color: $post-retro-ink;
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.35);
-}
-
-html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--systems {
-  background-color: #6d8238;
-}
-
-html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--systems .toc-sidebar__ribbon-icon,
-html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--systems .toc-sidebar__ribbon-title {
-  color: #1a210c;
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.25);
-}
-
-html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--programming {
-  background-color: rgb(42, 115, 90);
-}
-
-html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--programming .toc-sidebar__ribbon-icon,
-html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--programming .toc-sidebar__ribbon-title {
-  color: $post-retro-cream;
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
-}
-
-html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--lab {
-  background-color: #2d4550;
-}
-
-html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--lab .toc-sidebar__ribbon-icon,
-html[data-theme="dark"] .toc-sidebar__ribbon.post-ribbon--lab .toc-sidebar__ribbon-title {
-  color: #ece8dc;
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
 }
 

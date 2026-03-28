@@ -1,6 +1,19 @@
 ---
 const { currentLocale } = Astro;
-const basePath = currentLocale === 'vi' ? '/' : `/${currentLocale}/`;
+const basePath = `/${currentLocale}/`;
+const aboutPath = `/${currentLocale}/about/`;
+const categoryPath = `/${currentLocale}/category/`;
+
+const segments = Astro.url.pathname.split("/").filter(Boolean);
+const otherLocale = currentLocale === "vi" ? "en" : "vi";
+let otherLangHref: string;
+if (segments[0] === "vi" || segments[0] === "en") {
+  segments[0] = otherLocale;
+  otherLangHref = "/" + segments.join("/");
+  if (!otherLangHref.endsWith("/")) otherLangHref += "/";
+} else {
+  otherLangHref = `/${otherLocale}/`;
+}
 ---
 <header class="header">
   <div class="wrapper">
@@ -25,14 +38,14 @@ const basePath = currentLocale === 'vi' ? '/' : `/${currentLocale}/`;
     </div>
     <nav class="site-nav">
       <a class="page-link" href={basePath}><span class="material-symbols-rounded">home</span> {currentLocale === 'en' ? 'Home' : 'Trang chủ'}</a>
-      <a class="page-link" href="/about/"><span class="material-symbols-rounded">article</span> About</a>
-      <a class="page-link" href="/category/"><span class="material-symbols-rounded">category</span> Category</a>
+      <a class="page-link" href={aboutPath}><span class="material-symbols-rounded">article</span> {currentLocale === 'en' ? 'About' : 'Giới thiệu'}</a>
+      <a class="page-link" href={categoryPath}><span class="material-symbols-rounded">category</span> {currentLocale === 'en' ? 'Categories' : 'Chủ đề'}</a>
       <a class="page-link" href="/feed.xml"><span class="material-symbols-rounded">rss_feed</span> RSS</a>
       <!-- Language Switcher -->
       {currentLocale === 'vi' ? (
-        <a class="page-link lang-switcher" href="/en/" title="Switch to English"><span class="material-symbols-rounded">language</span> EN</a>
+        <a class="page-link lang-switcher" href={otherLangHref} title="Switch to English"><span class="material-symbols-rounded">language</span> EN</a>
       ) : (
-        <a class="page-link lang-switcher" href="/" title="Chuyển sang Tiếng Việt"><span class="material-symbols-rounded">language</span> VI</a>
+        <a class="page-link lang-switcher" href={otherLangHref} title="Chuyển sang Tiếng Việt"><span class="material-symbols-rounded">language</span> VI</a>
       )}
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
         <span class="material-symbols-rounded icon-light">light_mode</span>

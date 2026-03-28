@@ -283,6 +283,37 @@
     text-transform: uppercase;
   }
 
+  // ── Category archive (reuses .post-list) ──
+  &.page-category-posts {
+    .category-posts-intro {
+      margin: -0.5rem 0 1.25rem;
+      font-size: 0.88rem;
+      color: var(--color-text-secondary);
+      font-weight: 600;
+
+      a {
+        color: var(--color-link);
+        text-decoration: none;
+        font-weight: 700;
+
+        &:hover {
+          color: var(--color-link-hover);
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .category-posts-meta {
+      color: var(--color-text-secondary);
+    }
+
+    .category-empty {
+      padding: 1rem 0;
+      color: var(--color-text-secondary);
+      font-weight: 600;
+    }
+  }
+
   // ── Responsive ──
   @include media-query($on-laptop) {
     .featured-grid {

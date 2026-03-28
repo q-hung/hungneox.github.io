@@ -4,6 +4,7 @@ title: "MySQL Full-text Search - P2"
 date: 2011-12-28 8:00 PM
 categories: [search-data]
 author: hungneox
+image: /assets/images/mysql.png
 comments: true
 ---
 ### Giới thiệu

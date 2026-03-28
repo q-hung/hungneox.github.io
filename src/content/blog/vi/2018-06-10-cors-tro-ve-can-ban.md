@@ -2,9 +2,8 @@
 layout: post
 title: "CORS - Trở về căn bản"
 date: 2018-06-10 21:00
-categories: [web, security]
+categories: [web-backend]
 author: hungneox
-tags: [web, security]
 description: "CORS - Trở về căn bản"
 image: /assets/images/cors.png
 comments: true

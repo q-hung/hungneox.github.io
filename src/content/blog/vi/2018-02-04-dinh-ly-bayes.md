@@ -2,9 +2,9 @@
 layout: post
 title: "Định lý Bayes" 
 date: 2018-02-04 20:10
-categories: [statistics, ml]
+categories: [data-science]
 author: hungneox
-tags : [bayes, statistics, ml]
+tags: [AI, statistics]
 description: "Định lý Bayes (Bayes’s Theorem)"
 image: /assets/images/placeholder.jpg
 comments: true

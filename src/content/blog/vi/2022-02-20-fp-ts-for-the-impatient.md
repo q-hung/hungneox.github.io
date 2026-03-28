@@ -2,9 +2,8 @@
 layout: post
 title: "fp-ts for the impatient"
 date: 2022-02-20 18:28
-categories: [typescript, functional programming]
+categories: [programming]
 author: hungneox
-tags: [typescript, javascript, fp-ts, fp]
 description: "An introduction to fp-ts for the impatient"
 image: /assets/posts/fp-ts-for-the-impatient/white-rabbit.png
 comments: true

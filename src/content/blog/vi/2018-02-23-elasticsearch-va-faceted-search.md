@@ -2,9 +2,8 @@
 layout: post
 title: "ElasticSearch và Faceted search" 
 date: 2018-02-23 14:00
-categories: [elasticsearch]
+categories: [search-data]
 author: hungneox
-tags : [faceted-search, elasticsearch]
 description: "ElasticSearch và Faceted search"
 image: /assets/images/placeholder.jpg
 comments: true

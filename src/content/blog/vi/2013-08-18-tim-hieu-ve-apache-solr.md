@@ -2,9 +2,8 @@
 layout: post
 title: " Tìm hiểu về Apache Solr"
 date: 2013-08-18 8:00 PM
-categories: [solr, full-text-search, vi]
+categories: [search-data]
 author: hungneox
-tags : [solr, full-text-search]
 comments: true
 ---
 

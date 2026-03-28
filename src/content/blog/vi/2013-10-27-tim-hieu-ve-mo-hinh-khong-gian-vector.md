@@ -2,9 +2,8 @@
 layout: post
 title: "Tìm hiểu về mô hình không gian vector"
 date: 2013-10-27 8:00 PM
-categories: [natural-language-processing, information-retrieval, vi]
+categories: [search-data]
 author: hungneox
-tags : [natural-language-processing, information-retrieval]
 comments: true
 ---
 

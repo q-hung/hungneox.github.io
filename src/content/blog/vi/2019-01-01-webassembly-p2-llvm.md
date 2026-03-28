@@ -2,9 +2,8 @@
 layout: post
 title: "WebAssembly - Phần 2: LLVM" 
 date: 2019-01-01 7:10
-categories: [webassembly, rust]
+categories: [systems]
 author: hungneox
-tags : [webassembly, rust, guide]
 description: "LLVM và WebAssembly"
 image: /assets/posts/webassembly/webassembly-illustration.png
 comments: true

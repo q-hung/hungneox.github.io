@@ -265,6 +265,25 @@
       }
     }
 
+    .post-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin: -0.15rem 0 0.85rem;
+    }
+
+    .post-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--color-tag);
+      background: var(--color-tag-bg);
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--color-tag);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
     .post-meta {
       color: var(--color-text-secondary);
       font-size: $small-font-size;

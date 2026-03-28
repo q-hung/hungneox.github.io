@@ -2,9 +2,8 @@
 layout: post
 title: " Giới thiệu MongoDB"
 date: 2013-03-29 8:00 PM
-categories: [mongodb, database, vi]
+categories: [search-data]
 author: hungneox
-tags : [mongodb]
 comments: true
 ---
 

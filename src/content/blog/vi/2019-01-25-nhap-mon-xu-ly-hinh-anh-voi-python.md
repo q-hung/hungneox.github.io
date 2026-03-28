@@ -2,9 +2,9 @@
 layout: post
 title: "Nhập môn xử lý hình ảnh với Python" 
 date: 2019-01-25 1:00
-categories: [python, image-processing, pillow]
+categories: [programming]
 author: hungneox
-tags : [python, image processing]
+tags: [python]
 description: "Nhập môn xử lý hình ảnh với Python. Sử dụng thư viện Pillow"
 image: /assets/images/placeholder.jpg
 comments: true

@@ -4,6 +4,13 @@ import BaseLayout from "./BaseLayout.astro";
 const { frontmatter } = Astro.props;
 const d = new Date(frontmatter.date);
 const isDateValid = !isNaN(d.getTime());
+
+const rawTags = frontmatter.tags;
+const tagList: string[] = Array.isArray(rawTags)
+  ? rawTags.map(String)
+  : rawTags != null && rawTags !== ""
+    ? [String(rawTags)]
+    : [];
 ---
 
 <BaseLayout
@@ -16,6 +23,23 @@ const isDateValid = !isNaN(d.getTime());
     <div class="post">
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">{frontmatter.title}</h1>
+        {
+          tagList.length > 0 && (
+            <div
+              class="post-tags"
+              role="list"
+              aria-label={
+                Astro.currentLocale === "en" ? "Tags" : "Thẻ chủ đề"
+              }
+            >
+              {tagList.map((tag) => (
+                <span class="post-tag" role="listitem">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          )
+        }
         <p class="post-meta">
           {
             isDateValid && (

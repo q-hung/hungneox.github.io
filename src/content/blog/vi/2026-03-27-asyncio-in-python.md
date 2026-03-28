@@ -2,9 +2,9 @@
 layout: post
 title: "Tìm hiểu asyncio trong Python"
 date: 2026-03-27 21:30
-categories: [python, async]
+categories: [programming]
 author: hungneox
-tags: [python, asyncio, fastapi, concurrency]
+tags: [python]
 description: "Tìm hiểu về asyncio trong Python và ứng dụng trong FastAPI"
 image: /assets/images/asyncio.png
 comments: true

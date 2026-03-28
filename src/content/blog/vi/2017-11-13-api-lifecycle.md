@@ -2,9 +2,8 @@
 layout: post
 title: "API Lifecycle"
 date: 2017-11-13 7:00 AM
-categories: [api-development, programming]
+categories: [web-backend]
 author: hungneox
-tags : [api-development, programming, vietnamese]
 description: "API Lifecyelce - Chu kỳ sống của API"
 image: /assets/posts/api-lifecycle/api-lifecycle-state-diagram.jpg
 comments: true

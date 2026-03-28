@@ -2,9 +2,8 @@
 layout: post
 title: "Sphinx và tìm kiếm tiếng Việt"
 date: 2013-08-03 8:00 PM
-categories: [database, sphinx, mysql, full-text-search, vi]
+categories: [search-data]
 author: hungneox
-tags : [sphinx, mysql, full-text-search]
 comments: true
 ---
 

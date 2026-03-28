@@ -2,9 +2,8 @@
 layout: post
 title: "MySQL Full-text Search - P2"
 date: 2011-12-28 8:00 PM
-categories: [database, mysql, full-text-search, vi]
+categories: [search-data]
 author: hungneox
-tags : [mysql, full-text-search]
 comments: true
 ---
 ### Giới thiệu

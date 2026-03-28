@@ -2,9 +2,8 @@
 layout: post
 title: "Y-Combinator trong Lambda Calculus"
 date: 2017-10-23 16:00
-categories: [functional-programming, programming, vi]
+categories: [programming]
 author: hungneox
-tags : [functional-programming, lambda-calculus, programming]
 description: "Y-Combinator là gì và tại sao nó thú vị"
 image: /assets/images/placeholder.jpg
 comments: true

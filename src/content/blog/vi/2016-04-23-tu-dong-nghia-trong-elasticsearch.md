@@ -2,9 +2,8 @@
 layout: post
 title: "Từ đồng nghĩa trong ElasticSearch"
 date: 2016-04-23 20:50 PM
-categories: [search-engine, information-retrieval]
+categories: [search-data]
 author: hungneox
-tags : [search-engine, information-retrieval, elasticsearch]
 description: Từ đồng nghĩa (synonyms) trong ElasticSearch
 image: /assets/images/placeholder.jpg
 comments: true

@@ -2,9 +2,9 @@
 layout: post
 title: "Liveness vs Readiness Probe trong Kubernetes"
 date: 2026-03-27 21:45
-categories: [kubernetes, devops]
+categories: [systems]
 author: hungneox
-tags: [kubernetes, k8s, health-check, devops]
+tags: [kubernetes]
 description: "Phân biệt liveness và readiness probe trong Kubernetes, và cách cấu hình sai có thể giết chết cả hệ thống"
 image: /assets/images/k8s.jpg
 comments: true

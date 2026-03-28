@@ -1,32 +1,36 @@
-// ── Retro Theme: CSS custom properties ──
-// Palette: #4ABA94 (teal), #D0542D (burnt orange), #FFEDB7 (cream), #685B53 (brown), #2B3A39 (charcoal)
+// ── Theme: CSS custom properties ──
+// Light: cool paper (blue‑gray), teal + burnt orange accents — no yellow/cream base.
+// Dark: charcoal + cream text (unchanged mood).
 
 :root {
-  --color-text: #2B3A39;
-  --color-text-secondary: #685B53;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+
+  --color-text: #1f2e2c;
+  --color-text-secondary: #4d605c;
   --color-link: #D0542D;
   --color-link-hover: #b84320;
-  --color-border: #d9c9a3;
-  --color-border-hover: #c4b08a;
-  --color-bg: #EFE8C8;
-  --color-bg-secondary: #e5ddb8;
-  --color-bg-card: #f7f2dc;
-  --color-accent: #4ABA94;
-  --color-tag: #4ABA94;
-  --color-tag-bg: rgba(74, 186, 148, 0.12);
-  --color-code-bg: #e5ddb8;
-  --color-code-text: #2B3A39;
-  --color-code-inline-bg: rgba(74, 186, 148, 0.12);
-  --color-code-inline-border: rgba(74, 186, 148, 0.25);
-  --color-code-inline-text: #2d7a5f;
-  --color-disabled: #c4b08a;
-  --color-card-shadow: rgba(43, 58, 57, 0.15);
-  --color-card-dim: rgba(43, 58, 57, 0.04);
-  --color-row-hover: rgba(74, 186, 148, 0.08);
-  --color-heading: #2B3A39;
-  --shadow-block: 4px 4px 0 #2B3A39;
-  --shadow-block-sm: 3px 3px 0 #2B3A39;
-  --shadow-block-hover: 6px 6px 0 #2B3A39;
+  --color-border: #9aafaa;
+  --color-border-hover: #849890;
+  --color-bg: #dde5e2;
+  --color-bg-secondary: #cfd9d5;
+  --color-bg-card: #eef3f1;
+  --color-accent: #3a9d7c;
+  --color-tag: #2f8f70;
+  --color-tag-bg: rgba(47, 143, 112, 0.12);
+  --color-code-bg: #e0e8e5;
+  --color-code-text: #1f2e2c;
+  --color-code-inline-bg: rgba(47, 143, 112, 0.1);
+  --color-code-inline-border: rgba(47, 143, 112, 0.28);
+  --color-code-inline-text: #256b52;
+  --color-disabled: #8fa099;
+  --color-card-shadow: rgba(31, 46, 44, 0.12);
+  --color-card-dim: rgba(31, 46, 44, 0.05);
+  --color-row-hover: rgba(47, 143, 112, 0.09);
+  --color-heading: #1a2826;
+  --shadow-block: 4px 4px 0 #1f2e2c;
+  --shadow-block-sm: 3px 3px 0 #1f2e2c;
+  --shadow-block-hover: 6px 6px 0 #1f2e2c;
 }
 
 html[data-theme="dark"] {
@@ -94,8 +98,8 @@ a:focus {
 }
 
 ::selection {
-  background: rgba(74, 186, 148, 0.3);
-  color: #2B3A39;
+  background: rgba(47, 143, 112, 0.28);
+  color: var(--color-text);
 }
 
 blockquote {
@@ -104,7 +108,7 @@ blockquote {
   border-left: 4px solid var(--color-accent);
   color: var(--color-text-secondary);
   background: var(--color-bg-secondary);
-  border-radius: 0;
+  border-radius: var(--radius-md);
   font-style: italic;
   box-shadow: var(--shadow-block-sm);
   border: 2px solid var(--color-border);
@@ -126,7 +130,7 @@ pre {
 
 code {
   padding: 0.2em 0.45em;
-  border-radius: 3px;
+  border-radius: var(--radius-sm);
   background: var(--color-code-inline-bg);
   border: 1.5px solid var(--color-code-inline-border);
   color: var(--color-code-inline-text);
@@ -139,7 +143,7 @@ code {
 pre {
   overflow-x: auto;
   padding: 1.25em 1.5em;
-  border-radius: 0;
+  border-radius: var(--radius-md);
   border: 2px solid var(--color-border);
   line-height: 1.6;
   tab-size: 2;

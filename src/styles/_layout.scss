@@ -28,7 +28,7 @@
     img {
       width: 46px;
       height: 46px;
-      border-radius: 0;
+      border-radius: var(--radius-sm);
       border: 2px solid var(--color-text);
       box-shadow: var(--shadow-block-sm);
       display: block;
@@ -131,7 +131,7 @@
   .theme-toggle {
     background: var(--color-bg-secondary);
     border: 2px solid var(--color-text);
-    border-radius: 0;
+    border-radius: var(--radius-sm);
     cursor: pointer;
     padding: 0.35rem;
     display: inline-flex;

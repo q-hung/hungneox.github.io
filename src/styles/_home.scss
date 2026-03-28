@@ -12,7 +12,7 @@
 
   .featured-card {
     display: block;
-    border-radius: 0;
+    border-radius: var(--radius-md);
     overflow: hidden;
     background: var(--color-bg-card);
     text-decoration: none;
@@ -104,6 +104,7 @@
     background: var(--color-accent);
     color: #fff;
     padding: 0.3rem 0.75rem;
+    border-radius: var(--radius-sm);
     box-shadow: var(--shadow-block-sm);
   }
 
@@ -127,6 +128,13 @@
 
     &:last-child {
       border-bottom: 2px solid var(--color-text);
+      border-bottom-left-radius: var(--radius-md);
+      border-bottom-right-radius: var(--radius-md);
+    }
+
+    &:first-child {
+      border-top-left-radius: var(--radius-md);
+      border-top-right-radius: var(--radius-md);
     }
 
     &:hover {
@@ -146,7 +154,7 @@
       flex-shrink: 0;
       width: 140px;
       aspect-ratio: 16 / 10;
-      border-radius: 0;
+      border-radius: var(--radius-sm);
       overflow: hidden;
       background: var(--color-bg-secondary);
       border: 2px solid var(--color-text);
@@ -203,7 +211,7 @@
       color: var(--color-tag);
       background: var(--color-tag-bg);
       padding: 0.15rem 0.5rem;
-      border-radius: 0;
+      border-radius: var(--radius-sm);
       border: 1.5px solid var(--color-tag);
       text-transform: uppercase;
       letter-spacing: 0.03em;
@@ -227,7 +235,7 @@
     font-size: 0.85rem;
     font-weight: 700;
     padding: 0.5rem 1rem;
-    border-radius: 0;
+    border-radius: var(--radius-sm);
     color: var(--color-text);
     text-decoration: none;
     border: 2px solid var(--color-text);

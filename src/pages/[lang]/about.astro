@@ -1,0 +1,82 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "vi" } }, { params: { lang: "en" } }];
+}
+
+const { lang } = Astro.params;
+const isEn = lang === "en";
+const title = isEn ? "About" : "Giới thiệu";
+---
+
+<BaseLayout title={title}>
+  <article class="post page-about">
+    <header class="post-header">
+      <h1 class="post-title">{title}</h1>
+      <p class="post-meta">
+        {isEn ? "Q-Hung — software engineer" : "Q-Hung — kỹ sư phần mềm"}
+      </p>
+    </header>
+    <div class="post-content">
+      {
+        isEn ? (
+          <>
+            <p>
+              I am a Vietnamese software engineer based in Finland. I write about backend
+              systems, search and databases, programming languages, and whatever
+              I am learning at the time.
+            </p>
+            <p>
+              You can find me on{" "}
+              <a href="https://github.com/q-hung" rel="noopener noreferrer">
+                GitHub
+              </a>
+              ,{" "}
+              <a
+                href="https://linkedin.com/in/hungnq1989"
+                rel="noopener noreferrer"
+              >
+                LinkedIn
+              </a>
+              , or reach out by{" "}
+              <a href="mailto:hungnq1989@gmail.com">email</a>.
+            </p>
+            <p>
+              <a href={`/${lang}/category/`}>Browse posts by category</a> or{" "}
+              <a href={`/${lang}/`}>return to the home page</a>.
+            </p>
+          </>
+        ) : (
+          <>
+            <p>
+              Mình là kỹ sư phần mềm, đang làm việc tại Phần Lan. Blog này là
+              nơi mình ghi lại những gì đang học và làm việc: hệ thống backend,
+              tìm kiếm, cơ sở dữ liệu, ngôn ngữ lập trình và các chủ đề liên
+              quan.
+            </p>
+            <p>
+              Bạn có thể xem thêm trên{" "}
+              <a href="https://github.com/q-hung" rel="noopener noreferrer">
+                GitHub
+              </a>
+              ,{" "}
+              <a
+                href="https://linkedin.com/in/hungnq1989"
+                rel="noopener noreferrer"
+              >
+                LinkedIn
+              </a>
+              , hoặc liên hệ qua{" "}
+              <a href="mailto:hungnq1989@gmail.com">email</a>.
+            </p>
+            <p>
+              <a href={`/${lang}/category/`}>Xem bài theo chủ đề</a> hoặc{" "}
+              <a href={`/${lang}/`}>về trang chủ</a>.
+            </p>
+          </>
+        )
+      }
+    </div>
+  </article>
+</BaseLayout>

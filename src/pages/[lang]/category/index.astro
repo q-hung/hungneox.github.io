@@ -1,0 +1,86 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import {
+  META_CATEGORIES,
+  categorySlug,
+  normalizeCategories,
+} from "../../../lib/categories";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "vi" } }, { params: { lang: "en" } }];
+}
+
+const { lang } = Astro.params;
+const isEn = lang === "en";
+const title = isEn ? "Categories" : "Chủ đề";
+
+const allPosts = await getCollection(
+  "blog",
+  ({ data }) => data.published !== false,
+);
+const posts = allPosts.filter(({ id }) => id.startsWith(`${lang}/`));
+
+type Row = { slug: string; label: string; count: number };
+const bySlug = new Map<string, Row>();
+
+for (const post of posts) {
+  for (const c of normalizeCategories(post.data.categories)) {
+    if (META_CATEGORIES.has(c.toLowerCase())) continue;
+    const slug = categorySlug(c);
+    if (!slug) continue;
+    const existing = bySlug.get(slug);
+    if (existing) {
+      existing.count += 1;
+    } else {
+      bySlug.set(slug, { slug, label: c, count: 1 });
+    }
+  }
+}
+
+const rows = [...bySlug.values()].sort((a, b) =>
+  a.label.localeCompare(b.label, isEn ? "en" : "vi"),
+);
+---
+
+<BaseLayout title={title}>
+  <article class="post page-category-index">
+    <header class="post-header">
+      <h1 class="post-title">{title}</h1>
+      <p class="post-meta">
+        {
+          isEn
+            ? `${rows.length} topics · ${posts.length} posts`
+            : `${rows.length} chủ đề · ${posts.length} bài viết`
+        }
+      </p>
+    </header>
+    <div class="post-content">
+      {
+        rows.length === 0 ? (
+          <p>{isEn ? "No categories yet." : "Chưa có chủ đề nào."}</p>
+        ) : (
+          <ul class="category-index-list">
+            {rows.map((row) => (
+              <li>
+                <a href={`/${lang}/category/${row.slug}/`}>
+                  <span class="category-index-label">{row.label}</span>
+                  <span class="category-index-count">
+                    {row.count}{" "}
+                    {isEn
+                      ? row.count === 1
+                        ? "post"
+                        : "posts"
+                      : row.count === 1
+                        ? "bài"
+                        : "bài"}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </article>
+</BaseLayout>

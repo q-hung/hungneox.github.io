@@ -1,0 +1,133 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths({ paginate }: any) {
+  const allPosts = await getCollection('blog', ({ data }) => data.published !== false);
+  
+  const viPosts = allPosts.filter(({ id }) => id.startsWith('vi/'));
+  const enPosts = allPosts.filter(({ id }) => id.startsWith('en/'));
+
+  // Sort by date desc
+  viPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+  enPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+  return [
+    ...paginate(viPosts, { params: { lang: 'vi' }, pageSize: 10 }),
+    ...paginate(enPosts, { params: { lang: 'en' }, pageSize: 10 }),
+  ];
+}
+
+const { lang } = Astro.params;
+const { page } = Astro.props;
+const posts = page.data;
+const title = lang === 'en' ? 'Home' : 'Trang chủ';
+---
+<BaseLayout title={title}>
+  <div class="home">
+    {page.currentPage === 1 && posts.length > 0 && (
+      <section class="featured-section">
+        <div class="featured-grid">
+          {posts.slice(0, 4).map((post: any, index: number) => {
+            const slug = post.id.split('/').pop();
+            return (
+              <a class="featured-card" href={`/${lang}/blog/${slug}`}>
+                <div class="featured-thumb">
+                  {post.data.image ? (
+                    <img src={post.data.image} alt={post.data.title} loading="lazy" />
+                  ) : (
+                    <img src={`/assets/images/abstract-${index % 6}.jpg`} alt={post.data.title} loading="lazy" />
+                  )}
+                </div>
+                <div class="featured-info">
+                  {(() => {
+                    const d = new Date(post.data.date);
+                    if (isNaN(d.getTime())) return null;
+                    return (
+                      <time datetime={d.toISOString()}>
+                        {d.toLocaleDateString(lang === 'en' ? 'en-US' : 'vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit' })}
+                      </time>
+                    );
+                  })()}
+                  <h2>{post.data.title}</h2>
+                  {post.data.description && <p>{post.data.description.length > 90 ? post.data.description.substring(0, 90) + '...' : post.data.description}</p>}
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+      <hr class="section-divider" />
+    )}
+
+    <section class="post-list-section">
+      <h2 class="section-title">{lang === 'en' ? 'All Posts' : 'Tất cả bài viết'}</h2>
+      <div class="post-list">
+        {posts.map((post: any, index: number) => {
+          const slug = post.id.split('/').pop();
+          return (
+            <a class="post-item" href={`/${lang}/blog/${slug}`}>
+              <div class="post-thumb">
+                {post.data.image ? (
+                  <img src={post.data.image} alt={post.data.title} loading="lazy" />
+                ) : (
+                  <img src={`/assets/images/abstract-${index % 6}.jpg`} alt={post.data.title} loading="lazy" />
+                )}
+              </div>
+              <div class="post-info">
+                {(() => {
+                  const d = new Date(post.data.date);
+                  if (isNaN(d.getTime())) return null;
+                  return (
+                    <time datetime={d.toISOString()}>
+                      {d.toLocaleDateString(lang === 'en' ? 'en-US' : 'vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit' })}
+                    </time>
+                  );
+                })()}
+                <h3>{post.data.title}</h3>
+                {post.data.description && <p>{post.data.description.length > 120 ? post.data.description.substring(0, 120) + '...' : post.data.description}</p>}
+                <div class="post-tags">
+                  {post.data.categories && post.data.categories.filter((cat: any) => !['vi', 'en', 'jekyll'].includes(cat)).map((cat: any) => (
+                    <span class="post-tag">#{cat}</span>
+                  ))}
+                </div>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+      
+      {page.lastPage > 1 && (
+        <div class="pagination">
+          {page.url.prev ? (
+            <a href={page.url.prev} class="page-btn prev">
+              <span class="page-btn-arrow" aria-hidden="true">«</span>
+              {lang === 'en' ? 'Previous' : 'Trang trước'}
+            </a>
+          ) : (
+            <span class="page-btn prev disabled">
+              <span class="page-btn-arrow" aria-hidden="true">«</span>
+              {lang === 'en' ? 'Previous' : 'Trang trước'}
+            </span>
+          )}
+          
+          <span class="page-num">
+            {lang === 'en' ? 'Page' : 'Trang'} {page.currentPage} / {page.lastPage}
+          </span>
+          
+          {page.url.next ? (
+            <a href={page.url.next} class="page-btn next">
+              {lang === 'en' ? 'Next' : 'Trang sau'}
+              <span class="page-btn-arrow" aria-hidden="true">»</span>
+            </a>
+          ) : (
+            <span class="page-btn next disabled">
+              {lang === 'en' ? 'Next' : 'Trang sau'}
+              <span class="page-btn-arrow" aria-hidden="true">»</span>
+            </span>
+          )}
+        </div>
+      )}
+    </section>
+  </div>
+</BaseLayout>

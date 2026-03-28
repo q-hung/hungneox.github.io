@@ -1,0 +1,166 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import {
+  META_CATEGORIES,
+  categorySlug,
+  normalizeCategories,
+  postMatchesCategorySlug,
+} from "../../../lib/categories";
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection(
+    "blog",
+    ({ data }) => data.published !== false,
+  );
+
+  const labelByLangSlug = new Map<string, string>();
+
+  for (const post of allPosts) {
+    const parts = post.id.split("/");
+    const lang = parts[0];
+    if (lang !== "vi" && lang !== "en") continue;
+
+    for (const c of normalizeCategories(post.data.categories)) {
+      if (META_CATEGORIES.has(c.toLowerCase())) continue;
+      const slug = categorySlug(c);
+      if (!slug) continue;
+      const key = `${lang}:${slug}`;
+      if (!labelByLangSlug.has(key)) {
+        labelByLangSlug.set(key, c);
+      }
+    }
+  }
+
+  const paths: {
+    params: { lang: string; slug: string };
+    props: { categoryLabel: string };
+  }[] = [];
+
+  for (const key of labelByLangSlug.keys()) {
+    const [lang, slug] = key.split(":");
+    paths.push({
+      params: { lang, slug },
+      props: { categoryLabel: labelByLangSlug.get(key)! },
+    });
+  }
+
+  return paths;
+}
+
+const { lang, slug } = Astro.params;
+const { categoryLabel } = Astro.props;
+const isEn = lang === "en";
+
+if (!slug) {
+  return Astro.redirect(`/${lang}/category/`);
+}
+
+const allPosts = await getCollection(
+  "blog",
+  ({ data }) => data.published !== false,
+);
+const matched = allPosts
+  .filter(({ id }) => id.startsWith(`${lang}/`))
+  .filter((post) => postMatchesCategorySlug(post.data.categories, slug));
+
+matched.sort(
+  (a, b) =>
+    new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
+);
+
+const title = isEn ? `Category: ${categoryLabel}` : `Chủ đề: ${categoryLabel}`;
+---
+
+<BaseLayout title={title}>
+  <div class="home page-category-posts">
+    <section class="post-list-section">
+      <h2 class="section-title">{categoryLabel}</h2>
+      <p class="category-posts-intro">
+        <a href={`/${lang}/category/`}>
+          {isEn ? "← All categories" : "← Tất cả chủ đề"}
+        </a>
+        <span class="category-posts-meta">
+          · {matched.length}{" "}
+          {isEn
+            ? matched.length === 1
+              ? "post"
+              : "posts"
+            : matched.length === 1
+              ? "bài"
+              : "bài"}
+        </span>
+      </p>
+
+      {
+        matched.length === 0 ? (
+          <p class="category-empty">
+            {isEn ? "No posts in this category." : "Không có bài trong chủ đề này."}
+          </p>
+        ) : (
+          <div class="post-list">
+            {matched.map((post, index) => {
+              const postSlug = post.id.split("/").pop();
+              return (
+                <a class="post-item" href={`/${lang}/blog/${postSlug}`}>
+                  <div class="post-thumb">
+                    {post.data.image ? (
+                      <img
+                        src={post.data.image}
+                        alt={post.data.title}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <img
+                        src={`/assets/images/abstract-${index % 6}.jpg`}
+                        alt={post.data.title}
+                        loading="lazy"
+                      />
+                    )}
+                  </div>
+                  <div class="post-info">
+                    {(() => {
+                      const d = new Date(post.data.date);
+                      if (isNaN(d.getTime())) return null;
+                      return (
+                        <time datetime={d.toISOString()}>
+                          {d.toLocaleDateString(
+                            isEn ? "en-US" : "vi-VN",
+                            {
+                              year: "numeric",
+                              month: "2-digit",
+                              day: "2-digit",
+                            },
+                          )}
+                        </time>
+                      );
+                    })()}
+                    <h3>{post.data.title}</h3>
+                    {post.data.description && (
+                      <p>
+                        {post.data.description.length > 120
+                          ? post.data.description.substring(0, 120) + "..."
+                          : post.data.description}
+                      </p>
+                    )}
+                    <div class="post-tags">
+                      {post.data.categories &&
+                        normalizeCategories(post.data.categories)
+                          .filter(
+                            (cat: string) =>
+                              !META_CATEGORIES.has(cat.toLowerCase()),
+                          )
+                          .map((cat: string) => (
+                            <span class="post-tag">#{cat}</span>
+                          ))}
+                    </div>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        )
+      }
+    </section>
+  </div>
+</BaseLayout>

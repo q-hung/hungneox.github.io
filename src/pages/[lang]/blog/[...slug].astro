@@ -1,0 +1,25 @@
+---
+import { getCollection, render } from 'astro:content';
+import PostLayout from '../../../layouts/PostLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => data.published !== false);
+  return posts.map(post => {
+    // The id is e.g. "vi/2026-03-27-asyncio"
+    const parts = post.id.split('/');
+    const lang = parts[0];
+    const slug = parts.slice(1).join('/');
+    
+    return {
+      params: { lang, slug },
+      props: { post },
+    };
+  });
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<PostLayout frontmatter={post.data}>
+  <Content />
+</PostLayout>

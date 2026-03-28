@@ -1,6 +1,18 @@
-_site
-node_modules
-vendor
-.sass-cache
-.c9
+# Build output
+dist/
+_site/
+
+# Dependencies
+node_modules/
+
+# Astro
+.astro/
+
+# Legacy
+vendor/
+.sass-cache/
+
+# IDE & OS
+.c9/
 .DS_Store
+*.swp

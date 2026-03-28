@@ -104,8 +104,8 @@ Ví dụ đây là một hàm từ package [lumen-cors](https://github.com/digia
 
 ```php
 /**
-    * @inheritdoc
-    */
+* @inheritdoc
+*/
 public function isCorsRequest(Request $request)
 {
     return $request->headers->has('Origin');

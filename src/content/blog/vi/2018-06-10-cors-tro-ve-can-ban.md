@@ -11,7 +11,7 @@ comments: true
 published: true
 ---
 
-!["CORS flowchart"](https://upload.wikimedia.org/wikipedia/commons/c/ca/Flowchart_showing_Simple_and_Preflight_XHR.svg "Flowchart showing Simple and Preflight XHR"){: .center-image }
+!["CORS flowchart"](https://upload.wikimedia.org/wikipedia/commons/c/ca/Flowchart_showing_Simple_and_Preflight_XHR.svg "Flowchart showing Simple and Preflight XHR")
 
 # Cross-Origin Resource Sharing (CORS)
 

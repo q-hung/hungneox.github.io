@@ -58,7 +58,7 @@ Việc index lại một cơ sơ dữ liệu lớn thường mất thời gian, 
 
 # Chạy thử synonym_analyzer
 
-![https](/assets/posts/tu-dong-nghia-trong-elasticsearch/elasticsearch.png){: .center-image }
+![https](/assets/posts/tu-dong-nghia-trong-elasticsearch/elasticsearch.png)
 
 Có một điểm thú vị là chúng ta có thể thử chạy synonym_filter vừa rồi thông qua REST infterface của ElasticSearch.
 

@@ -11,7 +11,7 @@ comments: true
 <!-- published: false -->
 ---
 
-!["Laravel"](/assets/images/solid.jpg "solid princiles"){: .center-image }
+!["Laravel"](/assets/images/solid.jpg "solid princiles")
 
 # 0. Mục lục
 1. Single responsibility principle

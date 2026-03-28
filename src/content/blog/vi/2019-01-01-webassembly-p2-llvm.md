@@ -32,7 +32,7 @@ Cho đến đây thì chúng ta vẫn chưa thấy rõ mối liên hệ giữa L
 - Phần front-end làm chủ yếu 3 khâu: lexical analysis, syntax analysis, semantic analysis. Nói nôm na là `lexer` sẽ đọc từng ký tự thành các token, sau đó `parser` sẽ chuyển chúng thành AST (abstract syntax tree), cuối cùng ở phần `semantic analysis` thì các thông tin khác sẽ được kiểm tra ví dụ như type checking.
 - Phần back-end: sẽ chịu trách nhiệm tạo ra mã máy cho từng kiến trúc CPU cụ thể.
 
-!["Compiler structure"](/assets/posts/webassembly/compiler-structure.png){: .center-image }
+!["Compiler structure"](/assets/posts/webassembly/compiler-structure.png)
 
 Ví dụ chúng ta muốn biên dịch C sang WebAssembly. Chúng ta có thể dùng Clang front-end để chuyển phần mã nguồn C sang LLVM IR (intermediate representation). Một khi phần code đó đã được chuyển thành LLVM IR, LLVM sẽ tiến hành một số bước để tối ưu nó. Tiếp theo để chuyển phần LLVM IR này thành WebAssembly (dạng .wasm), chúng ta cần một back-end. Hiện tại thì chưa có chính thức back-end cho WebAssembly, hiện tại nó đang là một project đang trong quá trình hoàn thành của LLVM. 
 
@@ -40,7 +40,7 @@ Tạm gọi cái official backend chưa dùng được, cho nên hiện tại th
 
 Nói một cách đơn giản hoá, Emscripten là một trình biên dịch LLVM-to-JavaScript. Để tạo ra WebAssembly, nó dịch LLVM IR sang [asm.js](https://www.wikiwand.com/en/Asm.js) (một subset của JavaScript) rồi mới convert sang định dạng WebAssembly.
 
-!["Compiler structure"](/assets/posts/webassembly/llvm-ir-wasm.png){: .center-image }
+!["Compiler structure"](/assets/posts/webassembly/llvm-ir-wasm.png)
 
 # Dịch Rust sang WASM
 
@@ -103,7 +103,7 @@ python -m SimpleHTTPServer
 Truy cập vào địa chỉ [http://localhost:8000/hello.html](http://localhost:8000/hello.html) ta thấy một giao diện siêu chuối `powered by emscripten` như sau:
 
 
-!["Hello World"](/assets/posts/webassembly/helloworld.jpg){: .center-image }
+!["Hello World"](/assets/posts/webassembly/helloworld.jpg)
 
 
 Để tìm hiểu cách sử dụng lại các hàm được export ra `.wasm` như thế nào, chúng ta có thể tìm hiểu ở ví dụ tiếp theo.

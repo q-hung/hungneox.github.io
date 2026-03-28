@@ -10,7 +10,7 @@ image: /assets/images/laravel.jpg
 comments: true
 ---
 
-!["Laravel"](/assets/images/laravel.jpg "Laravel"){: .center-image }
+!["Laravel"](/assets/images/laravel.jpg "Laravel")
 
 # 0. Mục lục
 1. [Dependency Injection là gì?](#dependency-injection-la-gi)
@@ -116,7 +116,7 @@ Thật ra mà nói DI là một khái niệm không mới mẻ gì, nhất là t
 
 Khởi nguyên của Laravel là một dự án IoC Container cho CodeIgniter do Taylor Otwell viết có tên là CInject. Theo như Taylor thì thậm chí nó còn được tái sử dụng cho đến tận Laravel 5.x như bây giờ. Và bản chất thì Laravel chính là một IoC container mà cụ thể là class `Illuminate\Container\Container`. 
 
-!["Ảnh chụp màn hình của dự án CInject trên Google Code"](/assets/posts/laravel-dependency-injection-va-ioc-container/cinject.png "Ảnh chụp màn hình của dự án CInject trên Google Code"){: .center-image }
+!["Ảnh chụp màn hình của dự án CInject trên Google Code"](/assets/posts/laravel-dependency-injection-va-ioc-container/cinject.png "Ảnh chụp màn hình của dự án CInject trên Google Code")
 
 
 # 3. Sử dụng IoC container trong Laravel như thế nào?

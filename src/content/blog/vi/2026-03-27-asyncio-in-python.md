@@ -11,7 +11,7 @@ comments: true
 published: true
 ---
 
-!["Python asyncio"](/assets/images/asyncio.png){: .center-image }
+!["Python asyncio"](/assets/images/asyncio.png)
 
 # Giới thiệu
 

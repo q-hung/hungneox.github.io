@@ -11,7 +11,7 @@ comments: true
 published: true
 ---
 
-!["Subtractive color"](/assets/posts/fp-ts-for-the-impatient/white-rabbit.png){: .center-image }
+!["Subtractive color"](/assets/posts/fp-ts-for-the-impatient/white-rabbit.png)
 
 # Introduction
 

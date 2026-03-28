@@ -17,7 +17,7 @@ Cũng như là một sản phẩm phần mềm, thì API cũng có vòng đời 
 
 API Lifecycle là một chuỗi các trạng thái (series of states), có thể phụ thuộc vào [API Management Product](https://en.wikipedia.org/wiki/API_management) được sử dụng (vd: `Amazon API Gateway`, `Azure API Management`, `IBM API Connect`).
 
-!["API lifecycle diagram"](/assets/posts/api-lifecycle/api-lifecycle-state-diagram.jpg){: .center-image }
+!["API lifecycle diagram"](/assets/posts/api-lifecycle/api-lifecycle-state-diagram.jpg)
 <center>Nguồn http://cycles.apiops.net/apilifecycle/</center>
 
 # Các trạng thái của API
@@ -45,7 +45,7 @@ API Lifecycle là một chuỗi các trạng thái (series of states), có thể
 
 # Làm thế nào để deprecate APIs
 
-!["Twilio API"](/assets/posts/api-lifecycle/twilio-api-deprecation.png){: .center-image }
+!["Twilio API"](/assets/posts/api-lifecycle/twilio-api-deprecation.png)
 
 Trong thực tế, việc `deprecate` và `retire` một phiên bản API cũng không phải đơn giản là "rút ống" cho nó chết đột ngột được. Nhưng duy trì nhiều phiên bản API cũng tốn nhiều chi phí và thời gian. Nói chung là trước khi API cũ chết hẳn thì chúng ta cần thông báo cho bất kỳ ai đang sử dụng nó. Trong thực tế thì việc thông báo này không phải lúc nào cũng suôn sẻ, ví dụ như developers đổi thông tin liên lạc hoặc một dự án nào được phát triển bởi một bên tư vấn đã hết hợp đồng.
 

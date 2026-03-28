@@ -6,7 +6,7 @@ categories: [elasticsearch]
 author: hungneox
 tags : [faceted-search, elasticsearch]
 description: "ElasticSearch và Faceted search"
-image: /assets/images/laravel.jpg
+image: /assets/images/placeholder.jpg
 comments: true
 published: false
 ---

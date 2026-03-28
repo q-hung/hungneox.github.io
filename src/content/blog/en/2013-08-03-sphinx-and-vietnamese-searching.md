@@ -1,18 +1,20 @@
 ---
 layout: post
-title: "Sphinx và tìm kiếm tiếng Việt"
+title: "Sphinx and Vietnamese search"
 date: 2013-08-03 8:00 PM
 categories: [search-data]
 author: hungneox
 comments: true
 ---
 
-### Giới thiệu
-Tham khảo cách cài đặt Sphinx ở [bài trước](/2012/04/cai-va-chay-thu-sphinx-tren-windows.html). Đây là file cấu hình giúp Sphinx có thể đánh dấu chỉ mục (indexing) và tiếng kiếm tiếng Việt không phân biệt hoa/ thường có dấu hoặc không dấu (case-insensitive và accents-insensitive).
+### Introduction
 
-Về cơ bản, thì chúng ta phải cấu hình charset_table để mapping các ký tự có dấu (accents) trở về các ký tự không dấu (ví dụ như a,á,à,ạ,ã v.v --> a). Điều này rất quan trọng vì trong thực tế không phải lúc nào cũng gõ tiếng Việt có dấu. Và lưu ý, charset_table chỉ cấu hình trên một dòng duy nhất.
+For how to install Sphinx, see the earlier post on [installing and trying Sphinx on Windows](/vi/blog/2012-04-08-cai-va-chay-thu-sphinx-tren-windows/) (Vietnamese). This configuration lets Sphinx **index** Vietnamese text and **search** it in a way that ignores case and diacritics (case-insensitive and accent-insensitive).
 
-Ví dụ chúng ta có bảng images như sau:
+You configure **`charset_table`** to map accented letters to their base forms (for example `a`, `á`, `à`, `ạ`, `ã`, … → `a`). That matters because users do not always type Vietnamese with full diacritics. Note that **`charset_table` must be written on a single line**.
+
+Suppose we have an `images` table like this:
+
 ```sql
 CREATE TABLE IF NOT EXISTS `images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -23,7 +25,8 @@ CREATE TABLE IF NOT EXISTS `images` (
   FULLTEXT KEY `text` (`text`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 ```
-Và file cấu hình sphinx.cnf như sau:
+
+A sample `sphinx.cnf` (or `sphinx.conf`) looks like this:
 
 ```c
 source butchiso {
@@ -64,35 +67,40 @@ searchd {
     max_matches = 10000
 }
 ```
-### Về cơ bản thì Sphinx có 2 phần chính:
-* indexer: dùng để đánh dấu chỉ mục dữ liệu (indexing) tài liệu (xem thêm ở bài viế MySQL Full-text search)
-* searchd (search deamon): đây là một chương trình chạy ngầm để tìm kiếm trong index. Điểm khác biệt của Sphinx và MySQL là Sphinx không thực sự trả về kết quả, mà chỉ trả về id của dòng cần tìm trong MySQL.
+### Sphinx has two main parts
 
-Sau khi cài đặt thì chúng ta cần phải tiến hành index dữ liệu trong database MySQL. Do đây không phải là cấu hình real-time index, nên ta phải thiết lập thêm cronjob để nó index dữ liệu định kỳ và cấu hình để sphinx khởi động cùng server (xem thêm ở đây). Nếu như muốn sử dụng real-time index của Sphinx, thì ta phải sử dụng nó như một storage engine (SphinxSE) của MySQL và phải compile lại source của MySQL (xem thêm ở đây).
+* **indexer** — builds the full-text index from your documents (see also the [MySQL full-text search](/en/blog/2011-11-26-mysql-full-text-search-p1/) series).
+* **searchd** (search daemon) — a background service that runs queries against the index. Unlike MySQL full-text, Sphinx does not return full rows: it returns **IDs**, which you then use to load rows from MySQL.
+
+After installation you must index the MySQL data. Because this setup is **not** a real-time index, schedule **`indexer`** with **cron** for periodic rebuilds and configure **searchd** to start with the server. For **real-time** indexing in Sphinx you would use **SphinxSE** as a MySQL storage engine and build MySQL from source with Sphinx support—see the Sphinx documentation for details.
 
 ```bash
 /usr/bin/indexer --config /home/www/butchiso/sphinx/sphinx.conf --all
 ```
-Để re-index lại dữ liệu ta phải thêm tham số `--rotate` vào
+
+To rebuild indexes in production, add **`--rotate`**:
 
 > --rotate is used for rotating indexes. Unless you have the situation where you can take the search function offline without troubling users, you will almost certainly need to keep search running whilst indexing new documents. --rotate creates a second index, parallel to the first (in the same place, simply including .new in the filenames). Once complete, indexer notifies searchd via sending the SIGHUP signal, and searchd will attempt to rename the indexes (renaming the existing ones to include .old and renaming the .new to replace them), and then start serving from the newer files. Depending on the setting of seamless_rotate, there may be a slight delay in being able to search the newer indexes.
 
-Tức là dùng option `--rotateotate` để tránh trường hợp chức năng search không dùng được khi server đang tiến hành index lại dữ liệu, thì indexer sẽ tạo ra một file index thứ hai để search deamon tìm kiếm trong lúc tiến hành index lại dữ liệu. Sau khi hoàn tất thì, indexer sẽ báo cho search deamon biết để tìm kiếm trong file index mới.
+So **`--rotate`** avoids downtime: while reindexing, **indexer** builds a **.new** index; when it finishes, it signals **searchd** to swap to the new files so search keeps working.
 
 ```bash
  /usr/bin/indexer --rotate --config /home/www/butchiso/sphinx/sphinx.conf --all
 ```
-Sau đó chúng ta cần phải khởi động search deamon (`searchd`) và trỏ nó tới file cấu hình `sphinx.cnf` ở trên
+
+Then start the search daemon (**`searchd`**) pointing at the same config file (e.g. `sphinx.conf`):
 
 ```bash
 /usr/bin/searchd --config  /home/www/butchiso/sphinx/sphinx.conf
 ```
-Chúng ta có thể test bằng cách thực hiện tìm kiếm từ dòng lệnh
+
+You can smoke-test from the shell:
 
 ```bash
 /usr/bin/search -c /home/www/butchiso/sphinx/sphinx.conf thich
 ```
-Hoặc sử dụng Sphinx Search API . Code này chủ yếu là quick and dirty để test các keywords khác nhau.
+
+Or use the **Sphinx search API**. The snippet below is a quick-and-dirty way to try different keywords.
 
 ```php
 <?php
@@ -130,7 +138,14 @@ if ($result['total'] > 0) {
 
 mysql_close($con);
 ```
-### References:
-* [Install Sphinx Search on Ubuntu Intrepid Ibex](http://www.hackido.com/2009/01/install-sphinx-search-on-ubuntu.html)
-* [How To Install and Configure Sphinx on Ubuntu 14.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-sphinx-on-ubuntu-14-04)
-* [THINKING SPHINX AND UNICODE](http://yob.id.au/2008/05/08/thinking-sphinx-and-unicode.html)
+### References
+
+Extra material on installing Sphinx on Linux, Unicode-aware indexing, and the **`charset_table`** option this post relies on.
+
+1. [Install Sphinx Search on Ubuntu Intrepid Ibex](http://www.hackido.com/2009/01/install-sphinx-search-on-ubuntu.html) — Older walkthrough for Sphinx on Ubuntu (Ibex-era); useful for the general package layout and service setup even though distributions have moved on.
+
+2. [How To Install and Configure Sphinx on Ubuntu 14.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-sphinx-on-ubuntu-14-04) — DigitalOcean tutorial covering install, sample `sphinx.conf`, indexer, and `searchd` (similar moving parts to the examples above).
+
+3. [THINKING SPHINX AND UNICODE](http://yob.id.au/2008/05/08/thinking-sphinx-and-unicode.html) — Notes on UTF-8, Unicode normalization, and Ruby/Thinking Sphinx; the Unicode pitfalls discussed still apply when you design `charset_table` for Vietnamese.
+
+4. [Sphinx Search manual: `charset_table`](https://sphinxsearch.com/docs/current/conf-charset-table.html) — Official reference for character folding and `U+XXXX->` target mappings (see also the rest of the [Sphinx 2.x documentation](https://sphinxsearch.com/docs/current/) for `indexer`, `searchd`, and rotation). Newer stacks often use [Manticore Search](https://manual.manticoresearch.com/), which inherited this configuration model.

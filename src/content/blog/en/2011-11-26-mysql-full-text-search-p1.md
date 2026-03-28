@@ -5,6 +5,7 @@ date: 2011-11-26 8:00 PM
 categories: [search-data]
 author: hungneox
 description: "What full-text search is, why LIKE falls short, and a quick look at MySQL FTS."
+image: /assets/images/mysql.png
 comments: true
 ---
 

@@ -5,6 +5,7 @@ date: 2012-04-01 8:00 PM
 categories: [search-data]
 author: hungneox
 description: "How full-text pipelines tokenize and filter text, inverted indexes, relevance weights, and tuning ft_min_word_len / stopwords."
+image: /assets/images/mysql.png
 comments: true
 ---
 

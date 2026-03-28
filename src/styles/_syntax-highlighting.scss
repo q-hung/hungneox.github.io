@@ -1,12 +1,12 @@
 // ── Shiki dual-theme support ──
-// Themes: github-light-default / github-dark-dimmed (neutral cool tones, fits site palette).
-// Astro emits --shiki-light-* and --shiki-dark-*; default is light, html[data-theme="dark"] uses dark.
+// Themes: vitesse-light / vitesse-dark (astro.config).
+// Shiki inlines light token colors as hex on each span; <pre> carries --shiki-dark / --shiki-dark-bg for the dark half.
+// Do not use --shiki-light / --shiki-light-bg here — they are not set, so var() was invalid and broke token colors.
 
-// Light mode (default): use light theme colors
+// Light mode (default): keep Shiki’s per-token colors; solid white panel so identifiers aren’t read against page gray.
 pre.astro-code,
 pre.shiki {
-  color: var(--shiki-light);
-  background-color: var(--shiki-light-bg) !important;
+  background-color: #ffffff !important;
   border-radius: var(--radius-md);
   padding: 1.25rem;
   overflow-x: auto;
@@ -20,9 +20,18 @@ pre.shiki {
     font-family: inherit;
     font-size: inherit;
   }
+}
 
-  .line span {
-    color: var(--shiki-light);
+// Light mode: some TextMate scopes resolve to UI light grays (e.g. #E1E4E8) — invisible on white.
+// Remap to a clear “function / call” purple consistent with GitHub’s symbolIcon.functionForeground.
+html:not([data-theme="dark"]) {
+  pre.astro-code .line span[style*="#e1e4e8"],
+  pre.astro-code .line span[style*="#E1E4E8"] {
+    color: #6639ba !important;
+  }
+
+  pre.astro-code .line span[style*="225, 228, 232"] {
+    color: #6639ba !important;
   }
 }
 

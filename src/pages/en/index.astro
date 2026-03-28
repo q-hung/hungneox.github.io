@@ -1,0 +1,10 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HomePage from "../../components/HomePage.astro";
+import { getEnHomePageOne } from "../../lib/home";
+
+const page = await getEnHomePageOne();
+---
+<BaseLayout title="Home" url="/">
+  <HomePage lang="en" page={page} />
+</BaseLayout>

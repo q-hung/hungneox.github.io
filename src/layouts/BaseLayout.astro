@@ -9,14 +9,16 @@ export interface Props {
   description?: string;
   image?: string;
   tags?: string[];
+  /** Canonical pathname (e.g. `/`) when this URL duplicates another */
+  url?: string;
 }
-const { title, description, image, tags } = Astro.props;
-const lang = Astro.currentLocale || 'vi';
+const { title, description, image, tags, url } = Astro.props;
+const lang = Astro.currentLocale || 'en';
 ---
 <!DOCTYPE html>
 <html lang={lang}>
   <head>
-    <HeadSetup title={title} description={description} image={image} tags={tags} />
+    <HeadSetup title={title} description={description} image={image} tags={tags} url={url} />
   </head>
   <body>
     <Header />

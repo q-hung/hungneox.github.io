@@ -1,18 +1,23 @@
 ---
 const { currentLocale } = Astro;
-const basePath = `/${currentLocale}/`;
+/** Default locale (`en`) home is `/` — matches `prefixDefaultLocale: false` in astro.config */
+const basePath = currentLocale === "en" ? "/" : `/${currentLocale}/`;
 const aboutPath = `/${currentLocale}/about/`;
 const categoryPath = `/${currentLocale}/category/`;
 
-const segments = Astro.url.pathname.split("/").filter(Boolean);
-const otherLocale = currentLocale === "vi" ? "en" : "vi";
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const segments = path.split("/").filter(Boolean);
+const otherLocale = currentLocale === "en" ? "vi" : "en";
 let otherLangHref: string;
 if (segments[0] === "vi" || segments[0] === "en") {
   segments[0] = otherLocale;
   otherLangHref = "/" + segments.join("/");
   if (!otherLangHref.endsWith("/")) otherLangHref += "/";
+  if (otherLocale === "en" && segments.length === 1) {
+    otherLangHref = "/";
+  }
 } else {
-  otherLangHref = `/${otherLocale}/`;
+  otherLangHref = otherLocale === "vi" ? "/vi/" : "/";
 }
 ---
 <header class="header">
@@ -42,10 +47,10 @@ if (segments[0] === "vi" || segments[0] === "en") {
       <a class="page-link" href={categoryPath}><span class="material-symbols-rounded">category</span> {currentLocale === 'en' ? 'Categories' : 'Chủ đề'}</a>
       <a class="page-link" href="/feed.xml"><span class="material-symbols-rounded">rss_feed</span> RSS</a>
       <!-- Language Switcher -->
-      {currentLocale === 'vi' ? (
-        <a class="page-link lang-switcher" href={otherLangHref} title="Switch to English"><span class="material-symbols-rounded">language</span> EN</a>
-      ) : (
+      {currentLocale === 'en' ? (
         <a class="page-link lang-switcher" href={otherLangHref} title="Chuyển sang Tiếng Việt"><span class="material-symbols-rounded">language</span> VI</a>
+      ) : (
+        <a class="page-link lang-switcher" href={otherLangHref} title="Switch to English"><span class="material-symbols-rounded">language</span> EN</a>
       )}
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
         <span class="material-symbols-rounded icon-light">light_mode</span>

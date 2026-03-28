@@ -40,7 +40,7 @@ Other scripts:
 - `src/styles/` — global and partial SCSS (`main.scss` imports the rest)
 - `public/` — static assets served as-is
 
-Internationalization is configured in `astro.config.mjs`: default locale `vi`, also `en`. URLs use locale prefixes where applicable (see existing pages).
+Internationalization is configured in `astro.config.mjs`: default locale `en`, also `vi`. The English home is at `/`; Vietnamese uses the `/vi/` prefix (see `src/lib/home.ts` and `src/pages/`).
 
 ## Writing a new post
 

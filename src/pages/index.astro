@@ -1,3 +1,10 @@
 ---
-return Astro.redirect('/vi/');
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HomePage from "../components/HomePage.astro";
+import { getEnHomePageOne } from "../lib/home";
+
+const page = await getEnHomePageOne();
 ---
+<BaseLayout title="Home">
+  <HomePage lang="en" page={page} />
+</BaseLayout>

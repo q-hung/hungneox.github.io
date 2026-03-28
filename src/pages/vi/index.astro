@@ -1,0 +1,10 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HomePage from "../../components/HomePage.astro";
+import { getViHomePageOne } from "../../lib/home";
+
+const page = await getViHomePageOne();
+---
+<BaseLayout title="Trang chủ">
+  <HomePage lang="vi" page={page} />
+</BaseLayout>

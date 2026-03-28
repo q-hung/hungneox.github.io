@@ -1,10 +1,10 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import HomePage from "../../components/HomePage.astro";
-import { getViHomePageOne } from "../../lib/home";
+import { getCategorizedHomePage } from "../../lib/home";
 
-const page = await getViHomePageOne();
+const home = await getCategorizedHomePage("vi");
 ---
 <BaseLayout title="Trang chủ">
-  <HomePage lang="vi" page={page} />
+  <HomePage lang="vi" home={home} />
 </BaseLayout>

@@ -1,123 +1,76 @@
 ---
-import type { HomePageProps } from "../lib/home";
+import type { CategorizedHomePageProps } from "../lib/home";
+import { estimateReadingTime } from "../lib/home";
+import CategoryCard from "./CategoryCard.astro";
 
 export interface Props {
   lang: "vi" | "en";
-  page: HomePageProps;
+  home: CategorizedHomePageProps;
 }
 
-const { lang, page } = Astro.props;
-const posts = page.data;
+const { lang, home } = Astro.props;
+const { featured, sections } = home;
 
-/** En page 2+ from Astro paginate points prev at `/en/`; canonical page 1 is `/`. */
-const prevHref =
-  lang === "en" && page.currentPage === 2 && page.url.prev === "/en/"
-    ? "/"
-    : page.url.prev;
+function getPostHref(postId: string): string {
+  const slug = postId.split("/").pop();
+  return `/${lang}/blog/${slug}/`;
+}
+
+const readMoreLabel = lang === "en" ? "Read More" : "Đọc tiếp";
+const featuredLabel = lang === "en" ? "Featured Article" : "Bài viết nổi bật";
+const minReadLabel = lang === "en" ? "min read" : "phút đọc";
 ---
-<div class="home">
-  {page.currentPage === 1 && posts.length > 0 && (
-    <section class="featured-section">
-      <div class="featured-grid">
-        {posts.slice(0, 4).map((post: any, index: number) => {
-          const slug = post.id.split("/").pop();
-          return (
-            <a class="featured-card" href={`/${lang}/blog/${slug}`}>
-              <div class="featured-thumb">
-                {post.data.image ? (
-                  <img src={post.data.image} alt={post.data.title} loading="lazy" />
-                ) : (
-                  <img src={`/assets/images/abstract-${index % 6}.jpg`} alt={post.data.title} loading="lazy" />
-                )}
-              </div>
-              <div class="featured-info">
-                {(() => {
-                  const d = new Date(post.data.date);
-                  if (isNaN(d.getTime())) return null;
-                  return (
-                    <time datetime={d.toISOString()}>
-                      {d.toLocaleDateString(lang === "en" ? "en-US" : "vi-VN", { year: "numeric", month: "2-digit", day: "2-digit" })}
-                    </time>
-                  );
-                })()}
-                <h2>{post.data.title}</h2>
-                {post.data.description && <p>{post.data.description.length > 90 ? post.data.description.substring(0, 90) + "..." : post.data.description}</p>}
-              </div>
-            </a>
-          );
-        })}
+
+<div class="home home--categorized">
+  <!-- ═══ Featured Article Hero ═══ -->
+  {featured && (
+    <section class="featured-hero" id="featured-hero">
+      <div class="featured-hero__label">
+        <span class="material-symbols-rounded">auto_awesome</span>
+        {featuredLabel}
       </div>
+      <a class="featured-hero__card" href={getPostHref(featured.id)}>
+        <div class="featured-hero__image">
+          {featured.data.image ? (
+            <img src={featured.data.image} alt={featured.data.title} loading="eager" />
+          ) : (
+            <img src="/assets/images/abstract-0.jpg" alt={featured.data.title} loading="eager" />
+          )}
+          <div class="featured-hero__overlay"></div>
+        </div>
+        <div class="featured-hero__content">
+          <h1 class="featured-hero__title">{featured.data.title}</h1>
+          {featured.data.description && (
+            <p class="featured-hero__desc">{featured.data.description}</p>
+          )}
+          <div class="featured-hero__meta">
+            <span class="featured-hero__read-time">
+              <span class="material-symbols-rounded">schedule</span>
+              {estimateReadingTime(featured.body)} {minReadLabel}
+            </span>
+            <span class="featured-hero__cta">
+              {readMoreLabel}
+              <span aria-hidden="true">→</span>
+            </span>
+          </div>
+        </div>
+      </a>
     </section>
-    <hr class="section-divider" />
   )}
 
-  <section class="post-list-section">
-    <h2 class="section-title">{lang === "en" ? "All Posts" : "Tất cả bài viết"}</h2>
-    <div class="post-list">
-      {posts.map((post: any, index: number) => {
-        const slug = post.id.split("/").pop();
-        return (
-          <a class="post-item" href={`/${lang}/blog/${slug}`}>
-            <div class="post-thumb">
-              {post.data.image ? (
-                <img src={post.data.image} alt={post.data.title} loading="lazy" />
-              ) : (
-                <img src={`/assets/images/abstract-${index % 6}.jpg`} alt={post.data.title} loading="lazy" />
-              )}
-            </div>
-            <div class="post-info">
-              {(() => {
-                const d = new Date(post.data.date);
-                if (isNaN(d.getTime())) return null;
-                return (
-                  <time datetime={d.toISOString()}>
-                    {d.toLocaleDateString(lang === "en" ? "en-US" : "vi-VN", { year: "numeric", month: "2-digit", day: "2-digit" })}
-                  </time>
-                );
-              })()}
-              <h3>{post.data.title}</h3>
-              {post.data.description && <p>{post.data.description.length > 120 ? post.data.description.substring(0, 120) + "..." : post.data.description}</p>}
-              <div class="post-tags">
-                {post.data.categories && post.data.categories.filter((cat: any) => !["vi", "en", "jekyll"].includes(cat)).map((cat: any) => (
-                  <span class="post-tag">#{cat}</span>
-                ))}
-              </div>
-            </div>
-          </a>
-        );
-      })}
-    </div>
-
-    {page.lastPage > 1 && (
-      <div class="pagination">
-        {prevHref ? (
-          <a href={prevHref} class="page-btn prev">
-            <span class="page-btn-arrow" aria-hidden="true">«</span>
-            {lang === "en" ? "Previous" : "Trang trước"}
-          </a>
-        ) : (
-          <span class="page-btn prev disabled">
-            <span class="page-btn-arrow" aria-hidden="true">«</span>
-            {lang === "en" ? "Previous" : "Trang trước"}
-          </span>
-        )}
-
-        <span class="page-num">
-          {lang === "en" ? "Page" : "Trang"} {page.currentPage} / {page.lastPage}
-        </span>
-
-        {page.url.next ? (
-          <a href={page.url.next} class="page-btn next">
-            {lang === "en" ? "Next" : "Trang sau"}
-            <span class="page-btn-arrow" aria-hidden="true">»</span>
-          </a>
-        ) : (
-          <span class="page-btn next disabled">
-            {lang === "en" ? "Next" : "Trang sau"}
-            <span class="page-btn-arrow" aria-hidden="true">»</span>
-          </span>
-        )}
-      </div>
-    )}
+  <!-- ═══ Category Grid ═══ -->
+  <section class="category-grid" id="category-grid">
+    {sections.map((sec) => (
+      <CategoryCard
+        lang={lang}
+        id={sec.id}
+        label={sec.label}
+        icon={sec.icon}
+        viewAllHref={sec.viewAllHref}
+        latest={sec.latest}
+        older={sec.older}
+        totalCount={sec.totalCount}
+      />
+    ))}
   </section>
 </div>

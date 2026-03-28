@@ -50,7 +50,8 @@ const otherLangHref = langSwitcherHrefProp ?? defaultOtherLangHref;
         </div>
       </div>
     </div>
-    <nav class="site-nav">
+    <div class="header-end">
+      <nav class="site-nav" id="site-nav">
       <a class="page-link" href={basePath}><span class="material-symbols-rounded">home</span> {currentLocale === 'en' ? 'Home' : 'Trang chủ'}</a>
       <a class="page-link" href={aboutPath}><span class="material-symbols-rounded">article</span> {currentLocale === 'en' ? 'About' : 'Giới thiệu'}</a>
       <a class="page-link" href={categoryPath}><span class="material-symbols-rounded">category</span> {currentLocale === 'en' ? 'Categories' : 'Chủ đề'}</a>
@@ -61,27 +62,64 @@ const otherLangHref = langSwitcherHrefProp ?? defaultOtherLangHref;
       ) : (
         <a class="page-link lang-switcher" href={otherLangHref} title="Switch to English"><span class="material-symbols-rounded">language</span> EN</a>
       )}
-      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-        <span class="material-symbols-rounded icon-light">light_mode</span>
-        <span class="material-symbols-rounded icon-dark">dark_mode</span>
-      </button>
-    </nav>
+      </nav>
+      <div class="header-right">
+        <button
+          type="button"
+          class="hamburger"
+          id="hamburger-toggle"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+          aria-controls="site-nav"
+        >
+          <span class="material-symbols-rounded hamburger__icon-open">menu</span>
+          <span class="material-symbols-rounded hamburger__icon-close">close</span>
+        </button>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <span class="material-symbols-rounded icon-light">light_mode</span>
+          <span class="material-symbols-rounded icon-dark">dark_mode</span>
+        </button>
+      </div>
+    </div>
   </div>
 </header>
 
 <script>
   (function() {
+    // Theme toggle
     var btn = document.getElementById('theme-toggle');
-    if (!btn) return;
-    btn.addEventListener('click', function() {
-      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      if (isDark) {
-        document.documentElement.removeAttribute('data-theme');
-        localStorage.setItem('theme', 'light');
-      } else {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-      }
-    });
+    if (btn) {
+      btn.addEventListener('click', function() {
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+          document.documentElement.removeAttribute('data-theme');
+          localStorage.setItem('theme', 'light');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem('theme', 'dark');
+        }
+      });
+    }
+
+    // Hamburger toggle
+    var hamburger = document.getElementById('hamburger-toggle');
+    var nav = document.getElementById('site-nav');
+    if (hamburger && nav) {
+      const navEl = nav;
+      const toggleEl = hamburger;
+      toggleEl.addEventListener('click', function() {
+        var isOpen = navEl.classList.toggle('site-nav--open');
+        toggleEl.classList.toggle('hamburger--active', isOpen);
+        toggleEl.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      navEl.querySelectorAll('.page-link').forEach(function(link) {
+        link.addEventListener('click', function() {
+          navEl.classList.remove('site-nav--open');
+          toggleEl.classList.remove('hamburger--active');
+          toggleEl.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
   })();
 </script>

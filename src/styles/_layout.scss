@@ -6,6 +6,8 @@
 
 // Header
 .header {
+  position: relative;
+  z-index: 50;
   border-bottom: 3px solid var(--color-text);
   padding: 1.25rem 0;
   background: var(--color-bg);
@@ -14,6 +16,20 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .header-end {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   .site-brand {
@@ -134,6 +150,50 @@
     }
   }
 
+  // Hamburger (hidden on wide viewports; shown in @include media-query below)
+  .hamburger {
+    display: none;
+    background: var(--color-header-nav-toggle-bg);
+    border: 2px solid var(--color-text);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    padding: 0.35rem;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+    box-shadow: var(--shadow-block-sm);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+
+    .material-symbols-rounded {
+      font-size: 1.25rem;
+    }
+
+    .hamburger__icon-close {
+      display: none;
+    }
+
+    &.hamburger--active {
+      .hamburger__icon-open {
+        display: none;
+      }
+
+      .hamburger__icon-close {
+        display: inline;
+      }
+    }
+
+    &:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow-block-hover);
+      background: var(--color-header-nav-link-hover-bg);
+    }
+
+    &:active {
+      transform: translate(2px, 2px);
+      box-shadow: none;
+    }
+  }
+
   // Theme toggle
   .theme-toggle {
     background: var(--color-header-nav-toggle-bg);
@@ -212,18 +272,53 @@
     padding: 1rem 0;
 
     .wrapper {
-      flex-direction: column;
-      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: flex-start;
     }
 
     .site-brand {
-      justify-content: center;
+      flex: 1;
+      min-width: 0;
+    }
+  }
+}
+
+// Hamburger + slide-down nav for mobile and narrow viewports (nav strip hidden until toggled)
+@include media-query($on-laptop) {
+  .header {
+    .hamburger {
+      display: inline-flex;
     }
 
     .site-nav {
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      justify-content: center;
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      margin-top: 0;
+      padding: 0.75rem 1rem 1rem;
+      flex-direction: column;
+      align-items: stretch;
+      flex-wrap: nowrap;
+      gap: 0.35rem;
+      border-radius: 0;
+      border-left: none;
+      border-right: none;
+      border-bottom: 3px solid var(--color-text);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+      a {
+        justify-content: flex-start;
+      }
+
+      &.site-nav--open {
+        display: flex;
+      }
     }
+  }
+
+  html[data-theme="dark"] .header .site-nav {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
   }
 }

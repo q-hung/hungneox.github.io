@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HomePage from '../../components/HomePage.astro';
+import { getCategorizedHomePage } from '../../lib/home';
 
 export async function getStaticPaths({ paginate }: any) {
   const allPosts = await getCollection('blog', ({ data }) => data.published !== false);
@@ -28,9 +29,9 @@ export async function getStaticPaths({ paginate }: any) {
 }
 
 const { lang } = Astro.params;
-const { page } = Astro.props;
 const title = lang === 'en' ? 'Home' : 'Trang chủ';
+const home = await getCategorizedHomePage(lang as 'vi' | 'en');
 ---
 <BaseLayout title={title}>
-  <HomePage lang={lang as 'vi' | 'en'} page={page} />
+  <HomePage lang={lang as 'vi' | 'en'} home={home} />
 </BaseLayout>

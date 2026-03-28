@@ -1,10 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HomePage from "../components/HomePage.astro";
-import { getEnHomePageOne } from "../lib/home";
+import { getCategorizedHomePage } from "../lib/home";
 
-const page = await getEnHomePageOne();
+const home = await getCategorizedHomePage("en");
 ---
 <BaseLayout title="Home">
-  <HomePage lang="en" page={page} />
+  <HomePage lang="en" home={home} />
 </BaseLayout>

@@ -489,6 +489,19 @@ html[data-theme="dark"] .toc-author {
   }
 }
 
+.page-about .post-header {
+  margin-bottom: 0;
+}
+
+.page-about .post-content {
+  border-top: 1px solid rgba(26, 16, 12, 0.1);
+  padding-top: 1.35rem;
+}
+
+html[data-theme="dark"] .page-about .post-content {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
 .category-index-list {
   list-style: none;
   margin: 0;

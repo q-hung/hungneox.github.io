@@ -24,7 +24,7 @@ You don’t really need to understand all mathematics concepts in order to learn
 
 ### Pipe
 
-In **fp-ts** pipe is a function, but in pure functional programming language (like Haskell) it’s an operator. Javascript also has a proposal for it (see [`Pipe Operator (|>) for JavaScript`](https://github.com/tc39/proposal-pipeline-operator))
+In **fp-ts** pipe is a function, but in pure functional programming language (like Haskell) it’s an operator. Javascript also has a proposal for it (see [Pipe Operator (|>) for JavaScript](https://github.com/tc39/proposal-pipeline-operator))
 
 It’s the basic building block of fp-ts, you can use [pipe](https://gcanti.github.io/fp-ts/modules/function.ts.html#pipe)() to chain the sequence of functions from left to right
 

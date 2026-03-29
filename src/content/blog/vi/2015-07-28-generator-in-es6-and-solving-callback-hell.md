@@ -1,29 +1,29 @@
 ---
 layout: post
-title: "Generator in ES6 and solving callback hell"
+title: "Generator trong ES6 và giải quyết callback hell"
 date: 2015-07-18 3:45 AM
 categories: [programming]
 author: hungneox
-description: What is Generator in ES6, its basic usage and how to use it to solve callback hell?
+description: "Generator trong ES6 là gì, cách dùng cơ bản và cách dùng cùng Promise để tránh callback hell."
 image: /assets/posts/generator-in-es6-and-solving-callback-hell/ecmascript6.png
 comments: true
 ---
 
 ![ECMAScript6](/assets/posts/generator-in-es6-and-solving-callback-hell/ecmascript6.png)
 
-# 1. What is `Generator`?
+# 1. Generator là gì?
 
-Generally, `Generator` is a object returned by a generator function that behaves like an `Iterator`. In Javascript, according to Mozilla:
+Nhìn chung, `Generator` là một object do hàm generator trả về, nó hoạt động giống một `Iterator`. Trong JavaScript, theo Mozilla:
 
->The Generator object is returned by a generator function and it conforms to both the iterator and the Iterable protocol.
+> The Generator object is returned by a generator function and it conforms to both the iterator and the Iterable protocol.
 
-While a normal function will return a value using `return` keyword, `Generator` uses `yield` keyword to generate a *rule to create values* rather than the actual values. In other words, it is the lazily way to generate values.
+Trong khi hàm bình thường trả về giá trị bằng từ khóa `return`, thì `Generator` dùng `yield` để mô tả một *quy tắc sinh giá trị* thay vì tính hết mọi thứ ngay từ đầu. Nói cách khác, đây là cách sinh giá trị theo kiểu trì hoãn (lazy).
 
-The obvious benefit of `Generator` is improving the performance and help us to organize source code better. This is a new feature in ES6, but it has been implemented in other languages (e.g.Python, C# etc) for a long time.
+Lợi ích rõ nhất là hiệu năng tốt hơn khi code được thực thi trì hoãn, và giúp chúng ta tổ chức mã nguồn rõ ràng hơn. Đây là tính năng mới trong ES6, nhưng ý tưởng tương tự đã có từ lâu ở các ngôn ngữ khác (ví dụ: Python, C#).
 
-# 2. Syntax
+# 2. Cú pháp
 
-To define a generator function we can use `GeneratorFunction` constructor and `function* expression` 
+Để khai báo generator function ta có thể dùng constructor `GeneratorFunction` và biểu thức `function*`
 
 ```javascript
 function* name([param[, param[, ... param]]]) {
@@ -31,21 +31,21 @@ function* name([param[, param[, ... param]]]) {
 }
 ```
 - `name`
-   The function name.
+   Tên hàm.
 - `param`
-   The name of an argument to be passed to the function. A function can have up to 255 arguments.
+   Tên tham số truyền vào hàm. Một hàm có thể có tối đa 255 tham số.
 - `statements`
-   The statements comprising the body of the function.
+   Các câu lệnh trong thân hàm.
 
-Futhermore, we can also using [`yield*](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield*)` to yield another generator, and note that:
+Ngoài ra, ta còn có thể dùng [`yield*`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield*) để yield một generator khác, và lưu ý rằng:
 
->The next() method also accepts a value which can be used to modify the internal state of the generator. A value passed to next() will be treated as the result of the last yield expression that paused the generator.
+> The next() method also accepts a value which can be used to modify the internal state of the generator. A value passed to next() will be treated as the result of the last yield expression that paused the generator.
 
-# 3. `Generator` usage
+# 3. Cách dùng `Generator`
 
-## 3.1 Simple example
+## 3.1 Ví dụ đơn giản
 
-In this simple example, instead of creating an array to store all odd numbers, we just simply create `a rule` for generating them.
+Trong ví dụ đơn giản này, thay vì tạo một mảng chứa hết các số lẻ, ta chỉ cần tạo một `quy tắc` để sinh chúng.
 
 ```javascript
 function* oddNumberGenerator(){
@@ -61,9 +61,9 @@ console.log(gen.next().value); // 3
 console.log(gen.next().value); // 5
 console.log(gen.next().value); // 7
 ```
-## 3.2 What is `callback hell` and how to solve it?
+## 3.2 "Callback hell" là gì và xử lý thế nào?
 
-First, let's take a look at this **callback hell** or **pyramid of doom**
+Trước hết, hãy xem **callback hell** hay **kim tự tháp thảm họa** (*pyramid of doom*)
 
 ```javascript
 var $status = $('#status');
@@ -103,7 +103,7 @@ $.ajax({
   }
 });
 ```
-How can we make it better? Using `Promise` is an answer. Obviously, the code looks more tidy and easy to read.
+Làm sao cải thiện chất lượng code hơn? Dùng `Promise` là một câu trả lời. Rõ ràng là đoạn mã trông gọn và dễ đọc hơn.
 
 ```javascript
 var $status = $('#status');
@@ -121,7 +121,7 @@ function errorHandler(xhr, status, error){
    $status.append('<li>error:'+error.toString()+'</li>');
 }
 ```
-`Promise` (technically in this case: `jQuery Promise`) is a good way to prevent callback hell. But you know what? `Generator` is more awesome. This example below uses [bluebird](https://github.com/petkaantonov/bluebird) `Promise.coroutine` to return a function that can use `yield` to yield promise.
+`Promise` (trong trường hợp này cụ thể là `jQuery Promise`) là cách hay để tránh callback hell. `Generator` còn có thể làm bước tiếp theo dễ đọc hơn nữa. Ví dụ dưới đây dùng [`bluebird`](https://github.com/petkaantonov/bluebird) với `Promise.coroutine` để trả về một hàm có thể `yield` từng promise.
 
 ```javascript
 var $status = $('#status');
@@ -144,14 +144,19 @@ Promise.coroutine(function* () {
   //handle errors on any events
 })
 ```
-# 4. Conlusion
-`Generator` is a new feature in ECMAScript 6 and it is a convenient way to control iteration behavior of a loop. Moreover, it also help to solve the callback hell in your existing code. Combine `Promise` and `Generator` effectively can help you control the asynchronous flow better and preventing callback hell in your code. It is more powerful and useful than just only make your code more concise and tidy. Using it wisely can aslo help you to improve your code performance compare to tradditional `loop`.
 
-Full code is here: [http://plnkr.co/edit/DFowxQiDYCmxzhm3RvVB?p=info](http://plnkr.co/edit/DFowxQiDYCmxzhm3RvVB?p=info)
+# 4. Kết luận
 
-# References
-1. [Mozilla Developer Network: Iterators and generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)
+`Generator` là tính năng mới trong ECMAScript 6 và là cách tiện để điều khiển hành vi lặp của vòng lặp. Ngoài ra, nó còn giúp xử lý callback hell trong mã hiện có. Kết hợp `Promise` và `Generator` hợp lý sẽ giúp bạn kiểm soát luồng bất đồng bộ tốt hơn và hạn chế callback hell. Cách dùng đúng còn giúp mã gọn và dễ theo dõi hơn so với chỉ dùng vòng lặp truyền thống.
 
-2. [Mozilla Developer Network: function&#42;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*)
+Toàn bộ mã nguồn: [http://plnkr.co/edit/DFowxQiDYCmxzhm3RvVB?p=info](http://plnkr.co/edit/DFowxQiDYCmxzhm3RvVB?p=info)
 
-3. [Are you bad, good, better or best with Async JS? JS Tutorial: Callbacks, Promises, Generators](https://www.youtube.com/watch?v=obaSQBBWZLk)
+# Tài liệu tham khảo
+
+1. [Iterators and generators — MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)
+2. [Generator function (`function*`) — MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*)
+3. [`yield` — MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield)
+4. [Using promises — MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises)
+5. [`async function` — MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
+6. [`Promise.coroutine` — Bluebird](https://bluebirdjs.com/docs/api/promise.coroutine.html)
+7. [Callbacks, promises, and generators (video)](https://www.youtube.com/watch?v=obaSQBBWZLk)

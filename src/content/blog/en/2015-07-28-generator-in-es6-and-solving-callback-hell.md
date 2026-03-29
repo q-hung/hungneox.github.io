@@ -13,9 +13,9 @@ comments: true
 
 # 1. What is `Generator`?
 
-Generally, a `Generator` is an object returned by a generator function; it behaves like an `Iterator`. In JavaScript, according to Mozilla:
+Generally, a `Generator` is an object returned by a generator function, it behaves like an `Iterator`. In JavaScript, according to Mozilla:
 
->The Generator object is returned by a generator function and it conforms to both the iterator and the Iterable protocol.
+> The Generator object is returned by a generator function and it conforms to both the iterator and the Iterable protocol.
 
 While a normal function returns a value with the `return` keyword, a `Generator` uses `yield` to describe a *rule for producing values* rather than computing everything up front. In other words, it is a lazy way to generate values.
 
@@ -39,7 +39,7 @@ function* name([param[, param[, ... param]]]) {
 
 Futhermore, we can also using [`yield*](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield*)` to yield another generator, and note that:
 
->The next() method also accepts a value which can be used to modify the internal state of the generator. A value passed to next() will be treated as the result of the last yield expression that paused the generator.
+> The next() method also accepts a value which can be used to modify the internal state of the generator. A value passed to next() will be treated as the result of the last yield expression that paused the generator.
 
 # 3. Generator usage
 
@@ -145,7 +145,7 @@ Promise.coroutine(function* () {
 })
 ```
 
-**Note (ES2017+):** `async`/`await` is built-in syntax for the same idea—sequential async code that reads like straight-line control flow. In 2015, helpers such as Bluebird’s `Promise.coroutine` were an important bridge until that landed in the language.
+**Note (ES2017+):** `async`/`await` is built-in syntax for the same idea: sequential async code that reads like straight-line control flow. In 2015, helpers such as Bluebird’s `Promise.coroutine` were an important bridge until that landed in the language.
 
 # 4. Conlusion
 `Generator` is a new feature in ECMAScript 6 and it is a convenient way to control iteration behavior of a loop. Moreover, it also help to solve the callback hell in your existing code. Combine `Promise` and `Generator` effectively can help you control the asynchronous flow better and preventing callback hell in your code. It is more powerful and useful than just only make your code more concise and tidy. Using it wisely can aslo help you to improve your code performance compare to tradditional `loop`.

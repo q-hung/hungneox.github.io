@@ -13,14 +13,14 @@ published: true
 
 # The idea
 
-![Ai Human Interaction](/assets/posts/what-is-exactly-mcp/ai-touch.jpg)
+![AI Human Interaction](/assets/posts/what-is-exactly-mcp/ai-touch.jpg)
 
 In short, the **Model Context Protocol (MCP)** is an open standard introduced by Anthropic. It defines a **shared protocol** so assistants and tools can exchange context in a consistent way. Conceptually it is straightforward: publish the specification, ship open-source reference implementations, and let the ecosystem build on one integration model instead of dozens of ad hoc ones.
 
 Before MCP, connecting a model to each product or datastore usually meant **custom glue code**—one-off integrations for services such as Google Drive, GitHub, Slack, or your own databases. MCP replaces that sprawl with a **single, standardized way** for an assistant (for example Claude) to discover capabilities, invoke tools, and read resources across those backends.
 
 
-# How does it works?
+# How does it work?
 
 - **MCP Host:** The application that embeds the assistant and owns the session—e.g. Claude Desktop, Cursor, or another IDE. The host runs one or more MCP clients, decides when to use tools or read resources, and wires model output (such as tool calls) to those clients. It is not only a “data requester”; it orchestrates the whole flow.
 - **MCP Client:** A module inside the host that maintains a connection to a **single** MCP server (the usual pattern is one client per server). It speaks the MCP protocol—typically [JSON-RPC 2.0](https://www.jsonrpc.org/specification) messages over the [stdio](https://modelcontextprotocol.io/specification/2024-11-05/basic/transports#stdio) or [HTTP with SSE](https://modelcontextprotocol.io/specification/2024-11-05/basic/transports#http-with-sse) transports defined in the [MCP spec](https://modelcontextprotocol.io/specification/2024-11-05/basic/transports). It sends requests from the host to the server and returns structured results. The client runs in your local host process even when the model itself is hosted remotely; it formats protocol messages and handles the session to the server on the host’s behalf.
@@ -98,7 +98,7 @@ if __name__ == "__main__":
 Point your MCP host at this script (same pattern as other stdio servers: run `python /path/to/weather_server.py`). The assistant can then call `current_weather` when a user asks for the weather.
 
 
-```json
+```jsonc
 //  .cursor/mcp.json
 {
   "mcpServers": {

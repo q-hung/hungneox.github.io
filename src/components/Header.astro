@@ -26,7 +26,6 @@ const isHomeActive =
 const isAboutActive = path === aboutNorm;
 const isCategoryActive =
   path === categoryNorm || path.startsWith(`${categoryNorm}/`);
-const isRssActive = path === "/feed.xml";
 const otherLocale = currentLocale === "en" ? "vi" : "en";
 let defaultOtherLangHref: string;
 if (segments[0] === "vi" || segments[0] === "en") {
@@ -68,7 +67,6 @@ const otherLangHref = langSwitcherHrefProp ?? defaultOtherLangHref;
       <a class="page-link" href={basePath} aria-current={isHomeActive ? "page" : undefined}><span class="material-symbols-rounded">home</span> {currentLocale === 'en' ? 'Home' : 'Trang chủ'}</a>
       <a class="page-link" href={aboutPath} aria-current={isAboutActive ? "page" : undefined}><span class="material-symbols-rounded">article</span> {currentLocale === 'en' ? 'About' : 'Giới thiệu'}</a>
       <a class="page-link" href={categoryPath} aria-current={isCategoryActive ? "page" : undefined}><span class="material-symbols-rounded">category</span> {currentLocale === 'en' ? 'Categories' : 'Chủ đề'}</a>
-      <a class="page-link" href="/feed.xml" aria-current={isRssActive ? "page" : undefined}><span class="material-symbols-rounded">rss_feed</span> RSS</a>
       <!-- Language Switcher -->
       {currentLocale === 'en' ? (
         <a class="page-link lang-switcher" href={otherLangHref} title="Chuyển sang Tiếng Việt"><span class="material-symbols-rounded">language</span> VI</a>

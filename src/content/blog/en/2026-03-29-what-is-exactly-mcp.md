@@ -4,7 +4,7 @@ title: "What Exactly Is MCP? The Model Context Protocol in Brief"
 date: 2026-03-29 21:00
 categories: [programming]
 author: hungneox
-tags: [programming]
+tags: [ai, mcp]
 description: "A concise introduction to the Model Context Protocol (MCP): why it exists, and how hosts, clients, servers, and transports connect assistants to tools and data."
 image: /assets/posts/what-is-exactly-mcp/ai-touch.jpg
 comments: true

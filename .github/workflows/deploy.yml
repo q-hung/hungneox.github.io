@@ -26,6 +26,7 @@ jobs:
           node-version: "22"
       - name: Install dependencies
         run: npm ci
+      # Needs repository variable PUBLIC_DISQUS_SHORTNAME, or use src/config/disqus.ts fallback.
       - name: Build with Astro
         env:
           PUBLIC_DISQUS_SHORTNAME: ${{ vars.PUBLIC_DISQUS_SHORTNAME }}

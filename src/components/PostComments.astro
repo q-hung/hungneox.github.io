@@ -1,6 +1,8 @@
 ---
+import { DISQUS_SHORTNAME_FALLBACK } from "../config/disqus";
+
 /**
- * Disqus — set `PUBLIC_DISQUS_SHORTNAME` in `.env` (see `.env.example`).
+ * Disqus — `PUBLIC_DISQUS_SHORTNAME` at build time, or `DISQUS_SHORTNAME_FALLBACK` in `src/config/disqus.ts`.
  */
 export interface Props {
   enabled: boolean;
@@ -11,7 +13,11 @@ export interface Props {
 
 const { enabled, pageUrl, pageIdentifier, title } = Astro.props;
 
-const disqusName = (import.meta.env.PUBLIC_DISQUS_SHORTNAME as string | undefined)?.trim();
+const disqusName = (
+  import.meta.env.PUBLIC_DISQUS_SHORTNAME ||
+  DISQUS_SHORTNAME_FALLBACK ||
+  ""
+).trim();
 
 const show = Boolean(enabled && disqusName);
 ---

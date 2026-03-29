@@ -1,8 +1,8 @@
 ---
-import HeadSetup from '../components/HeadSetup.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import '../styles/main.scss';
+import HeadSetup from "../components/HeadSetup.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/main.scss";
 
 export interface Props {
   title?: string;
@@ -15,11 +15,19 @@ export interface Props {
   /** Overrides header language switcher (e.g. blog post with different slug per locale) */
   langSwitcherHref?: string;
 }
-const { title, description, image, tags, url, alternateLocales, langSwitcherHref } =
-  Astro.props;
-const lang = Astro.currentLocale || 'en';
+const {
+  title,
+  description,
+  image,
+  tags,
+  url,
+  alternateLocales,
+  langSwitcherHref,
+} = Astro.props;
+const lang = Astro.currentLocale || "en";
 ---
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang={lang}>
   <head>
     <HeadSetup
@@ -38,6 +46,6 @@ const lang = Astro.currentLocale || 'en';
         <slot />
       </div>
     </div>
-    <Footer />
+    <Footer lang={lang} />
   </body>
 </html>

@@ -16,3 +16,5 @@ vendor/
 .c9/
 .DS_Store
 *.swp
+build_err.log
+

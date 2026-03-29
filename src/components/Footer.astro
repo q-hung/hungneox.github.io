@@ -1,6 +1,26 @@
+---
+export interface Props {
+  lang?: string;
+}
+
+const { lang = 'en' } = Astro.props;
+const rssAria = lang === 'vi' ? 'Nguồn cấp RSS' : 'RSS feed';
+---
 <footer class="footer">
-  <div class="wrapper">
-    &copy; 2016&ndash;{new Date().getFullYear()} Q-Hung &middot; Built with <a href="https://astro.build">Astro</a>
+  <div class="wrapper footer__inner">
+    <span class="footer__credit">
+      &copy; 2016&ndash;{new Date().getFullYear()} Q-Hung &middot; Built with{' '}
+      <a href="https://astro.build">Astro</a>
+    </span>
+    <span class="footer__sep" aria-hidden="true">&middot;</span>
+    <a
+      href="/rss.xml"
+      class="footer-rss"
+      aria-label={rssAria}
+    >
+      <span class="material-symbols-rounded footer-rss__icon" aria-hidden="true">rss_feed</span>
+      RSS
+    </a>
   </div>
 </footer>
 <script>

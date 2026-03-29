@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import PostComments from "../components/PostComments.astro";
 import { homepageSectionIdFromCategories } from "../lib/home";
 
 const { frontmatter } = Astro.props;
@@ -38,6 +39,10 @@ const postSectionId = homepageSectionIdFromCategories(frontmatter.categories);
 const postRibbonSectionClass = postSectionId
   ? `post-ribbon--${postSectionId}`
   : undefined;
+
+const canonicalPageUrl = new URL(Astro.url.pathname, site).href;
+const commentPageId = Astro.url.pathname.replace(/\/$/, "") || "/";
+const commentsEnabled = frontmatter.comments !== false;
 ---
 
 <BaseLayout
@@ -53,9 +58,7 @@ const postRibbonSectionClass = postSectionId
       <div class="post-card__window">
         <div class="post">
           <header class="post-header">
-            <div
-              class:list={["post-header__ribbon", postRibbonSectionClass]}
-            >
+            <div class:list={["post-header__ribbon", postRibbonSectionClass]}>
               <span
                 class="material-symbols-rounded post-header__ribbon-icon"
                 aria-hidden="true">article</span
@@ -129,6 +132,12 @@ const postRibbonSectionClass = postSectionId
           >
             <slot />
           </article>
+          <PostComments
+            enabled={commentsEnabled}
+            pageUrl={canonicalPageUrl}
+            pageIdentifier={commentPageId}
+            title={frontmatter.title}
+          />
         </div>
       </div>
     </div>

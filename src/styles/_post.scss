@@ -666,9 +666,13 @@ html[data-theme="dark"] .post-header .post-translation {
   }
 
   .post-comments {
-    padding-top: 2rem;
+    padding: 2rem 1.25rem 1.35rem;
     margin-top: 2.5rem;
     border-top: 3px solid var(--color-text);
+  }
+
+  #disqus_thread {
+    max-width: 100%;
   }
 }
 

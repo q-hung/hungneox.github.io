@@ -1,0 +1,51 @@
+---
+/**
+ * Disqus — set `PUBLIC_DISQUS_SHORTNAME` in `.env` (see `.env.example`).
+ */
+export interface Props {
+  enabled: boolean;
+  pageUrl: string;
+  pageIdentifier: string;
+  title: string;
+}
+
+const { enabled, pageUrl, pageIdentifier, title } = Astro.props;
+
+const disqusName = (import.meta.env.PUBLIC_DISQUS_SHORTNAME as string | undefined)?.trim();
+
+const show = Boolean(enabled && disqusName);
+---
+
+{
+  show && disqusName && (
+    <div class="post-comments">
+      <div id="disqus_thread" />
+      <script
+        is:inline
+        define:vars={{
+          disqusShortname: disqusName,
+          pageUrl,
+          pageIdentifier,
+          title,
+        }}
+      >
+        window.disqus_config = function () {
+          this.page.url = pageUrl;
+          this.page.identifier = pageIdentifier;
+          this.page.title = title;
+        };
+        (function () {
+          var d = document,
+            s = d.createElement("script");
+          s.src = "https://" + disqusShortname + ".disqus.com/embed.js";
+          s.setAttribute("data-timestamp", String(+new Date()));
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+      <noscript>
+        Please enable JavaScript to view the comments powered by{" "}
+        <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+      </noscript>
+    </div>
+  )
+}

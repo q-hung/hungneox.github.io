@@ -12,6 +12,11 @@ node_modules/
 vendor/
 .sass-cache/
 
+# Local env (PUBLIC_* for Disqus / Utterances at build time)
+.env
+.env.*
+!.env.example
+
 # IDE & OS
 .c9/
 .DS_Store

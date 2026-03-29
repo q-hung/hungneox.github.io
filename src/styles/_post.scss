@@ -673,7 +673,7 @@ html[data-theme="dark"] .post-header .post-translation {
 }
 
 // ── Responsive: hide TOC sidebar on small screens ──
-@include media-query($on-laptop) {
+@include media-query($on-tablet) {
   .post-layout {
     grid-template-columns: 1fr;
   }

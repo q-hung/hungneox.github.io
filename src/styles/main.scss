@@ -15,6 +15,7 @@ $content-width: 960px;
 
 $on-palm: 600px;
 $on-laptop: 800px;
+$on-tablet: 1024px;
 
 @mixin media-query($device) {
   @media screen and (max-width: $device) {

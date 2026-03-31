@@ -5,6 +5,7 @@ import { getCategorizedHomePage } from "../../lib/home";
 
 const home = await getCategorizedHomePage("en");
 ---
+
 <BaseLayout title="Home" url="/">
   <HomePage lang="en" home={home} />
 </BaseLayout>

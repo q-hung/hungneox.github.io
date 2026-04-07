@@ -92,6 +92,14 @@ export const HOMEPAGE_SECTIONS = [
     icon: "code",
   },
   {
+    id: "ai",
+    label: { en: "AI", vi: "Trí tuệ nhân tạo" },
+    shortLabel: { en: "AI", vi: "AI" },
+    matchCategories: ["ai", "llm", "machine-learning"],
+    viewAllSlug: "ai",
+    icon: "smart_toy",
+  },
+  {
     id: "security",
     label: { en: "Security", vi: "Bảo mật" },
     shortLabel: { en: "Security", vi: "Bảo mật" },

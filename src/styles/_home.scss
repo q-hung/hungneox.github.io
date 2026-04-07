@@ -580,6 +580,17 @@
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
   }
 
+  .category-card--ai .category-card__ribbon {
+    background-color: #716396;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+
+  .category-card--ai .category-card__ribbon-icon,
+  .category-card--ai .category-card__title {
+    color: #ece8dc;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+  }
+
   .category-card__sheet {
     position: relative;
     flex: 1;

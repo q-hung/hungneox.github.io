@@ -2,7 +2,7 @@
 layout: post
 title: "Introduction to Langchain"
 date: 2026-04-06 21:00
-categories: [ai, llm, programming]
+categories: [ai, llm]
 author: hungneox
 tags: [ai, llm, langchain]
 description: "Introduction to Langchain"

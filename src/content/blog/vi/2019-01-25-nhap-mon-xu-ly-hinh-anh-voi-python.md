@@ -35,15 +35,53 @@ Hiện tại, thì một card màn hình điển hình dùng 24 bits để lưu 
 
 ## Sự khác biệt giữa in truyền thống và màn hình điện tử
 
-In Offset là một trong những kỹ thuật phổ biến trong in ấn. Nó được áp dụng để in tạp chí, sách báo, brochures vân vân và mây mây. Cách in này đòi hỏi hình ảnh phải được chuyển hoặc tạo ở dạng sử dụng mô hình màu CMYK. Màu sắc của ấn phẩm được tạo ra bằng các in chồng các màu mực, mà khi kết hợp lại nó sẽ hình thành các màu như sau:
+In Offset (hay còn gọi là in thạch bản) là một trong những kỹ thuật in phổ biến nhất trong công nghiệp in ấn hiện đại, được ứng dụng rộng rãi để in tạp chí, sách báo, brochure, bao bì, v.v. Điểm cốt lõi của kỹ thuật này là hình ảnh không được in trực tiếp từ bản in lên giấy, mà thay vào đó được chuyển (offset) qua một trục cao su trung gian trước khi in lên bề mặt giấy — giúp cho chất lượng hình ảnh đồng đều và sắc nét hơn.
+
+Cách in Offset đòi hỏi hình ảnh phải được chuẩn bị ở dạng **CMYK**, vì mỗi màu (Cyan, Magenta, Yellow, Black) tương ứng một bản in (plate) riêng biệt. Các bản in này được sắp xếp theo thứ tự chồng lên nhau trong quá trình in. Màu sắc của ấn phẩm được tạo ra bằng cách in chồng các lớp mực lại với nhau, tạo thành các màu phức hợp:
 
 !["Offset print"](/assets/posts/nhap-mon-xu-ly-hinh-anh/offset.png)
 
+Một khái niệm quan trọng trong in Offset là **halftone screening** — kỹ thuật mô phỏng màu sắc liên tục (continuous tone) bằng các chấm mực nhỏ (dots) có kích thước và mật độ khác nhau. Khi nhìn gần, bạn sẽ thấy các chấm này; nhưng từ khoảng cách bình thường, mắt người tổng hợp chúng thành màu sắc mịn màng.
+
+Điều này dẫn đến một thách thức thực tế: **màu sắc trên màn hình (RGB) và trên giấy in (CMYK) không bao giờ hoàn toàn giống nhau**. Gam màu (color gamut) của RGB rộng hơn CMYK, nghĩa là có một số màu sặc sỡ trên màn hình mà mực in không thể tái tạo chính xác. Đây là lý do tại sao trong quy trình thiết kế đồ họa chuyên nghiệp, người ta luôn làm việc trong không gian màu CMYK từ đầu khi sản phẩm cuối cùng là ấn phẩm in, thay vì thiết kế ở RGB rồi mới chuyển đổi — vì việc chuyển đổi muộn có thể gây ra sự sai lệch màu sắc đáng kể.
+
+
 # Xử lý hình ảnh với Python và Pillow
 
-[Pillow](https://pillow.readthedocs.io/en/stable/) là thư viện xử lý ảnh phổ biến nhất trong hệ sinh thái Python. Nó là một nhánh (fork) được duy trì tích cực của thư viện PIL (Python Imaging Library) cũ, với API đơn giản và hỗ trợ đa dạng định dạng ảnh như JPEG, PNG, BMP, GIF, TIFF, v.v.
+Hiểu được sự khác biệt giữa RGB và CMYK giúp bạn đưa ra quyết định đúng ngay từ đầu: ảnh chụp từ máy ảnh hay điện thoại thường ở dạng RGB — phù hợp để hiển thị trên web. Khi cần chuẩn bị tài liệu cho in ấn, bạn sẽ phải chuyển đổi sang CMYK. Thư viện [Pillow](https://pillow.readthedocs.io/en/stable/) cho phép bạn thực hiện toàn bộ điều này trong Python: đọc ảnh, kiểm tra không gian màu, chuyển đổi giữa các mode, và xuất ra đúng định dạng cần thiết — tất cả chỉ với vài dòng code.
+
+## Cấu trúc của một đối tượng PIL Image
+
+Khi bạn gọi `Image.open()`, Pillow trả về một đối tượng `Image`. Về bản chất, đây là một wrapper bao quanh dữ liệu pixel thô (raw pixel data) của ảnh, kèm theo các metadata mô tả ảnh đó. Hiểu rõ cấu trúc này giúp bạn biết mình đang làm việc với dữ liệu gì.
+
+```
+Image Object
+├── format    → định dạng file gốc ("JPEG", "PNG", "GIF", ...)
+├── mode      → không gian màu ("RGB", "RGBA", "L", "CMYK", ...)
+├── size      → (width, height) tính bằng pixel
+├── info      → dict metadata phụ (DPI, ICC profile, EXIF, ...)
+└── pixel data → ma trận 2D các giá trị màu
+                 RGB:  mỗi pixel = (R, G, B)         — 3 giá trị 0–255
+                 RGBA: mỗi pixel = (R, G, B, A)      — A là độ trong suốt
+                 L:    mỗi pixel = int               — 0 (đen) → 255 (trắng)
+                 CMYK: mỗi pixel = (C, M, Y, K)      — 4 giá trị 0–255
+```
+
+Dữ liệu pixel được lưu dưới dạng chuỗi bytes nội bộ, nhưng Pillow cung cấp API để truy cập chúng theo từng pixel hoặc theo từng hàng/cột. Khi bạn chuyển ảnh sang NumPy array (`np.array(img)`), bạn sẽ thấy rõ cấu trúc này nhất: array có shape `(height, width, channels)` — ví dụ ảnh RGB 1920×1080 sẽ có shape `(1080, 1920, 3)`.
+
+| Thuộc tính | Kiểu dữ liệu | Ví dụ |
+|---|---|---|
+| `img.format` | `str` hoặc `None` | `"JPEG"`, `"PNG"` |
+| `img.mode` | `str` | `"RGB"`, `"L"`, `"CMYK"` |
+| `img.size` | `tuple(int, int)` | `(1920, 1080)` |
+| `img.width` | `int` | `1920` |
+| `img.height` | `int` | `1080` |
+| `img.info` | `dict` | `{"dpi": (72, 72)}` |
+
+> **Lưu ý**: `format` sẽ là `None` nếu ảnh được tạo trong bộ nhớ (không đọc từ file), ví dụ khi bạn gọi `Image.new()` hoặc `Image.fromarray()`.
 
 ## Cài đặt
+
 
 ```bash
 pip install Pillow

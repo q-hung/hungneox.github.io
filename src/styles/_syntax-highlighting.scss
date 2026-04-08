@@ -13,8 +13,8 @@ pre.shiki {
   font-family: $code-font-family;
   font-size: $code-font-size;
   line-height: 1.65;
-  border: 2px solid var(--color-border);
-  box-shadow: var(--shadow-block-sm);
+  border: 1px solid var(--color-border);
+  box-shadow: none;
 
   code {
     font-family: inherit;
@@ -53,58 +53,58 @@ html[data-theme="dark"] {
 .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
 .highlight, .highlight .w { color: var(--color-text); background-color: var(--color-code-bg); }
-.highlight .err { color: #D0542D; }
+.highlight .err { color: var(--color-link); }
 .highlight .c, .highlight .ch, .highlight .cd, .highlight .cm,
 .highlight .cpf, .highlight .c1, .highlight .cs { color: var(--color-text-secondary); font-style: italic; }
-.highlight .cp { color: #D0542D; font-weight: bold; }
+.highlight .cp { color: var(--color-link); font-weight: bold; }
 .highlight .nt { color: var(--color-accent); }
-.highlight .o, .highlight .ow { color: #D0542D; }
+.highlight .o, .highlight .ow { color: var(--color-link); }
 .highlight .p, .highlight .pi { color: var(--color-text); }
 .highlight .gi { color: var(--color-accent); background-color: rgba(47, 143, 112, 0.12); }
-.highlight .gd { color: #D0542D; background-color: rgba(208, 84, 45, 0.1); }
+.highlight .gd { color: var(--color-link); background-color: rgba(47, 143, 112, 0.1); }
 .highlight .gh { color: var(--color-accent); font-weight: bold; }
-.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv { color: #D0542D; }
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv { color: var(--color-link); }
 .highlight .kc { color: var(--color-accent); }
 .highlight .kt { color: var(--color-accent); }
-.highlight .kd { color: #D0542D; }
+.highlight .kd { color: var(--color-link); }
 .highlight .s, .highlight .sb, .highlight .sc, .highlight .dl,
 .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 { color: var(--color-text-secondary); }
-.highlight .sa { color: #D0542D; }
+.highlight .sa { color: var(--color-link); }
 .highlight .sr { color: var(--color-accent); }
 .highlight .si, .highlight .se { color: var(--color-text-secondary); }
-.highlight .nn, .highlight .nc, .highlight .no { color: #D0542D; }
+.highlight .nn, .highlight .nc, .highlight .no { color: var(--color-link); }
 .highlight .na { color: var(--color-accent); }
 .highlight .m, .highlight .mb, .highlight .mf, .highlight .mh,
 .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx { color: var(--color-accent); }
 .highlight .ss { color: var(--color-accent); }
-.highlight .nf, .highlight .nv { color: #D0542D; }
+.highlight .nf, .highlight .nv { color: var(--color-link); }
 .highlight .nb { color: var(--color-text-secondary); }
 
 html[data-theme="dark"] {
   .highlight, .highlight .w { color: #dce5e2; background-color: var(--color-code-bg); }
-  .highlight .err { color: #f5a080; }
+  .highlight .err { color: #8bedd4; }
   .highlight .c, .highlight .ch, .highlight .cd, .highlight .cm,
   .highlight .cpf, .highlight .c1, .highlight .cs { color: #7a918b; }
-  .highlight .cp { color: #f5a080; }
+  .highlight .cp { color: #8bedd4; }
   .highlight .nt { color: #7ee0c5; }
-  .highlight .o, .highlight .ow { color: #f5a080; }
+  .highlight .o, .highlight .ow { color: #8bedd4; }
   .highlight .p, .highlight .pi { color: #dce5e2; }
   .highlight .gi { color: #7ee0c5; background-color: rgba(94, 212, 180, 0.1); }
-  .highlight .gd { color: #f5a080; background-color: rgba(232, 112, 74, 0.12); }
+  .highlight .gd { color: #8bedd4; background-color: rgba(94, 212, 180, 0.12); }
   .highlight .gh { color: #7ee0c5; }
-  .highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv { color: #f5a080; }
+  .highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv { color: #8bedd4; }
   .highlight .kc, .highlight .kt { color: #7ee0c5; }
-  .highlight .kd { color: #f5a080; }
+  .highlight .kd { color: #8bedd4; }
   .highlight .s, .highlight .sb, .highlight .sc, .highlight .dl,
   .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 { color: #9db5af; }
-  .highlight .sa { color: #f5a080; }
+  .highlight .sa { color: #8bedd4; }
   .highlight .sr { color: #7ee0c5; }
   .highlight .si, .highlight .se { color: #9db5af; }
-  .highlight .nn, .highlight .nc, .highlight .no { color: #f5a080; }
+  .highlight .nn, .highlight .nc, .highlight .no { color: #8bedd4; }
   .highlight .na { color: #7ee0c5; }
   .highlight .m, .highlight .mb, .highlight .mf, .highlight .mh,
   .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx { color: #7ee0c5; }
   .highlight .ss { color: #7ee0c5; }
-  .highlight .nf, .highlight .nv { color: #f5a080; }
+  .highlight .nf, .highlight .nv { color: #8bedd4; }
   .highlight .nb { color: #9db5af; }
 }

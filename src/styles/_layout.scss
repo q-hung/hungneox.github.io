@@ -290,14 +290,14 @@
   padding: 2.5rem 0;
   background: #fff;
   text-align: center;
-  color: var(--color-text-secondary);
-  font-size: $small-font-size;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  color: var(--color-disabled);
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
 
   a {
-    color: var(--color-text-secondary);
+    color: var(--color-disabled);
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 0.15em;
@@ -317,7 +317,7 @@
   }
 
   .footer__sep {
-    color: var(--color-text-secondary);
+    color: var(--color-disabled);
     user-select: none;
   }
 
@@ -326,7 +326,7 @@
     align-items: center;
     gap: 0.2rem;
     text-decoration: none;
-    border: 1px solid var(--color-text-secondary);
+    border: 1px solid var(--color-disabled);
     border-radius: var(--radius-sm);
     padding: 0.2rem 0.55rem 0.2rem 0.4rem;
     text-underline-offset: unset;

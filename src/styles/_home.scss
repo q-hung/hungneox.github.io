@@ -19,20 +19,21 @@
   }
 
   .featured-hub__ribbon {
-    background-color: $hub-retro-orange;
-    color: $hub-retro-cream;
+    background-color: transparent;
+    color: #000;
     text-align: center;
     padding: 0.55rem 1rem;
-    border-bottom: 2px solid $hub-retro-ink;
+    border-bottom: none;
     box-shadow: none;
   }
 
   .featured-hub__ribbon-text {
-    font-size: 0.7rem;
-    font-weight: 800;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+    font-family: inherit;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: none;
+    text-shadow: none;
 
     &::before {
       content: "/ ";
@@ -294,14 +295,14 @@
     }
 
     .featured-hub__ribbon {
-      background-color: rgb(42, 115, 90);
-      color: #fff4e8;
-      border-bottom-color: var(--color-border);
+      background-color: transparent;
+      color: #000;
+      border-bottom-color: transparent;
       box-shadow: none;
     }
 
     .featured-hub__ribbon-text {
-      text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.45);
+      text-shadow: none;
     }
 
     .featured-hub__main {
@@ -332,18 +333,18 @@
       }
 
       &[aria-pressed="true"] {
-        background: rgb(42, 115, 90);
-        color: #fff4e8;
+        background: transparent;
+        color: var(--color-link);
         box-shadow: none;
 
         .featured-hub__pick-index,
         .featured-hub__pick-badge,
         .featured-hub__pick-title {
-          color: #fff4e8;
+          color: var(--color-link);
         }
 
         .featured-hub__pick-badge {
-          color: rgba(255, 244, 232, 0.92);
+          color: var(--color-link);
         }
       }
     }
@@ -514,7 +515,7 @@
     gap: 0.45rem;
     flex-wrap: wrap;
     padding: 0.48rem 0.75rem;
-    border-bottom: 2px solid $hub-retro-ink;
+    border-bottom: none;
     text-align: center;
   }
 
@@ -524,67 +525,69 @@
   }
 
   .category-card__title {
-    font-size: 0.68rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
+    font-family: inherit;
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: 0;
     margin: 0;
     line-height: 1.25;
+    color: #000;
   }
 
   .category-card--information-retrieval .category-card__ribbon {
-    background-color: rgb(165, 216, 255);
+    background-color: transparent;
     box-shadow: none;
   }
 
   .category-card--information-retrieval .category-card__ribbon-icon,
   .category-card--information-retrieval .category-card__title {
-    color: $hub-retro-ink;
-    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+    color: #000;
+    text-shadow: none;
   }
 
   .category-card--systems .category-card__ribbon {
-    background-color: #8da249;
+    background-color: transparent;
     box-shadow: none;
   }
 
   .category-card--systems .category-card__ribbon-icon,
   .category-card--systems .category-card__title {
-    color: #1a210c;
-    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.35);
+    color: #000;
+    text-shadow: none;
   }
 
   .category-card--programming .category-card__ribbon {
-    background-color: rgb(58, 157, 124);
+    background-color: transparent;
     box-shadow: none;
   }
 
   .category-card--programming .category-card__ribbon-icon,
   .category-card--programming .category-card__title {
-    color: $hub-retro-cream;
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.22);
+    color: #000;
+    text-shadow: none;
   }
 
   .category-card--security .category-card__ribbon {
-    background-color: #2e434f;
+    background-color: transparent;
     box-shadow: none;
   }
 
   .category-card--security .category-card__ribbon-icon,
   .category-card--security .category-card__title {
-    color: #ece8dc;
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+    color: #000;
+    text-shadow: none;
   }
 
   .category-card--ai .category-card__ribbon {
-    background-color: #716396;
+    background-color: transparent;
     box-shadow: none;
   }
 
   .category-card--ai .category-card__ribbon-icon,
   .category-card--ai .category-card__title {
-    color: #ece8dc;
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+    color: #000;
+    text-shadow: none;
   }
 
   .category-card__sheet {
@@ -901,18 +904,20 @@ html[data-theme="dark"] .home--categorized {
   }
 
   .section-title {
-    font-size: 1rem;
-    font-weight: 800;
-    color: var(--color-text);
+    font-family: inherit;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #000;
     margin: 0 0 1.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    text-transform: none;
+    letter-spacing: 0;
     display: inline-block;
-    background: var(--color-accent);
-    color: #fff;
+    background: transparent;
+    color: #000;
     padding: 0.3rem 0.75rem;
     border-radius: var(--radius-sm);
     box-shadow: none;
+    border-bottom: none;
   }
 
   // ── Post list items ──

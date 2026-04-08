@@ -50,9 +50,9 @@ html[data-theme="dark"] .post-card__window {
   gap: 0.45rem;
   flex-wrap: wrap;
   padding: 0.52rem 1rem;
-  background-color: $post-ribbon-accent;
-  color: $post-retro-cream;
-  border-bottom: 2px solid $post-retro-ink;
+  background-color: transparent;
+  color: #000;
+  border-bottom: none;
   box-shadow: none;
   text-align: center;
 }
@@ -64,11 +64,12 @@ html[data-theme="dark"] .post-card__window {
 }
 
 .post-header__ribbon-text {
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  text-shadow: none;
   color: inherit;
 }
 
@@ -77,15 +78,15 @@ html[data-theme="dark"] .post-card__window {
 }
 
 html[data-theme="dark"] .post-header__ribbon {
-  background-color: $post-ribbon-accent-dark;
-  color: #fff4e8;
-  border-bottom-color: var(--color-border);
+  background-color: transparent;
+  color: #000;
+  border-bottom-color: transparent;
   box-shadow: none;
 
   .post-header__ribbon-icon,
   .post-header__ribbon-text {
-    color: #fff4e8;
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+    color: #000;
+    text-shadow: none;
   }
 }
 
@@ -122,8 +123,8 @@ html[data-theme="dark"] .post-header__ribbon {
   gap: 0.4rem;
   flex-wrap: wrap;
   padding: 0.48rem 0.75rem;
-  background-color: $post-ribbon-accent;
-  border-bottom: 2px solid $post-retro-ink;
+  background-color: transparent;
+  border-bottom: none;
   box-shadow: none;
   text-align: center;
 }
@@ -131,17 +132,18 @@ html[data-theme="dark"] .post-header__ribbon {
 .toc-sidebar__ribbon-icon {
   font-size: 1.05rem;
   flex-shrink: 0;
-  color: $post-retro-cream;
+  color: #000;
 }
 
 .toc-sidebar__ribbon-title {
   margin: 0;
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
-  color: $post-retro-cream;
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  text-shadow: none;
+  color: #000;
   line-height: 1.25;
 }
 
@@ -151,15 +153,15 @@ html[data-theme="dark"] .post-header__ribbon {
 }
 
 html[data-theme="dark"] .toc-sidebar__ribbon {
-  background-color: $post-ribbon-accent-dark;
-  border-bottom-color: var(--color-border);
+  background-color: transparent;
+  border-bottom-color: transparent;
   box-shadow: none;
 }
 
 html[data-theme="dark"] .toc-sidebar__ribbon-icon,
 html[data-theme="dark"] .toc-sidebar__ribbon-title {
-  color: #fff4e8;
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+  color: #000;
+  text-shadow: none;
 }
 
 html[data-theme="dark"] .toc-sidebar__body {

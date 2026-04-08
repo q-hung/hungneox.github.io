@@ -10,7 +10,7 @@
   z-index: 50;
   border-bottom: 1px solid var(--color-text);
   padding: 1.25rem 0;
-  background: var(--color-bg);
+  background: #fff;
 
   .wrapper {
     display: flex;
@@ -111,9 +111,9 @@
     a {
       color: #000;
       text-decoration: none;
-      font-family: inherit;
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
       font-size: 1.05rem;
-      font-weight: 700;
+      font-weight: 400;
       transition: all 0.15s ease;
       display: inline-flex;
       align-items: center;
@@ -157,7 +157,7 @@
         background-color: transparent;
         border-color: var(--nav-current-ribbon-border);
         box-shadow: none;
-        font-weight: 800;
+        font-weight: 500;
         letter-spacing: 0;
         text-shadow: none;
         text-decoration: none;
@@ -288,6 +288,7 @@
 .footer {
   border-top: 1px solid var(--color-text);
   padding: 2.5rem 0;
+  background: #fff;
   text-align: center;
   color: var(--color-text-secondary);
   font-size: $small-font-size;
@@ -434,6 +435,8 @@
 }
 
 html[data-theme="dark"] .header {
+  background: #0b0f0e;
+
   .site-title {
     color: var(--color-heading);
   }
@@ -457,4 +460,8 @@ html[data-theme="dark"] .header {
       }
     }
   }
+}
+
+html[data-theme="dark"] .footer {
+  background: #0b0f0e;
 }

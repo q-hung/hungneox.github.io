@@ -4,7 +4,7 @@
 
 .home--categorized {
   // ── Featured content hub (retro “broadcast card”; ribbon accent teal) ──
-  $hub-retro-orange: rgb(58, 157, 124);
+  $hub-transparent: transparent;
   $hub-retro-ink: #1a100c;
   $hub-retro-cream: #ffffff;
   $hub-retro-cream-muted: #f6f8fb;
@@ -65,7 +65,7 @@
     min-width: 0;
     border: 1px solid $hub-retro-ink;
     border-radius: var(--radius-sm);
-    background: #0d0d0d;
+    background: #f1f2f4;
     box-shadow: none;
   }
 
@@ -118,7 +118,7 @@
     inset: 0;
     background: linear-gradient(to bottom,
         transparent 25%,
-        rgba(0, 0, 0, 0.82) 100%);
+        rgba(0, 0, 0, 0.62) 100%);
     pointer-events: none;
   }
 
@@ -188,7 +188,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    background: $hub-retro-cream;
+    background: rgba(255, 255, 255, 0.88);
     color: $hub-retro-ink;
     padding: 0.4rem 0.9rem;
     border-radius: var(--radius-sm);
@@ -207,7 +207,7 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
-    background: $hub-retro-cream;
+    background: rgba(255, 255, 255, 0.72);
     border: 1px solid $hub-retro-ink;
     border-radius: var(--radius-sm);
     box-shadow: none;
@@ -231,7 +231,7 @@
     font: inherit;
     cursor: pointer;
     color: $hub-retro-ink;
-    background: $hub-retro-cream;
+    background: transparent;
     border: none;
     border-bottom: 2px dashed rgba(26, 16, 12, 0.35);
     transition: background 0.12s ease, color 0.12s ease;
@@ -241,12 +241,19 @@
     }
 
     &:hover {
-      background: $hub-retro-cream-muted;
+      background: rgba(255, 255, 255, 0.45);
     }
 
     &[aria-pressed="true"] {
-      background: $hub-retro-orange;
+      background: $hub-transparent;
+      color: var(--color-link);
       box-shadow: none;
+
+      .featured-hub__pick-index,
+      .featured-hub__pick-badge,
+      .featured-hub__pick-title {
+        color: var(--color-link);
+      }
     }
   }
 
@@ -565,7 +572,7 @@
 
   .category-card--programming .category-card__ribbon-icon,
   .category-card--programming .category-card__title {
-      color: var(--color-heading);
+    color: var(--color-heading);
     text-shadow: none;
   }
 
@@ -575,6 +582,7 @@
   }
 
   html[data-theme="dark"] & {
+
     .category-card__ribbon-icon,
     .category-card__title {
       color: var(--color-heading);

@@ -1,5 +1,5 @@
 // ── Theme: CSS custom properties ──
-// Light: cool paper (blue‑gray), teal + burnt orange accents — no yellow/cream base.
+// Light: cool paper (blue‑gray), green accents — no yellow/cream base.
 // Dark: near-black surfaces + cool neutral text (not “washed” mid-gray).
 
 :root {
@@ -10,8 +10,8 @@
 
   --color-text: #1f2933;
   --color-text-secondary: #5f6b76;
-  --color-link: #D0542D;
-  --color-link-hover: #b84320;
+  --color-link: #2f8f70;
+  --color-link-hover: #256b52;
   --color-border: #d4dce4;
   --color-border-hover: #c1ccd7;
   --color-bg: rgb(241, 242, 244);
@@ -66,9 +66,9 @@ html[data-theme="dark"] {
   --color-bg: #0b0f0e;
   --color-bg-secondary: #121a18;
   --color-bg-card: #161f1d;
-  --color-accent: #e8704a;
-  --color-tag: #ff8a65;
-  --color-tag-bg: rgba(232, 112, 74, 0.14);
+  --color-accent: #5ed4b4;
+  --color-tag: #7ee0c5;
+  --color-tag-bg: rgba(94, 212, 180, 0.14);
   --color-code-bg: #0f1514;
   --color-code-text: #e2ebe8;
   --color-code-inline-bg: rgba(94, 212, 180, 0.1);

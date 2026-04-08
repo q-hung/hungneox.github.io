@@ -97,9 +97,9 @@ html[data-theme="dark"] .post-header__ribbon {
   max-height: calc(100vh - 3rem);
   overflow-y: auto;
   overflow-x: hidden;
-  background: $post-retro-cream;
-  border: 1px solid $post-retro-ink;
-  border-radius: var(--radius-md);
+  background: transparent;
+  border: none;
+  border-radius: 0;
   box-shadow: none;
   padding: 0;
 
@@ -148,7 +148,7 @@ html[data-theme="dark"] .post-header__ribbon {
 }
 
 .toc-sidebar__body {
-  padding: 1rem 1.25rem 1.25rem;
+  padding: 0.6rem 0 0;
   box-shadow: none;
 }
 
@@ -170,12 +170,32 @@ html[data-theme="dark"] .toc-sidebar__body {
 
 html[data-theme="dark"] .toc-sidebar {
   background: transparent;
-  border-color: var(--color-border);
+  border: none;
   box-shadow: none;
   scrollbar-color: var(--color-border) transparent;
 
   &::-webkit-scrollbar-thumb {
     background: var(--color-border);
+  }
+}
+
+html[data-theme="dark"] .toc {
+  .toc-item {
+    a {
+      color: var(--color-text-secondary);
+
+      &:hover {
+        color: var(--color-text);
+      }
+    }
+
+    &.active {
+      border-left-color: var(--color-link);
+
+      a {
+        color: var(--color-link);
+      }
+    }
   }
 }
 
@@ -195,13 +215,13 @@ html[data-theme="dark"] .toc-sidebar {
       padding: 0.35rem 0 0.35rem 0.75rem;
       font-size: 0.88rem;
       line-height: 1.45;
-      color: var(--color-text-secondary);
+      color: #000;
       text-decoration: none;
       transition: color 0.15s ease;
-      font-weight: 500;
+      font-weight: 400;
 
       &:hover {
-        color: var(--color-text);
+        color: #000;
       }
     }
 
@@ -215,10 +235,10 @@ html[data-theme="dark"] .toc-sidebar {
     }
 
     &.active {
-      border-left-color: var(--color-accent);
+      border-left-color: #000;
 
       a {
-        color: var(--color-link);
+        color: #000;
         font-weight: 700;
       }
     }

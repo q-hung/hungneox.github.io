@@ -2,7 +2,7 @@
 layout: post
 title: "Backend for Frontend Pattern"
 date: 2026-04-08 23:00
-categories: [architecture, programming]
+categories: [architecture, systems]
 author: hungneox
 tags: [architecture, design-patterns, microservices]
 description: "A practical look at the Backend for Frontend (BFF) pattern: why it exists, how it compares to direct service calls, and when you should (and shouldn't) reach for it."

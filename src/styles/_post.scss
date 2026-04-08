@@ -19,7 +19,7 @@ $post-ribbon-accent-dark: rgb(42, 115, 90);
 
 .post-card {
   min-width: 0;
-  border: 2px solid $post-retro-ink;
+  border: 1px solid $post-retro-ink;
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: none;
@@ -79,13 +79,13 @@ html[data-theme="dark"] .post-card__window {
 
 html[data-theme="dark"] .post-header__ribbon {
   background-color: transparent;
-  color: #000;
+  color: var(--color-heading);
   border-bottom-color: transparent;
   box-shadow: none;
 
   .post-header__ribbon-icon,
   .post-header__ribbon-text {
-    color: #000;
+    color: var(--color-heading);
     text-shadow: none;
   }
 }
@@ -98,7 +98,7 @@ html[data-theme="dark"] .post-header__ribbon {
   overflow-y: auto;
   overflow-x: hidden;
   background: $post-retro-cream;
-  border: 2px solid $post-retro-ink;
+  border: 1px solid $post-retro-ink;
   border-radius: var(--radius-md);
   box-shadow: none;
   padding: 0;
@@ -160,7 +160,7 @@ html[data-theme="dark"] .toc-sidebar__ribbon {
 
 html[data-theme="dark"] .toc-sidebar__ribbon-icon,
 html[data-theme="dark"] .toc-sidebar__ribbon-title {
-  color: #000;
+  color: var(--color-heading);
   text-shadow: none;
 }
 
@@ -169,7 +169,7 @@ html[data-theme="dark"] .toc-sidebar__body {
 }
 
 html[data-theme="dark"] .toc-sidebar {
-  background: var(--color-bg-card);
+  background: transparent;
   border-color: var(--color-border);
   box-shadow: none;
   scrollbar-color: var(--color-border) transparent;
@@ -187,7 +187,7 @@ html[data-theme="dark"] .toc-sidebar {
   }
 
   .toc-item {
-    border-left: 2px solid transparent;
+    border-left: 1px solid transparent;
     transition: border-color 0.2s ease;
 
     a {
@@ -546,7 +546,7 @@ html[data-theme="dark"] .post-header .post-translation {
       margin-top: 2.25em;
       margin-bottom: 0.5em;
       padding-bottom: 0.35rem;
-      border-bottom: 2px solid var(--color-accent);
+      border-bottom: 1px solid var(--color-accent);
       letter-spacing: -0.02em;
     }
 
@@ -601,7 +601,7 @@ html[data-theme="dark"] .post-header .post-translation {
 
     hr {
       border: none;
-      border-top: 2px solid var(--color-accent);
+      border-top: 1px solid var(--color-accent);
       margin: 2.5em 0;
     }
 
@@ -666,7 +666,7 @@ html[data-theme="dark"] .post-header .post-translation {
   .post-comments {
     padding: 2rem 1.25rem 1.35rem;
     margin-top: 2.5rem;
-    border-top: 2px solid var(--color-text);
+    border-top: 1px solid var(--color-text);
   }
 
   #disqus_thread {

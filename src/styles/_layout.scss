@@ -8,7 +8,7 @@
 .header {
   position: relative;
   z-index: 50;
-  border-bottom: 2px solid var(--color-text);
+  border-bottom: 1px solid var(--color-text);
   padding: 1.25rem 0;
   background: var(--color-bg);
 
@@ -123,6 +123,19 @@
       border-radius: var(--radius-sm);
       text-transform: none;
       letter-spacing: 0;
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0.65rem;
+        right: 0.65rem;
+        bottom: 0.2rem;
+        height: 2px;
+        background: currentColor;
+        opacity: 0;
+        transition: opacity 0.15s ease;
+      }
 
       .material-symbols-rounded {
         font-size: 1.15em;
@@ -132,9 +145,11 @@
         color: var(--color-link);
         border-color: var(--color-link);
         background: transparent;
-        text-decoration: underline;
-        text-decoration-thickness: 2px;
-        text-underline-offset: 0.18em;
+        text-decoration: none;
+
+        &::after {
+          opacity: 1;
+        }
       }
 
       &[aria-current="page"] {
@@ -145,9 +160,11 @@
         font-weight: 800;
         letter-spacing: 0;
         text-shadow: none;
-        text-decoration: underline;
-        text-decoration-thickness: 2px;
-        text-underline-offset: 0.2em;
+        text-decoration: none;
+
+        &::after {
+          opacity: 1;
+        }
 
         &:hover {
           color: #000;
@@ -269,7 +286,7 @@
 
 // Footer
 .footer {
-  border-top: 2px solid var(--color-text);
+  border-top: 1px solid var(--color-text);
   padding: 2.5rem 0;
   text-align: center;
   color: var(--color-text-secondary);
@@ -372,7 +389,7 @@
       border-radius: var(--radius-md);
       border-left: none;
       border-right: none;
-      border-bottom: 2px solid var(--color-text);
+      border-bottom: 1px solid var(--color-text);
       box-shadow: none;
 
       a {
@@ -387,5 +404,57 @@
 
   html[data-theme="dark"] .header .site-nav {
     box-shadow: none;
+  }
+
+  html[data-theme="dark"] .header {
+    .site-title {
+      color: var(--color-heading);
+    }
+
+    .site-nav a {
+      color: var(--color-text);
+      border-color: transparent;
+
+      &:hover {
+        color: var(--color-link-hover);
+        border-color: var(--color-link-hover);
+      }
+
+      &[aria-current="page"] {
+        color: var(--color-link-hover);
+        border-color: var(--color-link-hover);
+
+        &:hover {
+          color: var(--color-link-hover);
+          border-color: var(--color-link-hover);
+        }
+      }
+    }
+  }
+}
+
+html[data-theme="dark"] .header {
+  .site-title {
+    color: var(--color-heading);
+  }
+
+  .site-nav a {
+    color: var(--color-text);
+    border-color: transparent;
+
+    &:hover {
+      color: var(--color-link-hover);
+      border-color: var(--color-link-hover);
+    }
+
+    &[aria-current="page"] {
+      color: var(--color-link-hover);
+      border-color: var(--color-link-hover);
+
+      &:hover {
+        color: var(--color-link-hover);
+        border-color: var(--color-link-hover);
+      }
+    }
   }
 }

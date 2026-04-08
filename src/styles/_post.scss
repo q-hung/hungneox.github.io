@@ -119,14 +119,14 @@ html[data-theme="dark"] .post-header__ribbon {
 .toc-sidebar__ribbon {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 0.4rem;
   flex-wrap: wrap;
   padding: 0.48rem 0.75rem;
   background-color: transparent;
   border-bottom: none;
   box-shadow: none;
-  text-align: center;
+  text-align: left;
 }
 
 .toc-sidebar__ribbon-icon {

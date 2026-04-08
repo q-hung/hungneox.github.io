@@ -8,7 +8,7 @@
 .header {
   position: relative;
   z-index: 50;
-  border-bottom: 3px solid var(--color-text);
+  border-bottom: 2px solid var(--color-text);
   padding: 1.25rem 0;
   background: var(--color-bg);
 
@@ -45,15 +45,15 @@
       width: 46px;
       height: 46px;
       border-radius: var(--radius-sm);
-      border: 2px solid var(--color-text);
-      box-shadow: var(--shadow-block-sm);
+      border: 1px solid var(--color-text);
+      box-shadow: none;
       display: block;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
     &:hover img {
       transform: translate(-2px, -2px);
-      box-shadow: var(--shadow-block-hover);
+      box-shadow: none;
     }
   }
 
@@ -103,7 +103,7 @@
     flex-wrap: wrap;
     padding: 0.35rem 0.5rem;
     background: var(--color-header-nav-bg);
-    border: 2px solid var(--color-header-nav-border);
+    border: 1px solid var(--color-header-nav-border);
     border-radius: var(--radius-md);
     box-shadow: 2px 2px 0 var(--color-card-shadow);
 
@@ -117,7 +117,7 @@
       align-items: center;
       gap: 0.25rem;
       padding: 0.35rem 0.65rem;
-      border: 2px solid transparent;
+      border: 1px solid transparent;
       border-radius: var(--radius-sm);
       text-transform: uppercase;
       letter-spacing: 0.03em;
@@ -136,7 +136,7 @@
         color: var(--nav-current-ribbon-text);
         background-color: var(--nav-current-ribbon-bg);
         border-color: var(--nav-current-ribbon-border);
-        box-shadow: var(--nav-current-ribbon-inset);
+        box-shadow: none;
         font-weight: 800;
         letter-spacing: 0.18em;
         text-shadow: var(--nav-current-text-shadow);
@@ -170,14 +170,14 @@
   .hamburger {
     display: none;
     background: var(--color-header-nav-toggle-bg);
-    border: 2px solid var(--color-text);
+    border: 1px solid var(--color-text);
     border-radius: var(--radius-sm);
     cursor: pointer;
     padding: 0.35rem;
     align-items: center;
     justify-content: center;
     color: var(--color-text);
-    box-shadow: var(--shadow-block-sm);
+    box-shadow: none;
     transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 
     .material-symbols-rounded {
@@ -200,7 +200,7 @@
 
     &:hover {
       transform: translate(-2px, -2px);
-      box-shadow: var(--shadow-block-hover);
+      box-shadow: none;
       background: var(--color-header-nav-link-hover-bg);
     }
 
@@ -213,7 +213,7 @@
   // Theme toggle
   .theme-toggle {
     background: var(--color-header-nav-toggle-bg);
-    border: 2px solid var(--color-text);
+    border: 1px solid var(--color-text);
     border-radius: var(--radius-sm);
     cursor: pointer;
     padding: 0.35rem;
@@ -221,19 +221,24 @@
     align-items: center;
     justify-content: center;
     color: var(--color-text);
-    box-shadow: var(--shadow-block-sm);
+    box-shadow: none;
     transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 
     .material-symbols-rounded {
       font-size: 1.25rem;
     }
 
-    .icon-dark { display: none; }
-    .icon-light { display: inline; }
+    .icon-dark {
+      display: none;
+    }
+
+    .icon-light {
+      display: inline;
+    }
 
     &:hover {
       transform: translate(-2px, -2px);
-      box-shadow: var(--shadow-block-hover);
+      box-shadow: none;
       background: var(--color-header-nav-link-hover-bg);
     }
 
@@ -256,7 +261,7 @@
 
 // Footer
 .footer {
-  border-top: 3px solid var(--color-text);
+  border-top: 2px solid var(--color-text);
   padding: 2.5rem 0;
   text-align: center;
   color: var(--color-text-secondary);
@@ -295,7 +300,7 @@
     align-items: center;
     gap: 0.2rem;
     text-decoration: none;
-    border: 2px solid var(--color-text-secondary);
+    border: 1px solid var(--color-text-secondary);
     border-radius: var(--radius-sm);
     padding: 0.2rem 0.55rem 0.2rem 0.4rem;
     text-underline-offset: unset;
@@ -356,11 +361,11 @@
       align-items: stretch;
       flex-wrap: nowrap;
       gap: 0.35rem;
-      border-radius: 0;
+      border-radius: var(--radius-md);
       border-left: none;
       border-right: none;
-      border-bottom: 3px solid var(--color-text);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      border-bottom: 2px solid var(--color-text);
+      box-shadow: none;
 
       a {
         justify-content: flex-start;
@@ -373,6 +378,6 @@
   }
 
   html[data-theme="dark"] .header .site-nav {
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.72);
+    box-shadow: none;
   }
 }

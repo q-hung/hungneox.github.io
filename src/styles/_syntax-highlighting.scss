@@ -14,7 +14,7 @@ pre.shiki {
   font-size: $code-font-size;
   line-height: 1.65;
   border: 2px solid var(--color-border);
-  box-shadow: var(--shadow-block-sm);
+  box-shadow: none;
 
   code {
     font-family: inherit;

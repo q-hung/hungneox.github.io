@@ -383,7 +383,7 @@
     }
 
     .category-card__ribbon {
-      border-bottom-color: var(--color-border);
+      border-bottom-color: rgba(255, 255, 255, 0.18);
     }
 
     .category-card__window,
@@ -523,7 +523,7 @@
     gap: 0.45rem;
     flex-wrap: wrap;
     padding: 0.48rem 0.75rem;
-    border-bottom: none;
+    border-bottom: 2px dashed rgba(20, 20, 20, 0.22);
     text-align: center;
   }
 

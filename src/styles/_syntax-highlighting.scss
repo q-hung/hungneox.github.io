@@ -1,3 +1,5 @@
+@use "globals" as *;
+
 // ── Shiki dual-theme support ──
 // Themes: vitesse-light / vitesse-dark (astro.config).
 // Shiki inlines light token colors as hex on each span; <pre> carries --shiki-dark / --shiki-dark-bg for the dark half.

@@ -1,3 +1,5 @@
+@use "globals" as *;
+
 // ── Post page grid: content + sticky TOC ──
 // Outer frame matches home category cards (.home--categorized .category-card)
 $post-retro-ink: #1a100c;

@@ -1,3 +1,5 @@
+@use "globals" as *;
+
 .wrapper {
   margin: 0 auto;
   max-width: 1100px;
@@ -345,8 +347,6 @@
     }
   }
 }
-
-@import "post", "home";
 
 @include media-query($on-palm) {
   .wrapper {
